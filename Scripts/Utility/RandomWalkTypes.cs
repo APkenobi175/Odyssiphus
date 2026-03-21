@@ -22,7 +22,6 @@ public class RandomWalkRoom
     public Vector2I Position;
     public RoomType RoomType; // NEW: room type
     public bool IsCleared; // NEW: Whether the room is cleared
-    public bool isExplored; // Rather than if the
     public List<string> Doors; // NEW: List of doors (N, E, S, W)
     public bool hasGhost; // NEW: Whether the room has a ghost
     public float Depth; // NEW: Depth of the room (so we can calculate difficulty and shaders for the room)
