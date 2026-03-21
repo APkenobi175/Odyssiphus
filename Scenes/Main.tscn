@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfl4er2wuakq0"]
+
+[ext_resource type="PackedScene" uid="uid://bg1ln52p7ffml" path="res://Scenes/UI/UI_HomeScreen.tscn" id="1_r150o"]
+
+[node name="Main" type="Node2D"]
+
+[node name="UiHomeScreen" parent="." instance=ExtResource("1_r150o")]

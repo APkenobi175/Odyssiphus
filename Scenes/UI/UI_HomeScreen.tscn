@@ -1,0 +1,164 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg1ln52p7ffml"]
+
+[ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_wvxec"]
+[ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_qmj1u"]
+[ext_resource type="StyleBox" uid="uid://ctmip2spmu01l" path="res://Assets/Styles/ButtonStyle.tres" id="3_pdukr"]
+[ext_resource type="StyleBox" uid="uid://ctftheyx3fq" path="res://Assets/Styles/ButtonStyleOnHover.tres" id="4_1qs3b"]
+[ext_resource type="StyleBox" uid="uid://ddnpyj2misjrl" path="res://Assets/Styles/ButtonStylePressed.tres" id="4_qmj1u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2shf"]
+content_margin_top = 1.0
+bg_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+
+[node name="UiHomeScreen" type="CanvasLayer"]
+
+[node name="HomeControls" type="VBoxContainer" parent="."]
+offset_left = 122.0
+offset_top = 6.0
+offset_right = 505.0
+offset_bottom = 356.0
+
+[node name="Title" type="VBoxContainer" parent="HomeControls"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Label" type="Label" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Title" type="Label" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_wvxec")
+theme_override_font_sizes/font_size = 52
+text = "Odyssiphus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Label2" type="Label" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="HomeControls/Title"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Buttons" type="VBoxContainer" parent="HomeControls"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="Continue" type="Button" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_qmj1u")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_pdukr")
+theme_override_styles/pressed = ExtResource("4_qmj1u")
+theme_override_styles/hover = ExtResource("4_1qs3b")
+theme_override_styles/hover_pressed = ExtResource("4_1qs3b")
+theme_override_styles/focus = ExtResource("4_1qs3b")
+text = "Load Game
+"
+
+[node name="HSeparator4" type="HSeparator" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="StartNew" type="Button" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_qmj1u")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_pdukr")
+theme_override_styles/pressed = ExtResource("4_qmj1u")
+theme_override_styles/hover = ExtResource("4_1qs3b")
+theme_override_styles/hover_pressed = ExtResource("4_1qs3b")
+theme_override_styles/focus = ExtResource("4_1qs3b")
+text = "Start New Game
+"
+
+[node name="HSeparator5" type="HSeparator" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Settings" type="Button" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_qmj1u")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_pdukr")
+theme_override_styles/pressed = ExtResource("4_qmj1u")
+theme_override_styles/hover = ExtResource("4_1qs3b")
+theme_override_styles/hover_pressed = ExtResource("4_1qs3b")
+theme_override_styles/focus = ExtResource("4_1qs3b")
+text = "Settings
+"
+
+[node name="HSeparator6" type="HSeparator" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_w2shf")
+
+[node name="Exit" type="Button" parent="HomeControls/Buttons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_qmj1u")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_pdukr")
+theme_override_styles/pressed = ExtResource("4_qmj1u")
+theme_override_styles/hover = ExtResource("4_1qs3b")
+theme_override_styles/hover_pressed = ExtResource("4_1qs3b")
+theme_override_styles/focus = ExtResource("4_1qs3b")
+text = "Exit Game
+"
