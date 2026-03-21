@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg1ln52p7ffml"]
+[gd_scene load_steps=8 format=3 uid="uid://bg1ln52p7ffml"]
 
+[ext_resource type="Script" uid="uid://bybqlwqsbap7u" path="res://Scripts/UI/UiHomeScreen.cs" id="1_pdukr"]
 [ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_wvxec"]
 [ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_qmj1u"]
 [ext_resource type="StyleBox" uid="uid://ctmip2spmu01l" path="res://Assets/Styles/ButtonStyle.tres" id="3_pdukr"]
@@ -11,6 +12,7 @@ content_margin_top = 1.0
 bg_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
 
 [node name="UiHomeScreen" type="CanvasLayer"]
+script = ExtResource("1_pdukr")
 
 [node name="HomeControls" type="VBoxContainer" parent="."]
 offset_left = 122.0

@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfl4er2wuakq0"]
+[gd_scene load_steps=5 format=3 uid="uid://dfl4er2wuakq0"]
 
 [ext_resource type="PackedScene" uid="uid://bg1ln52p7ffml" path="res://Scenes/UI/UI_HomeScreen.tscn" id="1_r150o"]
+[ext_resource type="Shader" uid="uid://bu0pyumino3iw" path="res://Assets/Shaders/Ocean.gdshader" id="2_idj7w"]
+[ext_resource type="Environment" uid="uid://sod4g3f43ep8" path="res://Assets/Styles/HomeEnviroment.tres" id="3_kln2b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kln2b"]
+shader = ExtResource("2_idj7w")
 
 [node name="Main" type="Node2D"]
 
 [node name="UiHomeScreen" parent="." instance=ExtResource("1_r150o")]
+
+[node name="Sky" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_kln2b")
+offset_left = -18.0
+offset_top = -29.0
+offset_right = 662.0
+offset_bottom = 369.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_kln2b")

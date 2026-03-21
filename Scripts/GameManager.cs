@@ -13,7 +13,8 @@ public partial class GameManager : Node
     {
         Instance = this; // Set the instance to this object
 
-        Levels["Ship"] = GD.Load<PackedScene>("Scenes/Ship.tscn"); // Load the ship level and add it to the dictionary
+        Levels["Ship"] = GD.Load<PackedScene>("Scenes/World/Ship.tscn"); // Load the ship level and add it to the dictionary
+        Levels["HomeScreen"] = GD.Load<PackedScene>("Scenes/Main.tscn"); // Load the home screen and add it to the dictionary
 
         // TODO: ADD MORE LEVELS
     }
