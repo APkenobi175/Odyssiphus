@@ -1,8 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkodcc06m66qv"]
+[gd_scene load_steps=7 format=3 uid="uid://dkodcc06m66qv"]
 
 [ext_resource type="Script" uid="uid://b5p7axk2kwl03" path="res://Scripts/UI/Settings/UiAudioSettings.cs" id="1_h7hwi"]
 [ext_resource type="FontFile" uid="uid://ce37s7x0idtab" path="res://Assets/Fonts/Cinzel/Cinzel-VariableFont_wght.ttf" id="2_sg8cb"]
 [ext_resource type="PackedScene" uid="uid://blfudewhgs8y6" path="res://Scenes/UI/Settings/UI_SettingsNavigation.tscn" id="3_sg8cb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmira"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.7882353, 0.65882355, 0.29803923, 0.25882354)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mefhq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5rng"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
 
 [node name="UiAudioSettings" type="CanvasLayer"]
 script = ExtResource("1_h7hwi")
@@ -32,5 +68,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.19
+theme_override_styles/slider = SubResource("StyleBoxFlat_fmira")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_mefhq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_c5rng")
 max_value = 1.0
 step = 0.01

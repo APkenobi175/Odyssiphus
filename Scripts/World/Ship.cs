@@ -18,6 +18,9 @@ public Button homeButton; //TEMP
 
     public void OnHomeButtonPressed() //TEMP
     {
-        GameManager.Instance.GoTo("HomeScreen"); //TEMP
+        
+        GameManager.Instance.GoTo("HomeScreen"); //TEMP\
+        GameManager.Instance.ChangeSong("Menu"); // Change the music to the menu track when the main scene is ready
+        GameManager.Instance.PlayMusic(); // Start playing music when the main scene is ready
     }
 }

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cie1qajism7p"]
+
+[ext_resource type="Shader" uid="uid://bu0pyumino3iw" path="res://Assets/Shaders/Ocean.gdshader" id="1_c8m3x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kc7sw"]
+shader = ExtResource("1_c8m3x")
+
+[node name="Background" type="Node2D"]
+
+[node name="Sky" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_kc7sw")
+offset_left = -18.0
+offset_top = -29.0
+offset_right = 662.0
+offset_bottom = 369.0
