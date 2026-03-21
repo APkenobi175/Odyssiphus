@@ -46,8 +46,7 @@ public partial class UiHomeScreen : CanvasLayer
 
     public void OnSettingsPressed()
     {
-        GD.Print("Settings Pressed");
-        // TODO: Launch Settings
+        GameManager.Instance.GoTo("Settings");
     }
     
 }
