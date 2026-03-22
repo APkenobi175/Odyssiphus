@@ -22,7 +22,7 @@ public partial class GameManager : Node
         // ================LEVEL LOADING================== //
         Levels["Ship"] = GD.Load<PackedScene>("Scenes/World/Ship.tscn"); // Load the ship level and add it to the dictionary
         Levels["HomeScreen"] = GD.Load<PackedScene>("Scenes/Main.tscn"); // Load the home screen and add it to the dictionary
-        Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/AudioSettings.tscn"); // Load the settings screen and add it to the dictionary
+        Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/Settings.tscn"); // Load the settings screen and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 

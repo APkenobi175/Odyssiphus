@@ -44,13 +44,12 @@ layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxFlat_gh3pt")
 
-[node name="Audio" type="Button" parent="SettingsNavigation"]
+[node name="Game" type="Button" parent="SettingsNavigation"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
 theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
 theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
 theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
-theme_override_colors/font_disabled_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("2_e73lf")
@@ -59,10 +58,9 @@ theme_override_styles/normal = ExtResource("3_8836o")
 theme_override_styles/pressed = ExtResource("4_itdqb")
 theme_override_styles/hover = ExtResource("5_v8w5s")
 theme_override_styles/hover_pressed = ExtResource("5_v8w5s")
-theme_override_styles/disabled = ExtResource("4_itdqb")
 theme_override_styles/focus = ExtResource("5_v8w5s")
-disabled = true
-text = "Audio
+toggle_mode = true
+text = "Game
 "
 
 [node name="HSeparator5" type="VSeparator" parent="SettingsNavigation"]
@@ -70,7 +68,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxFlat_gh3pt")
 
-[node name="Back2" type="Button" parent="SettingsNavigation"]
+[node name="Audio" type="Button" parent="SettingsNavigation"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
 theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
@@ -85,7 +83,8 @@ theme_override_styles/pressed = ExtResource("4_itdqb")
 theme_override_styles/hover = ExtResource("5_v8w5s")
 theme_override_styles/hover_pressed = ExtResource("5_v8w5s")
 theme_override_styles/focus = ExtResource("5_v8w5s")
-text = "Other Settings
+toggle_mode = true
+text = "Audio
 "
 
 [node name="HSeparator6" type="VSeparator" parent="SettingsNavigation"]
@@ -93,7 +92,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxFlat_gh3pt")
 
-[node name="Back3" type="Button" parent="SettingsNavigation"]
+[node name="Video" type="Button" parent="SettingsNavigation"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
 theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
@@ -108,5 +107,30 @@ theme_override_styles/pressed = ExtResource("4_itdqb")
 theme_override_styles/hover = ExtResource("5_v8w5s")
 theme_override_styles/hover_pressed = ExtResource("5_v8w5s")
 theme_override_styles/focus = ExtResource("5_v8w5s")
-text = "Other Settings
+toggle_mode = true
+text = "Video
+"
+
+[node name="HSeparator7" type="VSeparator" parent="SettingsNavigation"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxFlat_gh3pt")
+
+[node name="Misc" type="Button" parent="SettingsNavigation"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_e73lf")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_8836o")
+theme_override_styles/pressed = ExtResource("4_itdqb")
+theme_override_styles/hover = ExtResource("5_v8w5s")
+theme_override_styles/hover_pressed = ExtResource("5_v8w5s")
+theme_override_styles/focus = ExtResource("5_v8w5s")
+toggle_mode = true
+text = "Misc
 "

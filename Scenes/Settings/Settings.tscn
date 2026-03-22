@@ -1,0 +1,24 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg7pdnsaqgwv1"]
+
+[ext_resource type="Script" uid="uid://w63u74cclqmt" path="res://Scripts/Settings/Settings.cs" id="1_6agbc"]
+[ext_resource type="PackedScene" uid="uid://cie1qajism7p" path="res://Scenes/Background.tscn" id="1_oerk1"]
+[ext_resource type="PackedScene" uid="uid://blfudewhgs8y6" path="res://Scenes/UI/Settings/UI_SettingsNavigation.tscn" id="2_6agbc"]
+[ext_resource type="PackedScene" uid="uid://dkodcc06m66qv" path="res://Scenes/UI/Settings/UI_AudioSettings.tscn" id="3_gq86s"]
+[ext_resource type="PackedScene" uid="uid://cvsjdx0800nhm" path="res://Scenes/UI/Settings/UI_GameSettings.tscn" id="4_u6cgo"]
+[ext_resource type="PackedScene" uid="uid://bhml0ce78td22" path="res://Scenes/UI/Settings/UI_MiscSettings.tscn" id="5_ooray"]
+[ext_resource type="PackedScene" uid="uid://bxpdsu015n7ui" path="res://Scenes/UI/Settings/UI_VideoSettings.tscn" id="6_em543"]
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_6agbc")
+
+[node name="UiSettingsNavigation" parent="." instance=ExtResource("2_6agbc")]
+
+[node name="Background" parent="." instance=ExtResource("1_oerk1")]
+
+[node name="UiAudioSettings" parent="." instance=ExtResource("3_gq86s")]
+
+[node name="UiGameSettings" parent="." instance=ExtResource("4_u6cgo")]
+
+[node name="UiMiscSettings" parent="." instance=ExtResource("5_ooray")]
+
+[node name="UiVideoSettings" parent="." instance=ExtResource("6_em543")]

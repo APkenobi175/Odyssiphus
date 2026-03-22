@@ -1,10 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://0ds2bmo02ohj"]
+[gd_scene load_steps=2 format=3 uid="uid://0ds2bmo02ohj"]
 
 [ext_resource type="PackedScene" uid="uid://dkodcc06m66qv" path="res://Scenes/UI/Settings/UI_AudioSettings.tscn" id="2_2lp21"]
-[ext_resource type="PackedScene" uid="uid://cie1qajism7p" path="res://Scenes/Background.tscn" id="2_wm3kf"]
 
 [node name="AudioSettings" type="Node2D"]
 
 [node name="UiAudioSettings" parent="." instance=ExtResource("2_2lp21")]
-
-[node name="Background" parent="." instance=ExtResource("2_wm3kf")]
