@@ -120,4 +120,190 @@ public partial class GameManager : Node
         musicPlayer.Play(); // Play the new song
 
     }
+
+
+
+    // ========================= SAVE GAME ========================= //
+
+    private const string SaveDirectory = "user://saves/";
+    private string dungeonData;
+    private string characterData;
+    public void SaveGame()
+    {
+        // TODO: IMPLEMENT SAVING CHARACTER DATA
+        dungeonData = SaveDungeon();
+        characterData = SaveCharacter();
+        // Write to file 
+        WriteSaveData(dungeonData, characterData);
+    }
+
+    private string SaveDungeon()
+    {
+        var data = new Godot.Collections.Dictionary();
+        data["seed"] = CurrentDungeonSeed;
+        data["playerRoom_x"] = PlayerCurrentRoom.X;
+        data["playerRoom_y"] = PlayerCurrentRoom.Y;
+
+        var roomList = new Godot.Collections.Array();
+        foreach (var room in CurrentDungeonRooms)
+        {
+            var r = new Godot.Collections.Dictionary();
+            r["x"] = room.Position.X;
+            r["y"] = room.Position.Y;
+            r["isCleared"] = room.IsCleared;
+            r["hasGhost"] = room.hasGhost;
+            r["depth"] = room.Depth;
+            r["roomType"] = (int)room.RoomType;
+            roomList.Add(r);
+        }
+        data["rooms"] = roomList;
+        return Json.Stringify(data);
+    }
+
+    private string SaveCharacter()
+    {
+        var data = new Godot.Collections.Dictionary();
+        // TODO: ADD CHARACTER DATA TO SAVE
+        return Json.Stringify(data);
+    }
+
+    private void WriteSaveData(string dungeonData, string characterData)
+    {
+        // 1. Ensure save directory exists
+        if (!DirAccess.DirExistsAbsolute(SaveDirectory))
+        {
+            DirAccess.MakeDirAbsolute(SaveDirectory);
+        }
+        // 2. Create unique filename with timestamp
+        string timestamp = Time.GetDatetimeStringFromSystem().Replace(":", "-"); // Replace colons in timestamp
+        string path = SaveDirectory + $"save_{timestamp}.json";
+
+        // Combine dungeon and character data into one dictionary 
+
+        var saveFile = new Godot.Collections.Dictionary();
+        saveFile["savedAt"] = timestamp;
+        saveFile["dungeon"] = dungeonData;
+        saveFile["character"] = characterData;
+
+        // 3. Write to file
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
+        file.StoreString(Json.Stringify(saveFile));
+        GD.Print($"Game saved to {path}");
+    }
+
+    private void LoadGame(string path)
+    {
+        // 1. Check if file exists
+        if (!FileAccess.FileExists(path))
+        {
+            GD.PrintErr($"Save file {path} does not exist!");
+            return;
+        }
+        // 2. Open file and read data
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        var json = new Json();
+        // 3. Parse JSON 
+        json.Parse(file.GetAsText());
+        var saveFile = json.Data.AsGodotDictionary();
+
+        // 4. Get dungeon data, and load it into the game manager
+        var dungeonJson = new Json();
+        dungeonJson.Parse(saveFile["dungeon"].AsString());
+        LoadDungeon(dungeonJson.Data.AsGodotDictionary());
+
+        // 5. Get character data, and load it into the game manager
+        var characterJson = new Json();
+        characterJson.Parse(saveFile["character"].AsString());
+        LoadCharacter(characterJson.Data.AsGodotDictionary());
+
+    }
+
+    private void LoadDungeon(Godot.Collections.Dictionary data)
+    {
+        // Get the seed and play position
+        CurrentDungeonSeed = (int)data["seed"];
+        PlayerCurrentRoom = new Vector2I((int)data["playerRoom_x"], (int)data["playerRoom_y"]);
+
+
+        // ReGenerate the dungeon with the loaded seed
+        var walker = new RandomWalk();
+        var result = walker.Generate(
+            minSteps: 5,
+            maxSteps: 15,
+            stepChance: 0.8f,
+            branchChance: 0.3f,
+            allowLoops: false,
+            allowBranches: true,
+            allowBranchesToConnect: false,
+            seed: CurrentDungeonSeed
+        );
+
+        // Re populate the doors for each room
+        RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
+
+        // TODO:Graph replacement goes here
+
+        foreach(var entry in data["rooms"].AsGodotArray())
+        {
+            var r = entry.AsGodotDictionary();
+            var pos = new Vector2I((int)r["x"], (int)r["y"]);
+            var room = result.Rooms.Find(room => room.Position == pos);
+            if (room == null) continue; // If no room found at this position, skip it
+            room.IsCleared = r["isCleared"].AsBool();
+            room.hasGhost = r["hasGhost"].AsBool();
+            room.RoomType = (RoomType)(int)r["roomType"];
+            room.Depth = (float)r["depth"];
+        }
+
+        CurrentDungeonRooms = result.Rooms; // Set the current dungeon rooms to the loaded rooms
+        CurrentDungeonHallways = result.Hallways; // Set the current dungeon hallways to the loaded hallways
+        RefreshMiniMap(); // Refresh the minimap to show the loaded dungeon
+    }
+
+    private void LoadCharacter(Godot.Collections.Dictionary data)
+    {
+        // TODO: IMPLEMENT CHARACTER LOADING
+    }
+
+
+    public Godot.Collections.Array<string> GetSaveFiles()
+    {
+        // 1. Create array for save files
+        var saves = new Godot.Collections.Array<string>();
+
+        if (!DirAccess.DirExistsAbsolute(SaveDirectory))
+        {
+            return saves; // Return empty array if no saves exist
+        }
+
+        // 2. Open save directory and get all save files
+        using var dir = DirAccess.Open(SaveDirectory);
+        if (dir == null)
+        {
+            GD.PrintErr($"Failed to open save directory {SaveDirectory}");
+            return saves;
+        }
+
+        dir.ListDirBegin();
+        string fileName = dir.GetNext();
+        while (fileName != "")
+        {
+            if (fileName.EndsWith(".json"))
+            {
+                saves.Add(SaveDirectory + fileName); // Add full path of save file to array
+            }
+            fileName = dir.GetNext();
+        }
+
+        saves.Sort(); // Sort save files alphabetically
+        saves.Reverse(); // Reverse to have most recent saves first
+        return saves;
+
+
+    }
+
+
+
+
+
 }
