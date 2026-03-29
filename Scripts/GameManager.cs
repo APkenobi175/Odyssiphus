@@ -19,6 +19,10 @@ public partial class GameManager : Node
     public Vector2I PlayerCurrentRoom = Vector2I.Zero; // Track the player's current room position in the dungeon
     private MiniMap miniMap; // Reference to the minimap to update it when the dungeon changes or player moves
 
+    // This is used for the settings page so the back button can do different things based on where you came from
+    public string PreviousScene { get; set; } = "";
+    public string CurrentScene { get; set; } = "";
+
     public override void _Ready()
     {
         Instance = this; // Set the instance to this object
@@ -93,10 +97,20 @@ public partial class GameManager : Node
 
     public void GoTo(string key)
     {
+        PreviousScene = CurrentScene; // Set the previous scene to the current scene before changing
+        CurrentScene = key; // Update the current scene to the new scene
         GetTree().ChangeSceneToPacked(Levels[key]); // Change the scene to the level specified by the key
 
         // TODO: ADD transitions or parameters for level change such as if you are allowed to change or not
 
+    }
+
+    public void GoBack()
+    {
+        if(PreviousScene != "")
+        {
+            GoTo(PreviousScene); // Go back to the previous scene if it exists
+        }
     }
 
     public void SetVolume(float value)
