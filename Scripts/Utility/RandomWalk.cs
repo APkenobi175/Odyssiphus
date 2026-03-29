@@ -210,5 +210,57 @@ public class RandomWalk
         }
     }
 
+    public static void PopulateDoors(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways)
+    {
+        // After the random walk is done, populate the doors for each room base on the hallways
+        var roomByPos = new Dictionary<Vector2I, RandomWalkRoom>();
+        foreach (var room in rooms) roomByPos[room.Position] = room;
+
+        foreach (var hallway in hallways)
+        {
+            Vector2I delta = hallway.To - hallway.From;
+            // Determine direction of hallway, add corresponding door to each room
+            string fromDoor = delta switch
+            {
+                {X: 0, Y: -1} => "N",
+                {X: 1, Y: 0} => "E",
+                {X: 0, Y: 1} => "S",
+                {X: -1, Y: 0} => "W",
+                _ => throw new Exception("Invalid hallway direction")
+            };
+            string toDoor = Opposite(fromDoor);
+
+            if (roomByPos.TryGetValue(hallway.From, out var fromRoom))
+            {
+                if (!fromRoom.Doors.Contains(fromDoor))
+                {
+                    fromRoom.Doors.Add(fromDoor);
+                }
+
+            }
+
+            if (roomByPos.TryGetValue(hallway.To, out var toRoom))
+            {
+                if (!toRoom.Doors.Contains(toDoor))
+                {
+                    toRoom.Doors.Add(toDoor);
+                }
+            }
+        }
+    }
+
+
+    private static string Opposite(string direction)
+    {
+        // Get the opposite direction for the hallway doors
+        return direction switch
+        {
+            "N" => "S",
+            "E" => "W",
+            "S" => "N",
+            "W" => "E",
+            _ => throw new Exception("Invalid direction")
+        };
+    }
 
 }

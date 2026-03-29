@@ -53,4 +53,25 @@ public class RandomWalkHallway
     }
 }
 
+public class RoomSaveData
+{
+    public Vector2I Position;
+    public RoomType RoomType;
+    public bool IsCleared;
+    public List<string> Doors;
+    public bool hasGhost;
+    public float Depth;
+
+    // Constructor to convert from RandomWalkRoom to RoomSaveData
+    public RoomSaveData(RandomWalkRoom room)
+    {
+        Position = room.Position;
+        RoomType = room.RoomType;
+        IsCleared = room.IsCleared;
+        Doors = room.Doors;
+        hasGhost = room.hasGhost;
+        Depth = room.Depth;
+    }
+}
+
 

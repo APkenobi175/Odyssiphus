@@ -12,6 +12,13 @@ public partial class GameManager : Node
 
     public Dictionary<string, AudioStream> Tracks = new(); // Dictionary for valid music tracks
 
+    // Current dungeon data
+    public List<RandomWalkRoom> CurrentDungeonRooms = new();
+    public List<RandomWalkHallway> CurrentDungeonHallways = new();
+    public int CurrentDungeonSeed = 0;
+    public Vector2I PlayerCurrentRoom = Vector2I.Zero; // Track the player's current room position in the dungeon
+    private MiniMap miniMap; // Reference to the minimap to update it when the dungeon changes or player moves
+
     public override void _Ready()
     {
         Instance = this; // Set the instance to this object
@@ -23,6 +30,7 @@ public partial class GameManager : Node
         Levels["Ship"] = GD.Load<PackedScene>("Scenes/World/Ship.tscn"); // Load the ship level and add it to the dictionary
         Levels["HomeScreen"] = GD.Load<PackedScene>("Scenes/Main.tscn"); // Load the home screen and add it to the dictionary
         Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/Settings.tscn"); // Load the settings screen and add it to the dictionary
+        Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
@@ -33,7 +41,54 @@ public partial class GameManager : Node
 
 
 
+
     }
+
+        //========================== DUNGEON STUFF =================================== //
+
+    public void LoadDungeon(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
+    {
+        CurrentDungeonRooms = rooms; // Set the current dungeon rooms to the generated rooms
+        CurrentDungeonHallways = hallways; // Set the current dungeon hallways to the generated
+        CurrentDungeonSeed = seed;
+        PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
+        RefreshMiniMap(); // Refresh the minimap to show the new dungeon layout
+    }
+
+    public void OnPlayerEnterRoom(Vector2I newRoom)
+    {
+        PlayerCurrentRoom = newRoom; // Update the player's current room
+        RefreshMiniMap(); // Refresh the minimap to show the player's new position
+    }
+
+    public void OnRoomCleared(Vector2I roomPos)
+    {
+        var room = GetRoomAt(roomPos);
+        if (room == null) return; // If no room found at this position, do nothing
+        room.IsCleared = true; // Mark the room as cleared
+        RefreshMiniMap(); // Refresh the minimap to show the cleared room
+
+        // TODO: Unlock doors
+    }
+
+    public RandomWalkRoom GetRoomAt(Vector2I pos)
+    {
+        return CurrentDungeonRooms.Find(r => r.Position == pos); // Find and return the room at the specified position
+    }
+
+    public void RegisterMiniMap(MiniMap map)
+    {
+        miniMap = map;
+        RefreshMiniMap(); // Refresh the minimap to show the current dungeon layout
+
+    }
+
+    private void RefreshMiniMap()
+    {
+        miniMap?.Refresh(CurrentDungeonRooms, PlayerCurrentRoom); // Update the minimap with the current dungeon rooms and player position
+    }
+
+    // ========================== SCENE CHANGE =======================//
 
     public void GoTo(string key)
     {

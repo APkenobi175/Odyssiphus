@@ -35,7 +35,7 @@ public partial class UiHomeScreen : CanvasLayer
 
         // TEMPORARY: Load the ship scene
         GD.Print("Game Manager Instance: " + GameManager.Instance);
-        GameManager.Instance.GoTo("Ship");
+        GameManager.Instance.GoTo("Dungeon");
     }
 
     public void OnExitGamePressed()

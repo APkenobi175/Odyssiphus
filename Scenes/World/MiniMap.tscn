@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c2noebj3wr73e"]
+
+[ext_resource type="Script" uid="uid://dskdpdvjxbisj" path="res://Scripts/World/MiniMap.cs" id="1_b5vss"]
+
+[node name="MiniMap" type="Node2D" unique_id=1906881991]
+script = ExtResource("1_b5vss")

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bp5unq808p6t6"]
+
+[ext_resource type="Script" uid="uid://dlk5ng8wilby5" path="res://Scripts/World/Dungeon.cs" id="1_cfi0b"]
+[ext_resource type="PackedScene" uid="uid://c2noebj3wr73e" path="res://Scenes/World/MiniMap.tscn" id="2_1cg3s"]
+
+[node name="Dungeon" type="Node2D" unique_id=1429901411]
+script = ExtResource("1_cfi0b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145378630]
+
+[node name="MiniMap" parent="CanvasLayer" unique_id=1906881991 instance=ExtResource("2_1cg3s")]
