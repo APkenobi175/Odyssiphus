@@ -8,29 +8,37 @@ public partial class Dungeon : Node2D
 
     public override void _Ready()
     {
-        // 1. Generate the dungeon layout using the RandomWalk algorithm
-        var walker = new RandomWalk();
-        var result = walker.Generate(
-            minSteps: 5,
-            maxSteps: 15,
-            stepChance: 0.8f,
-            branchChance: 0.3f,
-            allowLoops: false,
-            allowBranches: true,
-            allowBranchesToConnect: false,
-            seed: 12345
-        );
 
-        // 2. Populate the doors for each room
-        RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
+        // ADDED 3/29/26 ONLY GENERATE IF THERE IS NOT ONE ALREADY EXISTING.
+        if (GameManager.Instance.CurrentDungeonRooms.Count == 0)
+        {
+            // 1. Generate the dungeon layout using the RandomWalk algorithm
+            var walker = new RandomWalk();
+            var result = walker.Generate(
+                minSteps: 5,
+                maxSteps: 15,
+                stepChance: 0.8f,
+                branchChance: 0.3f,
+                allowLoops: false,
+                allowBranches: true,
+                allowBranchesToConnect: false,
+                seed: 12345
+            );
 
-        // 3. Mark start room as cleared so it shows on miniMap
+            // 2. Populate the doors for each room
+            RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
 
-        result.Rooms[0].IsCleared = true;
+            // 3. Mark start room as cleared so it shows on miniMap
 
-        GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, 12345); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
+            result.Rooms[0].IsCleared = true;
 
-        GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
+            GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, 12345); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
+            GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
+
+            
+        }
+
+
     }
 
 

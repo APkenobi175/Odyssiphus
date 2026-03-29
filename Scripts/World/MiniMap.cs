@@ -89,4 +89,13 @@ public partial class MiniMap : Control
         PlayerCurrentRoom = currentRoomPos;
         QueueRedraw();
     }
+
+    public override void _ExitTree()
+    {
+        if (GameManager.Instance != null && GameManager.Instance.IsMiniMapRegistered(this))
+        {
+            GameManager.Instance.UnregisterMiniMap(this);
+        }
+           
+    }
 }

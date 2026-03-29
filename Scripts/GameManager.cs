@@ -23,10 +23,13 @@ public partial class GameManager : Node
     public string PreviousScene { get; set; } = "";
     public string CurrentScene { get; set; } = "";
 
+
+
     public override void _Ready()
     {
         Instance = this; // Set the instance to this object
         musicPlayer = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+        CurrentScene = "HomeScreen"; // Set the initial scene to the home screen
         
 
 
@@ -81,22 +84,13 @@ public partial class GameManager : Node
         return CurrentDungeonRooms.Find(r => r.Position == pos); // Find and return the room at the specified position
     }
 
-    public void RegisterMiniMap(MiniMap map)
-    {
-        miniMap = map;
-        RefreshMiniMap(); // Refresh the minimap to show the current dungeon layout
 
-    }
-
-    private void RefreshMiniMap()
-    {
-        miniMap?.Refresh(CurrentDungeonRooms, PlayerCurrentRoom, CurrentDungeonHallways); // Update the minimap with the current dungeon rooms and player position
-    }
 
     // ========================== SCENE CHANGE =======================//
 
     public void GoTo(string key)
     {
+        GetTree().Paused = false; // Ensure the game is unpaused when changing scenes
         PreviousScene = CurrentScene; // Set the previous scene to the current scene before changing
         CurrentScene = key; // Update the current scene to the new scene
         GetTree().ChangeSceneToPacked(Levels[key]); // Change the scene to the level specified by the key
@@ -109,6 +103,7 @@ public partial class GameManager : Node
     {
         if(PreviousScene != "")
         {
+            GD.Print($"Going back to {PreviousScene} from {CurrentScene}");
             GoTo(PreviousScene); // Go back to the previous scene if it exists
         }
     }
@@ -134,6 +129,15 @@ public partial class GameManager : Node
         musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
         musicPlayer.Play(); // Play the new song
 
+    }
+    public void NewGame()
+    {
+        // If a new game is called make a new dungeon!
+        CurrentDungeonRooms = new(); // Clear the current dungeon rooms
+        CurrentDungeonHallways = new(); // Clear the current dungeon hallways
+        CurrentDungeonSeed = 0; // Reset the current dungeon seed
+        PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
+        GoTo("Dungeon"); // Go to the dungeon scene to start a new game
     }
 
 
@@ -321,6 +325,36 @@ public partial class GameManager : Node
 
 
 
+////////////////////// MINIMAP STUFF //////////////////////
+/// 
 
+    public void RegisterMiniMap(MiniMap map)
+    {
+        miniMap = map;
+        RefreshMiniMap(); // Refresh the minimap to show the current dungeon layout
+
+    }
+
+    public void UnregisterMiniMap(MiniMap map)
+    {
+        if (miniMap == map)
+        {
+            miniMap = null;
+        }
+    }
+
+    public bool IsMiniMapRegistered(MiniMap map)
+    {
+        return miniMap == map;
+    }
+
+    public void RefreshMiniMap()
+    {
+        // Check IsInstanceValid so we don't call into a freed Godot object
+        if (miniMap != null && GodotObject.IsInstanceValid(miniMap))
+            miniMap.Refresh(CurrentDungeonRooms, PlayerCurrentRoom, CurrentDungeonHallways);
+        else
+            miniMap = null; // clean up bad reference if the minimap was freed without unregistering
+    }
 
 }

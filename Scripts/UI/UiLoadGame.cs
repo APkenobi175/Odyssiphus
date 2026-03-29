@@ -27,7 +27,8 @@ public partial class UiLoadGame : CanvasLayer
         // Clear existing slots
         foreach (Node child in gameSlot.GetChildren())
         {
-            child.QueueFree();
+            gameSlot.RemoveChild(child);
+            child.Free();
         }
 
         // Get saved games from GameManager

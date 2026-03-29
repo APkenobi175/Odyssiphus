@@ -1,16 +1,25 @@
 using Godot;
 
-public partial class UiLoadGameButton : Button  
+public partial class UiLoadGameButton : Button
 {
+    private string savePath;
+    private bool isSetup = false;
+
     public void Setup(string displayName, string path)
     {
-        Text = displayName; 
-        Pressed += () => OnPressed(path);
+        Text = displayName;
+        savePath = path;
+
+        if (!isSetup)
+        {
+            Pressed += OnPressed;
+            isSetup = true;
+        }
     }
 
-    private void OnPressed(string path)
+    private void OnPressed()
     {
-        GameManager.Instance.LoadGame(path);
+        GameManager.Instance.LoadGame(savePath);
         GameManager.Instance.GoTo("Dungeon");
     }
 }

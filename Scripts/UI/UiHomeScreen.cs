@@ -33,12 +33,11 @@ public partial class UiHomeScreen : CanvasLayer
     public void OnNewGamePressed()
     {
         GD.Print("New Game Pressed");
-        // TODO: Start new game 
-
-        // TEMPORARY: Load the ship scene
+    
+        // Start a brand new dungeon
         GD.Print("Game Manager Instance: " + GameManager.Instance);
         GameManager.Instance.StopMusic();
-        GameManager.Instance.GoTo("Dungeon");
+        GameManager.Instance.NewGame();
     }
 
     public void OnExitGamePressed()

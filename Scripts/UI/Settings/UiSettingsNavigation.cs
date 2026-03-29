@@ -15,6 +15,8 @@ public partial class UiSettingsNavigation : CanvasLayer
 
     public void onBackPressed()
     {
-        GameManager.Instance.GoTo("HomeScreen");
+        
+        GameManager.Instance.GoBack();
+        
     }
 }

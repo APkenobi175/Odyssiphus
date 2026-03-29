@@ -23,6 +23,12 @@ public partial class UiPauseMenu : CanvasLayer
         teleportToShipButton.Pressed += OnTeleportToShipPressed;
         saveAndExitButton.Pressed += OnSaveAndExitPressed;
         settingsButton.Pressed += OnSettingsPressed;
+
+        if(GameManager.Instance.PreviousScene == "Settings")
+        {
+            Visible = true; // If we are coming from the settings menu, show the pause menu immediately
+            GetTree().Paused = true; // Pause the game immediately if we are coming from the settings menu
+        }
     }
 
     public override void _Input(InputEvent e)
