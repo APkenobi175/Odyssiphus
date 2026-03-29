@@ -9,3 +9,4 @@ script = ExtResource("1_cfi0b")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145378630]
 
 [node name="MiniMap" parent="CanvasLayer" unique_id=1906881991 instance=ExtResource("2_1cg3s")]
+position = Vector2(548, 55)

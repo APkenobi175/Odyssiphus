@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dskdpdvjxbisj" path="res://Scripts/World/MiniMap.cs" id="1_b5vss"]
 
-[node name="MiniMap" type="Node2D" unique_id=1906881991]
+[node name="MiniMap" type="Control" unique_id=417542898]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_b5vss")

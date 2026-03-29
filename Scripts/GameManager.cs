@@ -85,7 +85,7 @@ public partial class GameManager : Node
 
     private void RefreshMiniMap()
     {
-        miniMap?.Refresh(CurrentDungeonRooms, PlayerCurrentRoom); // Update the minimap with the current dungeon rooms and player position
+        miniMap?.Refresh(CurrentDungeonRooms, PlayerCurrentRoom, CurrentDungeonHallways); // Update the minimap with the current dungeon rooms and player position
     }
 
     // ========================== SCENE CHANGE =======================//
