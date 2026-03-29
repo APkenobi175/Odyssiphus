@@ -31,6 +31,7 @@ public partial class GameManager : Node
         Levels["HomeScreen"] = GD.Load<PackedScene>("Scenes/Main.tscn"); // Load the home screen and add it to the dictionary
         Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/Settings.tscn"); // Load the settings screen and add it to the dictionary
         Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
+        Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
@@ -191,7 +192,7 @@ public partial class GameManager : Node
         GD.Print($"Game saved to {path}");
     }
 
-    private void LoadGame(string path)
+    public void LoadGame(string path)
     {
         // 1. Check if file exists
         if (!FileAccess.FileExists(path))
@@ -220,12 +221,12 @@ public partial class GameManager : Node
 
     private void LoadDungeon(Godot.Collections.Dictionary data)
     {
-        // Get the seed and play position
+        //1.  Get the seed and play position
         CurrentDungeonSeed = (int)data["seed"];
         PlayerCurrentRoom = new Vector2I((int)data["playerRoom_x"], (int)data["playerRoom_y"]);
 
 
-        // ReGenerate the dungeon with the loaded seed
+        //2.  ReGenerate the dungeon with the loaded seed
         var walker = new RandomWalk();
         var result = walker.Generate(
             minSteps: 5,
@@ -238,11 +239,13 @@ public partial class GameManager : Node
             seed: CurrentDungeonSeed
         );
 
-        // Re populate the doors for each room
+        // 3. Re populate the doors for each room
         RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
 
-        // TODO:Graph replacement goes here
+        // TODO: Do the graph replacement thingy (not done yet)
+        // Maybe we don't need to do that here because we'll already be setting room type next
 
+        // 5. Update the generated rooms with the cleared status and room types from the save data
         foreach(var entry in data["rooms"].AsGodotArray())
         {
             var r = entry.AsGodotDictionary();

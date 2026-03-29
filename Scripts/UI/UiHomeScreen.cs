@@ -8,8 +8,11 @@ public partial class UiHomeScreen : CanvasLayer
     public Button exitGame;
     public Button settings;
 
+
+
     public override void _Ready()
     {
+
         loadGame = GetNode<Button>("HomeControls/Buttons/Continue");
         newGame = GetNode<Button>("HomeControls/Buttons/StartNew");
         exitGame = GetNode<Button>("HomeControls/Buttons/Exit");
@@ -24,8 +27,7 @@ public partial class UiHomeScreen : CanvasLayer
 
     public void OnLoadGamePressed()
     {
-        GD.Print("Load Game Pressed");
-        // TODO: Load save game
+        GameManager.Instance.GoTo("LoadGame");
     }
 
     public void OnNewGamePressed()
@@ -35,6 +37,7 @@ public partial class UiHomeScreen : CanvasLayer
 
         // TEMPORARY: Load the ship scene
         GD.Print("Game Manager Instance: " + GameManager.Instance);
+        GameManager.Instance.StopMusic();
         GameManager.Instance.GoTo("Dungeon");
     }
 

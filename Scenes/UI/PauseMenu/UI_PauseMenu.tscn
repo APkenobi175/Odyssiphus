@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://nlbj8v7olsyj"]
+
+[ext_resource type="Script" uid="uid://dq2suhpa86l6g" path="res://Scripts/UI/PauseMenu/UiPauseMenu.cs" id="1_lmpnb"]
+[ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_ners5"]
+[ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_lmpnb"]
+[ext_resource type="PackedScene" uid="uid://cie1qajism7p" path="res://Scenes/Background.tscn" id="2_sf0qa"]
+[ext_resource type="StyleBox" uid="uid://ctmip2spmu01l" path="res://Assets/Styles/ButtonStyle.tres" id="3_sf0qa"]
+[ext_resource type="StyleBox" uid="uid://ddnpyj2misjrl" path="res://Assets/Styles/ButtonStylePressed.tres" id="4_jqqcg"]
+[ext_resource type="StyleBox" uid="uid://ctftheyx3fq" path="res://Assets/Styles/ButtonStyleOnHover.tres" id="5_8qs8l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4fy26"]
+content_margin_top = 1.0
+bg_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+
+[node name="UiPauseMenu" type="CanvasLayer" unique_id=1845154346]
+script = ExtResource("1_lmpnb")
+
+[node name="Background" parent="." unique_id=964556999 instance=ExtResource("2_sf0qa")]
+
+[node name="PauseMenu" type="VBoxContainer" parent="." unique_id=371865257]
+offset_left = 122.0
+offset_top = 6.0
+offset_right = 505.0
+offset_bottom = 356.0
+
+[node name="Title" type="VBoxContainer" parent="PauseMenu" unique_id=855555756]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="PauseMenu/Title" unique_id=923100639]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="Label" type="Label" parent="PauseMenu/Title" unique_id=145950150]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/Title" unique_id=1259795367]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="Title" type="Label" parent="PauseMenu/Title" unique_id=103146316]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_ners5")
+theme_override_font_sizes/font_size = 52
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="PauseMenu/Title" unique_id=214418204]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="Label2" type="Label" parent="PauseMenu/Title" unique_id=1162497680]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="PauseMenu/Title" unique_id=864668959]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="Buttons" type="VBoxContainer" parent="PauseMenu" unique_id=1291910254]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/Buttons" unique_id=747562347]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_lmpnb")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_sf0qa")
+theme_override_styles/pressed = ExtResource("4_jqqcg")
+theme_override_styles/hover = ExtResource("5_8qs8l")
+theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
+theme_override_styles/focus = ExtResource("5_8qs8l")
+text = "Resume"
+
+[node name="HSeparator4" type="HSeparator" parent="PauseMenu/Buttons" unique_id=1300844375]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="TeleportToShipButton" type="Button" parent="PauseMenu/Buttons" unique_id=1602713929]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_lmpnb")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_sf0qa")
+theme_override_styles/pressed = ExtResource("4_jqqcg")
+theme_override_styles/hover = ExtResource("5_8qs8l")
+theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
+theme_override_styles/focus = ExtResource("5_8qs8l")
+text = "Teleport To Ship
+"
+
+[node name="HSeparator5" type="HSeparator" parent="PauseMenu/Buttons" unique_id=1287189977]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/Buttons" unique_id=1590736447]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_lmpnb")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_sf0qa")
+theme_override_styles/pressed = ExtResource("4_jqqcg")
+theme_override_styles/hover = ExtResource("5_8qs8l")
+theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
+theme_override_styles/focus = ExtResource("5_8qs8l")
+text = "Settings
+"
+
+[node name="HSeparator6" type="HSeparator" parent="PauseMenu/Buttons" unique_id=1680013723]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
+
+[node name="Exit" type="Button" parent="PauseMenu/Buttons" unique_id=1371134179]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_lmpnb")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_sf0qa")
+theme_override_styles/pressed = ExtResource("4_jqqcg")
+theme_override_styles/hover = ExtResource("5_8qs8l")
+theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
+theme_override_styles/focus = ExtResource("5_8qs8l")
+text = "Save + Return To Menu
+"
