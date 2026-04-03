@@ -235,6 +235,7 @@ public partial class GameManager : Node
         // 4. Get dungeon data, and load it into the game manager
         var dungeonJson = new Json();
         dungeonJson.Parse(saveFile["dungeon"].AsString());
+        var dungeonData = dungeonJson.Data.AsGodotDictionary();
         LoadDungeon(dungeonJson.Data.AsGodotDictionary());
 
         // 5. Get character data, and load it into the game manager
@@ -242,7 +243,7 @@ public partial class GameManager : Node
         characterJson.Parse(saveFile["character"].AsString());
         LoadCharacter(characterJson.Data.AsGodotDictionary());
 
-        string scene = saveFile.ContainsKey("currentScene") ? saveFile["currentScene"].AsString() : "Ship"; // Default to ship scene if no scene saved
+        string scene = dungeonData.ContainsKey("currentScene") ? dungeonData["currentScene"].AsString() : "Ship";
         GoTo(scene); // Go to the saved scene after loading
 
     }

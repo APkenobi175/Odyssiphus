@@ -5,23 +5,53 @@
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="2_mohy2"]
 [ext_resource type="TileSet" uid="uid://5txoup8bonkw" path="res://Assets/Tiles/Beach.tres" id="3_cxfkb"]
 [ext_resource type="Texture2D" uid="uid://bgnbds535xtf6" path="res://Assets/AssetPacks/ship bases/SHIP_rework-base-front.png" id="4_f80v3"]
+[ext_resource type="Script" uid="uid://cmsuproeogcte" path="res://Scripts/World/Transition.cs" id="5_6tdsr"]
 [ext_resource type="PackedScene" uid="uid://c2lmat432akb4" path="res://Scenes/AmmonsTestScenes/godoticon.tscn" id="5_cxfkb"]
 [ext_resource type="Texture2D" uid="uid://d313ikktqd37t" path="res://Assets/AssetPacks/Ship Asset Pack/SHIP_rework-sails+masts.png" id="6_f80v3"]
 [ext_resource type="Texture2D" uid="uid://dq5wdpo2ur364" path="res://Assets/AssetPacks/Ship Asset Pack/SHIP_rework-misc.png" id="7_qxnnb"]
+[ext_resource type="Texture2D" uid="uid://2fqcxcy2mj1o" path="res://Assets/AssetPacks/latter2.png" id="10_4rd60"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxnnb"]
 radius = 34.42498
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_m21rw"]
+a = Vector2(-198, -312)
+b = Vector2(-56, -310)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cylx8"]
+size = Vector2(26.999939, 105.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_af768"]
+a = Vector2(-612.9995, -48)
+b = Vector2(-537.9995, -91)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_cabg3"]
+a = Vector2(-387.5, 2.624939)
+b = Vector2(-315, -41)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_eed8i"]
+a = Vector2(322, 12)
+b = Vector2(-5, 12)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6mejy"]
+a = Vector2(-149, 144)
+b = Vector2(-151, 49)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0515j"]
+a = Vector2(-328.74994, 334.81247)
+b = Vector2(-333.74994, 239.81247)
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_qxnnb"]
-a = Vector2(-111, -54)
-b = Vector2(189, -54)
+a = Vector2(-56.37497, 55.906235)
+b = Vector2(-3.3749695, 54.906235)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ycn8x"]
-b = Vector2(0, 82)
+a = Vector2(-138.37497, 366.90625)
+b = Vector2(-136.37497, 467.90625)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_u6dej"]
-a = Vector2(-42, 18)
-b = Vector2(205, 18)
+a = Vector2(-110, 55)
+b = Vector2(-83, 35)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_6tdsr"]
 a = Vector2(-18, 0)
@@ -48,7 +78,7 @@ a = Vector2(20, -398)
 b = Vector2(19, -241)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_1p7ex"]
-a = Vector2(162, -319)
+a = Vector2(96.62503, -283.09375)
 b = Vector2(20, -247)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ifrbw"]
@@ -77,7 +107,7 @@ tile_map_data = PackedByteArray("AAAAABYAAAALAAAAAAAAABcAAAALAAEAAAABABYAAAAMAAA
 tile_set = ExtResource("3_cxfkb")
 
 [node name="ship" type="Sprite2D" parent="." unique_id=1243834129]
-position = Vector2(320.00003, 241)
+position = Vector2(313.375, 131.09377)
 scale = Vector2(0.8733766, 0.43868232)
 texture = ExtResource("4_f80v3")
 
@@ -89,90 +119,141 @@ shape = SubResource("CircleShape2D_qxnnb")
 
 [node name="water" type="Sprite2D" parent="." unique_id=374792544]
 
+[node name="Invisible Wall19" type="StaticBody2D" parent="." unique_id=1501087145]
+position = Vector2(15851.999, 643.0005)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall19" unique_id=133053126]
+position = Vector2(-15156.999, -76.00049)
+shape = SubResource("SegmentShape2D_m21rw")
+
+[node name="transition" type="Area2D" parent="." unique_id=2045623194]
+position = Vector2(625, 316)
+script = ExtResource("5_6tdsr")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="transition" unique_id=771673299]
+position = Vector2(8, -7.25)
+shape = SubResource("RectangleShape2D_cylx8")
+
+[node name="Invisible Wall18" type="StaticBody2D" parent="." unique_id=721255790]
+position = Vector2(7925.9995, 321.50024)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall18" unique_id=1309408850]
+position = Vector2(-7000, 85.499756)
+shape = SubResource("SegmentShape2D_af768")
+
+[node name="Invisible Wall17" type="StaticBody2D" parent="." unique_id=376205868]
+position = Vector2(3962.9998, 160.75012)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall17" unique_id=1412198544]
+position = Vector2(-3148.9998, 134.24988)
+shape = SubResource("SegmentShape2D_cabg3")
+
+[node name="Invisible Wall15" type="StaticBody2D" parent="." unique_id=1522033174]
+position = Vector2(1981.4999, 80.37506)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall15" unique_id=1329012186]
+position = Vector2(-1665.4999, 266.62494)
+shape = SubResource("SegmentShape2D_eed8i")
+
+[node name="Invisible Wall16" type="StaticBody2D" parent="." unique_id=1068208669]
+position = Vector2(1981.4999, 80.37506)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall16" unique_id=1971661421]
+position = Vector2(-1445.4999, 93.62494)
+shape = SubResource("SegmentShape2D_6mejy")
+
+[node name="Invisible Wall14" type="StaticBody2D" parent="." unique_id=2102313144]
+position = Vector2(990.74994, 40.18753)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall14" unique_id=1541077426]
+position = Vector2(-236, -75)
+shape = SubResource("SegmentShape2D_0515j")
+
 [node name="Invisible Wall13" type="StaticBody2D" parent="." unique_id=425947197]
-position = Vector2(502, 130)
+position = Vector2(495.37497, 20.093765)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall13" unique_id=1842042255]
 position = Vector2(-236, -75)
 shape = SubResource("SegmentShape2D_qxnnb")
 
 [node name="Invisible Wall12" type="StaticBody2D" parent="." unique_id=612215267]
-position = Vector2(251, 65)
+position = Vector2(244.37497, -44.906235)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall12" unique_id=186044699]
 position = Vector2(204, -64)
 shape = SubResource("SegmentShape2D_ycn8x")
 
 [node name="Invisible Wall11" type="StaticBody2D" parent="." unique_id=140570758]
-position = Vector2(251, 65)
+position = Vector2(244.37497, -44.906235)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall11" unique_id=1135816256]
+position = Vector2(284.62503, 195.90623)
 shape = SubResource("SegmentShape2D_u6dej")
 
 [node name="Invisible Wall10" type="StaticBody2D" parent="." unique_id=525289401]
-position = Vector2(224, 111)
+position = Vector2(217.37497, 1.0937653)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall10" unique_id=445613425]
 shape = SubResource("SegmentShape2D_6tdsr")
 
 [node name="Invisible Wall9" type="StaticBody2D" parent="." unique_id=1930786506]
-position = Vector2(5011, 3505)
+position = Vector2(5004.375, 3395.0938)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall9" unique_id=1122191130]
 position = Vector2(-2028, -5011)
 shape = SubResource("SegmentShape2D_4rd60")
 
 [node name="Invisible Wall8" type="StaticBody2D" parent="." unique_id=632840246]
-position = Vector2(119, 96)
+position = Vector2(112.37497, -13.906235)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall8" unique_id=800229]
 position = Vector2(-37, 14)
 shape = SubResource("SegmentShape2D_cylx8")
 
 [node name="Invisible Wall7" type="StaticBody2D" parent="." unique_id=47674455]
-position = Vector2(2320, 5184)
+position = Vector2(2313.375, 5074.0938)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall7" unique_id=588081769]
 position = Vector2(-2026, -5011)
 shape = SubResource("SegmentShape2D_peg1k")
 
 [node name="Invisible Wall6" type="StaticBody2D" parent="." unique_id=609145171]
-position = Vector2(1160, 2592)
+position = Vector2(1153.375, 2482.0938)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall6" unique_id=1114944713]
 position = Vector2(-645, -2134)
 shape = SubResource("SegmentShape2D_fp3sb")
 
 [node name="Invisible Wall5" type="StaticBody2D" parent="." unique_id=1489453558]
-position = Vector2(580, 1296)
+position = Vector2(573.375, 1186.0938)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall5" unique_id=476629103]
 position = Vector2(-147, -758)
 shape = SubResource("SegmentShape2D_wkog2")
 
 [node name="Invisible Wall4" type="StaticBody2D" parent="." unique_id=1911488148]
-position = Vector2(290, 648)
+position = Vector2(283.37497, 538.09375)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Invisible Wall4" unique_id=1226148311]
 position = Vector2(6, -33)
 shape = SubResource("SegmentShape2D_1p7ex")
 
 [node name="Invisible Wall3" type="StaticBody2D" parent="." unique_id=722617637]
-position = Vector2(290, 647)
+position = Vector2(283.37497, 537.09375)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Invisible Wall3" unique_id=244418137]
 position = Vector2(6, -33)
 shape = SubResource("SegmentShape2D_ifrbw")
 
 [node name="Invisible Wall2" type="StaticBody2D" parent="." unique_id=357112345]
-position = Vector2(145, 324)
+position = Vector2(138.37497, 214.09377)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Invisible Wall2" unique_id=763191818]
 position = Vector2(6, -33)
 shape = SubResource("SegmentShape2D_qgxwx")
 
 [node name="Invisible Wall" type="StaticBody2D" parent="." unique_id=935278557]
-position = Vector2(142, 29)
+position = Vector2(135.37497, -80.906235)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Invisible Wall" unique_id=1421622131]
 position = Vector2(12, 1)
@@ -182,14 +263,14 @@ shape = SubResource("SegmentShape2D_qimyu")
 position = Vector2(231, 235)
 
 [node name="shipPost" type="Sprite2D" parent="." unique_id=1159434948]
-position = Vector2(309.00003, 190)
-scale = Vector2(0.56629837, 0.6135135)
+position = Vector2(305.00003, 74)
+scale = Vector2(0.4475138, 0.6135135)
 texture = ExtResource("6_f80v3")
 region_enabled = true
 region_rect = Rect2(513.2949, 643.3376, 362.34595, 185.45264)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1641006108]
-position = Vector2(302, 34)
+position = Vector2(295.37497, -75.906235)
 texture = ExtResource("7_qxnnb")
 region_enabled = true
 region_rect = Rect2(283.13092, 201.2645, 40.75598, 52.531525)
@@ -202,3 +283,16 @@ shape = SubResource("RectangleShape2D_ycn8x")
 
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("2_mohy2")]
 process_mode = 3
+visible = false
+
+[node name="stairs" type="TextureRect" parent="." unique_id=2071253166]
+texture_repeat = 2
+offset_left = 390.05438
+offset_top = 210.48303
+offset_right = 423.61255
+offset_bottom = 383.2098
+rotation = -0.036651913
+scale = Vector2(0.75614244, 0.6215376)
+texture = ExtResource("10_4rd60")
+expand_mode = 1
+stretch_mode = 1

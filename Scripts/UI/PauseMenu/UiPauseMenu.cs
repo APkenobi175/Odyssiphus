@@ -77,15 +77,20 @@ public partial class UiPauseMenu : CanvasLayer
 
         if (onShip)
         {
-            GameManager.Instance.GoTo(GameManager.Instance.PreviousScene);
+            CallDeferred(nameof(DoGoTo), GameManager.Instance.PreviousScene);
         }
         else
         {
             if (GameManager.Instance.currentRoom?.IsCleared != true) return;
-            GameManager.Instance.GoTo("Ship");
+            CallDeferred(nameof(DoGoTo), "Ship");
         }
         // GoTo already unpauses, but just in case
         GetTree().Paused = false;
+    }
+
+    private void DoGoTo(string scene)
+    {
+        GameManager.Instance.GoTo(scene);
     }
 
     private void OnSaveAndExitPressed()
@@ -93,11 +98,11 @@ public partial class UiPauseMenu : CanvasLayer
         GameManager.Instance.SaveGame();
         GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
-        GameManager.Instance.GoTo("HomeScreen");
+        CallDeferred(nameof(DoGoTo), "HomeScreen");
     }
 
     private void OnSettingsPressed()
     {
-        GameManager.Instance.GoTo("Settings");
+        CallDeferred(nameof(DoGoTo), "Settings");
     }
 }
