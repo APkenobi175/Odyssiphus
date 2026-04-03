@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://vqitkqeoj0k8" path="res://Scripts/World/Ship.cs" id="1_d8076"]
 [ext_resource type="TileSet" uid="uid://bbpj2ivxfk08d" path="res://Assets/Tiles/waterTiles.tres" id="2_341jv"]
+[ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="2_mohy2"]
 [ext_resource type="TileSet" uid="uid://5txoup8bonkw" path="res://Assets/Tiles/Beach.tres" id="3_cxfkb"]
 [ext_resource type="Texture2D" uid="uid://bgnbds535xtf6" path="res://Assets/AssetPacks/ship bases/SHIP_rework-base-front.png" id="4_f80v3"]
 [ext_resource type="PackedScene" uid="uid://c2lmat432akb4" path="res://Scenes/AmmonsTestScenes/godoticon.tscn" id="5_cxfkb"]
@@ -198,3 +199,6 @@ region_rect = Rect2(283.13092, 201.2645, 40.75598, 52.531525)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D" unique_id=101661988]
 position = Vector2(0.5, 15)
 shape = SubResource("RectangleShape2D_ycn8x")
+
+[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("2_mohy2")]
+process_mode = 3

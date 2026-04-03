@@ -29,6 +29,14 @@ public partial class UiPauseMenu : CanvasLayer
             Visible = true; // If we are coming from the settings menu, show the pause menu immediately
             GetTree().Paused = true; // Pause the game immediately if we are coming from the settings menu
         }
+        if(GameManager.Instance.CurrentScene == "Ship")
+        {
+            teleportToShipButton.Text = "Return to Dungeon";
+        }
+        else
+        {
+            teleportToShipButton.Text = "Teleport to Ship";
+        }
     }
 
     public override void _Input(InputEvent e)
@@ -52,8 +60,16 @@ public partial class UiPauseMenu : CanvasLayer
 
     public void OnTeleportToShipPressed()
     {
-        GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
-        GameManager.Instance.GoTo("Ship");
+
+        // get last scene
+        if(GameManager.Instance.CurrentScene == "Ship") {
+            GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
+            string previousScene = GameManager.Instance.PreviousScene;
+            GameManager.Instance.GoTo(previousScene);
+        }else{
+            GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
+            GameManager.Instance.GoTo("Ship");
+        }
     }
 
     public void OnSaveAndExitPressed()

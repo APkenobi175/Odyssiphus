@@ -161,6 +161,7 @@ public partial class GameManager : Node
         var data = new Godot.Collections.Dictionary();
         data["seed"] = CurrentDungeonSeed;
         data["playerRoom_x"] = PlayerCurrentRoom.X;
+        data["currentScene"] = GetTree().CurrentScene.SceneFilePath; // Save the current scene so we can load back into it
         data["playerRoom_y"] = PlayerCurrentRoom.Y;
 
         var roomList = new Godot.Collections.Array();
@@ -234,6 +235,9 @@ public partial class GameManager : Node
         var characterJson = new Json();
         characterJson.Parse(saveFile["character"].AsString());
         LoadCharacter(characterJson.Data.AsGodotDictionary());
+
+        string scene = saveFile.ContainsKey("currentScene") ? saveFile["currentScene"].AsString() : "Ship"; // Default to ship scene if no scene saved
+        GoTo(scene); // Go to the saved scene after loading
 
     }
 

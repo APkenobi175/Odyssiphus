@@ -21,6 +21,5 @@ public partial class UiLoadGameButton : Button
     {
         GameManager.Instance.StopMusic();
         GameManager.Instance.LoadGame(savePath);
-        GameManager.Instance.GoTo("Dungeon");
     }
 }
