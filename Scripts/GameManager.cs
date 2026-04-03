@@ -137,7 +137,7 @@ public partial class GameManager : Node
         CurrentDungeonHallways = new(); // Clear the current dungeon hallways
         CurrentDungeonSeed = 0; // Reset the current dungeon seed
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
-        GoTo("Dungeon"); // Go to the dungeon scene to start a new game
+        GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
 
