@@ -1,19 +1,14 @@
 using Godot;
-using System;
 
 public partial class UiPauseMenu : CanvasLayer
 {
-    public Button resumeButton;
-    public Button teleportToShipButton;
-    public Button saveAndExitButton;
-
-    public Button settingsButton;
+    private Button resumeButton;
+    private Button teleportToShipButton;
+    private Button saveAndExitButton;
+    private Button settingsButton;
     
     public override void _Ready()
     {
-        Visible = false; // Start with the pause menu hidden
-        GetTree().Paused = false; // Ensure the game is not paused when the pause menu is first created
-
         resumeButton = GetNode<Button>("PauseMenu/Buttons/ResumeButton");
         teleportToShipButton = GetNode<Button>("PauseMenu/Buttons/TeleportToShipButton");
         saveAndExitButton = GetNode<Button>("PauseMenu/Buttons/Exit");
@@ -24,67 +19,85 @@ public partial class UiPauseMenu : CanvasLayer
         saveAndExitButton.Pressed += OnSaveAndExitPressed;
         settingsButton.Pressed += OnSettingsPressed;
 
-        if(GameManager.Instance.PreviousScene == "Settings")
-        {
-            Visible = true; // If we are coming from the settings menu, show the pause menu immediately
-            GetTree().Paused = true; // Pause the game immediately if we are coming from the settings menu
-        }
-        if(GameManager.Instance.CurrentScene == "Ship")
-        {
-            teleportToShipButton.Text = "Return to Dungeon";
-        }
-        else
-        {
-            teleportToShipButton.Text = "Teleport to Ship";
-        }
+        // Show immediately if returning from settings
+        bool returningFromSettings = GameManager.Instance.PreviousScene == "Settings";
+        Visible = returningFromSettings;
+        GetTree().Paused = returningFromSettings;
+
+        RefreshButtons();
     }
 
     public override void _Input(InputEvent e)
     {
-        if (e.IsActionPressed("ui_cancel")){
+        if (e.IsActionPressed("ui_cancel"))
             TogglePause();
-        }
     }
 
     private void TogglePause()
     {
-        Visible = !Visible; // Toggle the visibility of the pause menu
-        GetTree().Paused = Visible; // Pause the game when the pause menu is visible, unpause when hidden
+        Visible = !Visible;
+        GetTree().Paused = Visible;
+        if (Visible) RefreshButtons();
     }
 
-    public void OnResumePressed()
+    private void RefreshButtons()
     {
-        Visible = false;
-        GetTree().Paused = false; // Unpause the game when resuming
-    }
+        bool onShip = GameManager.Instance.CurrentScene == "Ship";
 
-    public void OnTeleportToShipPressed()
-    {
-
-        // get last scene
-        if(GameManager.Instance.CurrentScene == "Ship") {
-            GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
-            string previousScene = GameManager.Instance.PreviousScene;
-            GameManager.Instance.GoTo(previousScene);
-        }else{
-            GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
-            GameManager.Instance.GoTo("Ship");
+        if (onShip)
+        {
+            teleportToShipButton.Text = "Return to Dungeon";
+            bool hasDungeonProgress = GameManager.Instance.CurrentDungeonRooms != null
+                && GameManager.Instance.CurrentDungeonRooms.Count > 0
+                && GameManager.Instance.CurrentDungeonRooms.Exists(r => r.IsCleared);
+            teleportToShipButton.Disabled = !hasDungeonProgress;
+            teleportToShipButton.TooltipText = hasDungeonProgress ? "" : "Enter the dungeon first!";
+        }
+        else
+        {
+            // WIll not allow teleporting to the ship until the room is cleared.
+            teleportToShipButton.Text = "Teleport to Ship";
+            bool roomCleared = GameManager.Instance.currentRoom?.IsCleared ?? false;
+            teleportToShipButton.Disabled = !roomCleared;
+            teleportToShipButton.TooltipText = roomCleared ? "" : "Clear the room first!";
         }
     }
 
-    public void OnSaveAndExitPressed()
+    private void OnResumePressed()
     {
-        GetTree().Paused = false; // Unpause the game before exiting to ensure any necessary cleanup happens
+        Visible = false;
+        GetTree().Paused = false;
+    }
+
+    private void OnTeleportToShipPressed()
+    {
+        // If you are on the ship, go back to the dungeon
+        // If you are in the dungeon, go to the ship
+        bool onShip = GameManager.Instance.CurrentScene == "Ship";
+
+        if (onShip)
+        {
+            GameManager.Instance.GoTo(GameManager.Instance.PreviousScene);
+        }
+        else
+        {
+            if (GameManager.Instance.currentRoom?.IsCleared != true) return;
+            GameManager.Instance.GoTo("Ship");
+        }
+        // GoTo already unpauses, but just in case
+        GetTree().Paused = false;
+    }
+
+    private void OnSaveAndExitPressed()
+    {
         GameManager.Instance.SaveGame();
-        GameManager.Instance.GoTo("HomeScreen");
         GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
+        GameManager.Instance.GoTo("HomeScreen");
     }
 
-    public void OnSettingsPressed()
+    private void OnSettingsPressed()
     {
-        GetTree().Paused = false; // Unpause the game before navigating to settings
         GameManager.Instance.GoTo("Settings");
     }
-
 }
