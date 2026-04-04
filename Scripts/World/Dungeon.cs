@@ -6,6 +6,29 @@ using System;
 public partial class Dungeon : Node2D
 {
 
+    // Packed scenes for all the room types
+
+    [Export]
+    public PackedScene StartRoomScene { get; set; }
+    [Export]
+    public PackedScene EnemyRoomScene { get; set; }
+    [Export]
+    public PackedScene TreasureRoomScene { get; set; }
+    [Export]
+    public PackedScene BossRoomScene { get; set; }
+    [Export]
+    public PackedScene MiniBossRoomScene { get; set; }
+    [Export]
+    public PackedScene PuzzleRoomScene { get; set; }
+
+    // 640 x 360 
+    private const int RoomWidth = 640;
+    private const int RoomHeight = 360;
+
+    private const float ZoomSpeed = 0.1f;
+    private const float MinZoom = 0.1f;
+    private const float MaxZoom = 1f;
+
     public override void _Ready()
     {
 
@@ -38,7 +61,47 @@ public partial class Dungeon : Node2D
             
         }
 
+        SpawnRooms();
 
+
+    }
+
+    private void SpawnRooms()
+    {
+        var container = GetNode<Node2D>("RoomsContainer");
+
+        foreach (var room in GameManager.Instance.CurrentDungeonRooms)
+        {
+            PackedScene scene = room.RoomType switch
+            {
+                RoomType.Start => StartRoomScene,
+                RoomType.EnemyRoom => EnemyRoomScene,
+                RoomType.TreasureRoom => TreasureRoomScene,
+                RoomType.BossRoom => BossRoomScene,
+                RoomType.MiniBoss => MiniBossRoomScene,
+                RoomType.PuzzleRoom => PuzzleRoomScene,
+                _ => EnemyRoomScene
+            };
+
+            if (scene == null)
+            {
+                GD.PrintErr($"No scene assigned for room type {room.RoomType}");
+                continue;
+            }
+
+            var instance = scene.Instantiate<Node2D>();
+            instance.Position = new Vector2(room.Position.X * RoomWidth / 2f, room.Position.Y * RoomHeight / 2f);
+            container.AddChild(instance);
+
+
+
+
+        }
+
+        // move camera to start room
+
+        var camera = GetNode<Camera2D>("Camera2D");
+        camera.Position = Vector2.Zero; // Start room is always at (0,0) in our generation algorithm
     }
 
 
@@ -56,12 +119,28 @@ public partial class Dungeon : Node2D
             {
                 GD.Print($"Marking room at {next.Position} as cleared");
                 GameManager.Instance.OnRoomCleared(next.Position);
-                GameManager.Instance.OnPlayerEnterRoom(next.Position); // Move player to the next room for testing purposes
+                GameManager.Instance.OnPlayerEnterRoom(next.Position);
+
+                // Move camera to the new room
+                var camera = GetNode<Camera2D>("Camera2D");
+                camera.Position = new Vector2(
+                    next.Position.X * RoomWidth,
+                    next.Position.Y * RoomHeight
+                );
             }
             else
             {
                 GD.Print("All rooms cleared!");
             }
+        }
+
+        if (e is InputEventMouseButton mouse)
+        {
+            var camera = GetNode<Camera2D>("Camera2D");
+            if (mouse.ButtonIndex == MouseButton.WheelUp)
+                camera.Zoom = (camera.Zoom + new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
+            else if (mouse.ButtonIndex == MouseButton.WheelDown)
+                camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
         }
     }
     

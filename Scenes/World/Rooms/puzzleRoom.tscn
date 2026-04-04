@@ -1,3 +1,13 @@
 [gd_scene format=3 uid="uid://b62cv0tb7b233"]
 
+[ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_gysr8"]
+
 [node name="PuzzleRoom" type="Node2D" unique_id=661394103]
+
+[node name="Label" type="Label" parent="." unique_id=941636810]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Puzzle Room"
+
+[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("1_gysr8")]
+process_mode = 3

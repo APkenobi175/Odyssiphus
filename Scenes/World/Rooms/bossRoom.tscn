@@ -1,3 +1,13 @@
 [gd_scene format=3 uid="uid://tkyphjpvbf2t"]
 
+[ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_rfqva"]
+
 [node name="BossRoom" type="Node2D" unique_id=658943876]
+
+[node name="Label" type="Label" parent="." unique_id=50073659]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Boss Room"
+
+[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("1_rfqva")]
+process_mode = 3

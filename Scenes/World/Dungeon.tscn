@@ -2,10 +2,22 @@
 
 [ext_resource type="Script" uid="uid://dlk5ng8wilby5" path="res://Scripts/World/Dungeon.cs" id="1_cfi0b"]
 [ext_resource type="PackedScene" uid="uid://c2noebj3wr73e" path="res://Scenes/World/MiniMap.tscn" id="2_1cg3s"]
+[ext_resource type="PackedScene" uid="uid://bcfkodclr67r" path="res://Scenes/World/Rooms/startRoom.tscn" id="2_1qknu"]
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="3_1cg3s"]
+[ext_resource type="PackedScene" uid="uid://bcat1hidin6fn" path="res://Scenes/World/Rooms/enemyRoom.tscn" id="3_xaamn"]
+[ext_resource type="PackedScene" uid="uid://c0a0lni2inxks" path="res://Scenes/World/Rooms/treasureRoom.tscn" id="4_1u0ql"]
+[ext_resource type="PackedScene" uid="uid://tkyphjpvbf2t" path="res://Scenes/World/Rooms/bossRoom.tscn" id="5_4yimq"]
+[ext_resource type="PackedScene" uid="uid://tiywjyt7pd5y" path="res://Scenes/World/Rooms/miniBossRoom.tscn" id="6_cvwg2"]
+[ext_resource type="PackedScene" uid="uid://b62cv0tb7b233" path="res://Scenes/World/Rooms/puzzleRoom.tscn" id="7_sqayr"]
 
 [node name="Dungeon" type="Node2D" unique_id=1429901411]
 script = ExtResource("1_cfi0b")
+StartRoomScene = ExtResource("2_1qknu")
+EnemyRoomScene = ExtResource("3_xaamn")
+TreasureRoomScene = ExtResource("4_1u0ql")
+BossRoomScene = ExtResource("5_4yimq")
+MiniBossRoomScene = ExtResource("6_cvwg2")
+PuzzleRoomScene = ExtResource("7_sqayr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145378630]
 
@@ -14,6 +26,11 @@ offset_left = 548.0
 offset_top = 55.0
 offset_right = 548.0
 offset_bottom = 55.0
+
+[node name="RoomsContainer" type="Node2D" parent="." unique_id=1938428540]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=653017666]
+position = Vector2(320, 180)
 
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
 process_mode = 3
