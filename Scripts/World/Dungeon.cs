@@ -22,7 +22,7 @@ public partial class Dungeon : Node2D
                 allowLoops: false,
                 allowBranches: true,
                 allowBranchesToConnect: false,
-                seed: 12345
+                seed: 0 // random walk function uses random seed when seed is 0
             );
 
             // 2. Populate the doors for each room
@@ -32,7 +32,7 @@ public partial class Dungeon : Node2D
 
             result.Rooms[0].IsCleared = true;
 
-            GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, 12345); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
+            GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, result.Seed); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
             GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
 
             
