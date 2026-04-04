@@ -6,6 +6,8 @@ public partial class UiPauseMenu : CanvasLayer
     private Button teleportToShipButton;
     private Button saveAndExitButton;
     private Button settingsButton;
+
+    private Button devButton;
     
     public override void _Ready()
     {
@@ -13,11 +15,13 @@ public partial class UiPauseMenu : CanvasLayer
         teleportToShipButton = GetNode<Button>("PauseMenu/Buttons/TeleportToShipButton");
         saveAndExitButton = GetNode<Button>("PauseMenu/Buttons/Exit");
         settingsButton = GetNode<Button>("PauseMenu/Buttons/SettingsButton");
+        devButton = GetNode<Button>("Exit2");
 
         resumeButton.Pressed += OnResumePressed;
         teleportToShipButton.Pressed += OnTeleportToShipPressed;
         saveAndExitButton.Pressed += OnSaveAndExitPressed;
         settingsButton.Pressed += OnSettingsPressed;
+        devButton.Pressed += () => { CallDeferred(nameof(DoGoTo), "DevMapView"); GetTree().Paused = false; };
 
         // Show immediately if returning from settings
         bool returningFromSettings = GameManager.Instance.PreviousScene == "Settings";

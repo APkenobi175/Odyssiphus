@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://vpput083f1em"]
+
+[ext_resource type="Script" uid="uid://knu433citv" path="res://Scenes/AmmonsTestScenes/DevFullMap.cs" id="1_51w6l"]
+[ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="2_1rvbx"]
+[ext_resource type="Script" uid="uid://cyqtp0i404a2l" path="res://Scenes/AmmonsTestScenes/Camera2d.cs" id="3_1rvbx"]
+
+[node name="DevFullMap" type="Node2D" unique_id=1467783303]
+script = ExtResource("1_51w6l")
+
+[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("2_1rvbx")]
+process_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=70042595]
+script = ExtResource("3_1rvbx")

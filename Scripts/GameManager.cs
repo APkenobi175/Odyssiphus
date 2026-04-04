@@ -42,6 +42,7 @@ public partial class GameManager : Node
         Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/Settings.tscn"); // Load the settings screen and add it to the dictionary
         Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
         Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
+        Levels["DevMapView"] = GD.Load<PackedScene>("Scenes/AmmonsTestScenes/DEV_FullMap.tscn"); // Load the dev map view scene and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
@@ -62,6 +63,12 @@ public partial class GameManager : Node
         CurrentDungeonRooms = rooms; // Set the current dungeon rooms to the generated rooms
         CurrentDungeonHallways = hallways; // Set the current dungeon hallways to the generated
         CurrentDungeonSeed = seed;
+
+        var graphReplacement = new DungeonGraphReplacement();
+
+        // Perform graph replacement to set rooms
+        graphReplacement.Replace(rooms, hallways, seed);
+
         PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the starting room
         RefreshMiniMap(); // Refresh the minimap to show the new dungeon layout
@@ -236,7 +243,7 @@ public partial class GameManager : Node
         var dungeonJson = new Json();
         dungeonJson.Parse(saveFile["dungeon"].AsString());
         var dungeonData = dungeonJson.Data.AsGodotDictionary();
-        LoadDungeon(dungeonJson.Data.AsGodotDictionary());
+        LoadDungeon(dungeonData);
 
         // 5. Get character data, and load it into the game manager
         var characterJson = new Json();
