@@ -128,7 +128,7 @@ public partial class Dungeon : Node2D
             return;
         }
         door.Visible = active;
-        var collision = door.GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+        var collision = door.GetNodeOrNull<CollisionShape2D>("Door");
         if (collision != null) collision.Disabled = !active;
     }
 
