@@ -90,7 +90,7 @@ public partial class Dungeon : Node2D
             }
 
             var instance = scene.Instantiate<Node2D>();
-            instance.Position = new Vector2(room.Position.X * RoomWidth / 2f, room.Position.Y * RoomHeight / 2f);
+            instance.Position = new Vector2(room.Position.X * RoomWidth, room.Position.Y * RoomHeight);
             container.AddChild(instance);
 
 
@@ -101,7 +101,7 @@ public partial class Dungeon : Node2D
         // move camera to start room
 
         var camera = GetNode<Camera2D>("Camera2D");
-        camera.Position = Vector2.Zero; // Start room is always at (0,0) in our generation algorithm
+        camera.Position = new Vector2(RoomWidth / 2f, RoomHeight / 2f);
     }
 
 
@@ -124,8 +124,8 @@ public partial class Dungeon : Node2D
                 // Move camera to the new room
                 var camera = GetNode<Camera2D>("Camera2D");
                 camera.Position = new Vector2(
-                    next.Position.X * RoomWidth,
-                    next.Position.Y * RoomHeight
+                    next.Position.X * RoomWidth + RoomWidth / 2f,
+                    next.Position.Y * RoomHeight + RoomHeight / 2f
                 );
             }
             else

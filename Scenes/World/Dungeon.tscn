@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://tkyphjpvbf2t" path="res://Scenes/World/Rooms/bossRoom.tscn" id="5_4yimq"]
 [ext_resource type="PackedScene" uid="uid://tiywjyt7pd5y" path="res://Scenes/World/Rooms/miniBossRoom.tscn" id="6_cvwg2"]
 [ext_resource type="PackedScene" uid="uid://b62cv0tb7b233" path="res://Scenes/World/Rooms/puzzleRoom.tscn" id="7_sqayr"]
+[ext_resource type="PackedScene" uid="uid://c2lmat432akb4" path="res://Scenes/AmmonsTestScenes/godoticon.tscn" id="10_xaamn"]
 
 [node name="Dungeon" type="Node2D" unique_id=1429901411]
 script = ExtResource("1_cfi0b")
@@ -18,6 +19,8 @@ TreasureRoomScene = ExtResource("4_1u0ql")
 BossRoomScene = ExtResource("5_4yimq")
 MiniBossRoomScene = ExtResource("6_cvwg2")
 PuzzleRoomScene = ExtResource("7_sqayr")
+
+[node name="Godoticon" parent="." unique_id=192849984 instance=ExtResource("10_xaamn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145378630]
 
