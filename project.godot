@@ -34,6 +34,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Odyssiphus"
 
+[global_group]
+
+PlayerFaction="Player(s) and allies"
+
 [input]
 
 move_left={
