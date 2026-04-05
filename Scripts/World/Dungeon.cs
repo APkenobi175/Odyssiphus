@@ -29,6 +29,8 @@ public partial class Dungeon : Node2D
     private const float MinZoom = 0.1f;
     private const float MaxZoom = 1f;
 
+    private const int HallwayLength = 64;
+
     public override void _Ready()
     {
 
@@ -90,8 +92,13 @@ public partial class Dungeon : Node2D
             }
 
             var instance = scene.Instantiate<Node2D>();
-            instance.Position = new Vector2(room.Position.X * RoomWidth, room.Position.Y * RoomHeight);
+            instance.Position = new Vector2(room.Position.X * (RoomWidth + HallwayLength), room.Position.Y * (RoomHeight + HallwayLength));
+
+            // WE NEED TO SET DOOR VISIBILITY FOR EACH ROOM
+
             container.AddChild(instance);
+            SetRoomDoors(instance, room);
+
 
 
 
@@ -104,6 +111,27 @@ public partial class Dungeon : Node2D
         camera.Position = new Vector2(RoomWidth / 2f, RoomHeight / 2f);
     }
 
+    private void SetRoomDoors(Node2D instance, RandomWalkRoom room)
+    {
+        SetDoor(instance, "NorthDoor", room.Doors.Contains("N"));
+        SetDoor(instance, "SouthDoor", room.Doors.Contains("S"));
+        SetDoor(instance, "EastDoor", room.Doors.Contains("E"));
+        SetDoor(instance, "WestDoor", room.Doors.Contains("W"));
+    }
+
+    private void SetDoor(Node2D instance, string doorName, bool active)
+    {
+        var door = instance.GetNodeOrNull<Node2D>($"Doors/{doorName}");
+        if (door == null)
+        {
+            GD.PrintErr($"No door named {doorName} found in room instance!");
+            return;
+        }
+        door.Visible = active;
+        var collision = door.GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+        if (collision != null) collision.Disabled = !active;
+    }
+
 
 
     //////////////// FOR TESTING ONLY //////////////////////
@@ -111,26 +139,13 @@ public partial class Dungeon : Node2D
     
     public override void _Input(InputEvent e)
     {
+        // Changed - Now it only marks room as cleared when space is pressed.
         if (e is InputEventKey key && key.Pressed && key.Keycode == Key.Space)
         {
-            var rooms = GameManager.Instance.CurrentDungeonRooms;
-            var next = rooms.Find(r => !r.IsCleared);
-            if (next != null)
             {
-                GD.Print($"Marking room at {next.Position} as cleared");
-                GameManager.Instance.OnRoomCleared(next.Position);
-                GameManager.Instance.OnPlayerEnterRoom(next.Position);
-
-                // Move camera to the new room
-                var camera = GetNode<Camera2D>("Camera2D");
-                camera.Position = new Vector2(
-                    next.Position.X * RoomWidth + RoomWidth / 2f,
-                    next.Position.Y * RoomHeight + RoomHeight / 2f
-                );
-            }
-            else
-            {
-                GD.Print("All rooms cleared!");
+                var currentPos = GameManager.Instance.PlayerCurrentRoom;
+                GameManager.Instance.OnRoomCleared(currentPos);
+                GD.Print($"Cleared room at {currentPos}");
             }
         }
 
@@ -143,5 +158,17 @@ public partial class Dungeon : Node2D
                 camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
         }
     }
-    
+
+    public void MoveCamera(Vector2I roomPos)
+    {
+        var camera = GetNode<Camera2D>("Camera2D");
+        var tween = CreateTween();
+        tween.TweenProperty(camera, "position",
+            new Vector2(
+                roomPos.X * (RoomWidth + HallwayLength) + RoomWidth / 2f,
+                roomPos.Y * (RoomHeight + HallwayLength) + RoomHeight / 2f),
+            0.3f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.InOut);
+    }
 }

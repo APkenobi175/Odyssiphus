@@ -24,6 +24,8 @@ public partial class GameManager : Node
     public string CurrentScene { get; set; } = "";
 
     public RandomWalkRoom currentRoom; // Track the player's current room for easy access to its properties when needed
+
+    public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
     
 
 
@@ -375,6 +377,17 @@ public partial class GameManager : Node
             miniMap.Refresh(CurrentDungeonRooms, PlayerCurrentRoom, CurrentDungeonHallways);
         else
             miniMap = null; // clean up bad reference if the minimap was freed without unregistering
+    }
+
+    /// FOR CHARACTER TRANSITIONS
+    
+    public void StartCharacterTransition()
+    {
+        characterIsTransitioning = true;
+    }
+    public void EndCharacterTransition()
+    {
+        characterIsTransitioning = false;
     }
 
 }

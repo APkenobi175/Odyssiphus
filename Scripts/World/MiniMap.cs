@@ -46,9 +46,13 @@ public partial class MiniMap : Control
         var fromRoom = DungeonRooms.Find(r => r.Position == hallway.From);
         var toRoom = DungeonRooms.Find(r => r.Position == hallway.To);
         if (fromRoom == null || toRoom == null) continue;
-        bool fromVisible = fromRoom.IsCleared || fromRoom.Position == PlayerCurrentRoom;
-        bool toVisible = toRoom.IsCleared || toRoom.Position == PlayerCurrentRoom;
-        if (!fromVisible || !toVisible) continue;
+        bool eitherIsCurrent = fromRoom.Position == PlayerCurrentRoom || toRoom.Position == PlayerCurrentRoom;
+        bool bothCleared = fromRoom.IsCleared && toRoom.IsCleared;
+        if (!eitherIsCurrent && !bothCleared) continue;
+
+        
+
+        
 
         DrawLine(fromPos, toPos, new Color(1, 1, 1, 0.5f), 2f);
     }
@@ -77,8 +81,20 @@ public partial class MiniMap : Control
             RoomType.BossRoom     => Colors.DarkRed,
             _                    => Colors.Gray
         };
+
+
         DrawRect(new Rect2(screenPos - new Vector2(CellSize / 2f, CellSize / 2f),
                            new Vector2(CellSize, CellSize)), color);
+
+        if (room.IsCleared && room.Position != PlayerCurrentRoom)
+        {
+            // Draw checkmark for cleared room
+            Vector2 checkStart = screenPos + new Vector2(-3, 0);
+            Vector2 checkMid = screenPos + new Vector2(-1, 3);
+            Vector2 checkEnd = screenPos + new Vector2(4, -3);
+            DrawLine(checkStart, checkMid, Colors.White, 1.5f);
+            DrawLine(checkMid, checkEnd, Colors.White, 1.5f);
+        }
         }
     }
 

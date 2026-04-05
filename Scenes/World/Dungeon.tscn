@@ -20,8 +20,6 @@ BossRoomScene = ExtResource("5_4yimq")
 MiniBossRoomScene = ExtResource("6_cvwg2")
 PuzzleRoomScene = ExtResource("7_sqayr")
 
-[node name="Godoticon" parent="." unique_id=192849984 instance=ExtResource("10_xaamn")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=145378630]
 
 [node name="MiniMap" parent="CanvasLayer" unique_id=1906881991 instance=ExtResource("2_1cg3s")]
@@ -34,6 +32,8 @@ offset_bottom = 55.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=653017666]
 position = Vector2(320, 180)
+
+[node name="Player" parent="." unique_id=192849984 instance=ExtResource("10_xaamn")]
 
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
 process_mode = 3

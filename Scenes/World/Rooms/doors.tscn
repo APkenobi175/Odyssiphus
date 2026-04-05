@@ -1,3 +1,13 @@
 [gd_scene format=3 uid="uid://bsp4teccfxh4j"]
 
-[node name="Doors" type="Node2D" unique_id=373391242]
+[ext_resource type="Script" uid="uid://cy6sjegqhfi15" path="res://Scripts/World/Rooms/Door.cs" id="1_h1374"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxkwn"]
+size = Vector2(34, 37)
+
+[node name="Doors" type="Area2D" unique_id=815409478]
+script = ExtResource("1_h1374")
+
+[node name="Door" type="CollisionShape2D" parent="." unique_id=523674934]
+position = Vector2(-5.25, 5)
+shape = SubResource("RectangleShape2D_mxkwn")
