@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://chf0hpivah5um"]
 
+[ext_resource type="Script" uid="uid://b4al23fn1ixt6" path="res://scripts/Inventory/InventorySlot.cs" id="1_bo8fl"]
 [ext_resource type="Texture2D" uid="uid://cw7a44uvugjgp" path="res://Assets/ItemSprites/InventoryBackground.png" id="1_w8tn1"]
 
 [node name="InventorySlot" type="CenterContainer" unique_id=403934664]
@@ -11,6 +12,7 @@ offset_left = -2.2800002
 offset_top = -1.0
 offset_right = -3.0
 offset_bottom = -2.0
+script = ExtResource("1_bo8fl")
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=219971876]
 layout_mode = 2
