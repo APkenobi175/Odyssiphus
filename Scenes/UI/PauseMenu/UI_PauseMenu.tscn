@@ -17,6 +17,27 @@ script = ExtResource("1_lmpnb")
 
 [node name="Background" parent="." unique_id=964556999 instance=ExtResource("2_sf0qa")]
 
+[node name="Exit2" type="Button" parent="." unique_id=2109229127]
+offset_left = 458.0
+offset_top = 56.0
+offset_right = 634.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_lmpnb")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_sf0qa")
+theme_override_styles/pressed = ExtResource("4_jqqcg")
+theme_override_styles/hover = ExtResource("5_8qs8l")
+theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
+theme_override_styles/focus = ExtResource("5_8qs8l")
+text = "Dev: View Map
+"
+
 [node name="PauseMenu" type="VBoxContainer" parent="." unique_id=371865257]
 offset_left = 122.0
 offset_top = 6.0

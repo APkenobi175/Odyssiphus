@@ -51,6 +51,7 @@ public class RandomWalk
         public List<RandomWalkRoom> Rooms;
         public List<RandomWalkHallway> Hallways;
         public bool maxRoomsHit; // indicates if the generation hit the max room limit (to stop crashes and almost infinite loops)
+        public int Seed;
     }
 
     // These are the four directions we can walk in (N, E, S, W)
@@ -109,7 +110,7 @@ public class RandomWalk
         maxRoomsHit = totalCalls >= maxCalls || rooms.Count >= maxRooms;
         GD.Print("Random Walk Generation Complete. Rooms: " + rooms.Count + ", Hallways: " + hallways.Count + ", Max Rooms Hit: " + maxRoomsHit);
 
-        return new Result { Rooms = rooms, Hallways = hallways, maxRoomsHit = maxRoomsHit };
+        return new Result { Rooms = rooms, Hallways = hallways, maxRoomsHit = maxRoomsHit, Seed = this.seed };
     }
 
     private bool RandomWalkRecursive(Vector2I currentRoom, int stepCount, bool isBranch)

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c2lmat432akb4"]
+
+[ext_resource type="Script" uid="uid://bc7jeg0ak4nwh" path="res://Scenes/AmmonsTestScenes/Godoticon.cs" id="1_qonoy"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="1_qrn0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qonoy"]
+size = Vector2(14, 12)
+
+[node name="Godoticon" type="CharacterBody2D" unique_id=192849984]
+position = Vector2(105, 85)
+script = ExtResource("1_qonoy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1971094672]
+position = Vector2(9.999996, -13.999998)
+scale = Vector2(0.10937505, 0.09375002)
+texture = ExtResource("1_qrn0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1948957004]
+position = Vector2(10, -14)
+shape = SubResource("RectangleShape2D_qonoy")

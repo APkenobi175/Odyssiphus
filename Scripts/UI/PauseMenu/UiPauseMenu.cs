@@ -1,74 +1,112 @@
 using Godot;
-using System;
 
 public partial class UiPauseMenu : CanvasLayer
 {
-    public Button resumeButton;
-    public Button teleportToShipButton;
-    public Button saveAndExitButton;
+    private Button resumeButton;
+    private Button teleportToShipButton;
+    private Button saveAndExitButton;
+    private Button settingsButton;
 
-    public Button settingsButton;
+    private Button devButton;
     
     public override void _Ready()
     {
-        Visible = false; // Start with the pause menu hidden
-        GetTree().Paused = false; // Ensure the game is not paused when the pause menu is first created
-
         resumeButton = GetNode<Button>("PauseMenu/Buttons/ResumeButton");
         teleportToShipButton = GetNode<Button>("PauseMenu/Buttons/TeleportToShipButton");
         saveAndExitButton = GetNode<Button>("PauseMenu/Buttons/Exit");
         settingsButton = GetNode<Button>("PauseMenu/Buttons/SettingsButton");
+        devButton = GetNode<Button>("Exit2");
 
         resumeButton.Pressed += OnResumePressed;
         teleportToShipButton.Pressed += OnTeleportToShipPressed;
         saveAndExitButton.Pressed += OnSaveAndExitPressed;
         settingsButton.Pressed += OnSettingsPressed;
+        devButton.Pressed += () => { CallDeferred(nameof(DoGoTo), "DevMapView"); GetTree().Paused = false; };
 
-        if(GameManager.Instance.PreviousScene == "Settings")
-        {
-            Visible = true; // If we are coming from the settings menu, show the pause menu immediately
-            GetTree().Paused = true; // Pause the game immediately if we are coming from the settings menu
-        }
+        // Show immediately if returning from settings
+        bool returningFromSettings = GameManager.Instance.PreviousScene == "Settings";
+        Visible = returningFromSettings;
+        GetTree().Paused = returningFromSettings;
+
+        RefreshButtons();
     }
 
     public override void _Input(InputEvent e)
     {
-        if (e.IsActionPressed("ui_cancel")){
+        if (e.IsActionPressed("ui_cancel"))
             TogglePause();
-        }
     }
 
     private void TogglePause()
     {
-        Visible = !Visible; // Toggle the visibility of the pause menu
-        GetTree().Paused = Visible; // Pause the game when the pause menu is visible, unpause when hidden
+        Visible = !Visible;
+        GetTree().Paused = Visible;
+        if (Visible) RefreshButtons();
     }
 
-    public void OnResumePressed()
+    private void RefreshButtons()
+    {
+        bool onShip = GameManager.Instance.CurrentScene == "Ship";
+
+        if (onShip)
+        {
+            teleportToShipButton.Text = "Return to Dungeon";
+            bool hasDungeonProgress = GameManager.Instance.CurrentDungeonRooms != null
+                && GameManager.Instance.CurrentDungeonRooms.Count > 0
+                && GameManager.Instance.CurrentDungeonRooms.Exists(r => r.IsCleared);
+            teleportToShipButton.Disabled = !hasDungeonProgress;
+            teleportToShipButton.TooltipText = hasDungeonProgress ? "" : "Enter the dungeon first!";
+        }
+        else
+        {
+            // WIll not allow teleporting to the ship until the room is cleared.
+            teleportToShipButton.Text = "Teleport to Ship";
+            bool roomCleared = GameManager.Instance.currentRoom?.IsCleared ?? false;
+            teleportToShipButton.Disabled = !roomCleared;
+            teleportToShipButton.TooltipText = roomCleared ? "" : "Clear the room first!";
+        }
+    }
+
+    private void OnResumePressed()
     {
         Visible = false;
-        GetTree().Paused = false; // Unpause the game when resuming
+        GetTree().Paused = false;
     }
 
-    public void OnTeleportToShipPressed()
+    private void OnTeleportToShipPressed()
     {
-        GetTree().Paused = false; // Unpause the game before teleporting to ensure any necessary cleanup happens
-        GameManager.Instance.GoTo("Ship");
+        // If you are on the ship, go back to the dungeon
+        // If you are in the dungeon, go to the ship
+        bool onShip = GameManager.Instance.CurrentScene == "Ship";
+
+        if (onShip)
+        {
+            CallDeferred(nameof(DoGoTo), GameManager.Instance.PreviousScene);
+        }
+        else
+        {
+            if (GameManager.Instance.currentRoom?.IsCleared != true) return;
+            CallDeferred(nameof(DoGoTo), "Ship");
+        }
+        // GoTo already unpauses, but just in case
+        GetTree().Paused = false;
     }
 
-    public void OnSaveAndExitPressed()
+    private void DoGoTo(string scene)
     {
-        GetTree().Paused = false; // Unpause the game before exiting to ensure any necessary cleanup happens
+        GameManager.Instance.GoTo(scene);
+    }
+
+    private void OnSaveAndExitPressed()
+    {
         GameManager.Instance.SaveGame();
-        GameManager.Instance.GoTo("HomeScreen");
         GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
+        CallDeferred(nameof(DoGoTo), "HomeScreen");
     }
 
-    public void OnSettingsPressed()
+    private void OnSettingsPressed()
     {
-        GetTree().Paused = false; // Unpause the game before navigating to settings
-        GameManager.Instance.GoTo("Settings");
+        CallDeferred(nameof(DoGoTo), "Settings");
     }
-
 }

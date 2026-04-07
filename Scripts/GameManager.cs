@@ -23,6 +23,11 @@ public partial class GameManager : Node
     public string PreviousScene { get; set; } = "";
     public string CurrentScene { get; set; } = "";
 
+    public RandomWalkRoom currentRoom; // Track the player's current room for easy access to its properties when needed
+
+    public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
+    
+
 
 
     public override void _Ready()
@@ -39,6 +44,7 @@ public partial class GameManager : Node
         Levels["Settings"] = GD.Load<PackedScene>("Scenes/Settings/Settings.tscn"); // Load the settings screen and add it to the dictionary
         Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
         Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
+        Levels["DevMapView"] = GD.Load<PackedScene>("Scenes/AmmonsTestScenes/DEV_FullMap.tscn"); // Load the dev map view scene and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
@@ -59,13 +65,21 @@ public partial class GameManager : Node
         CurrentDungeonRooms = rooms; // Set the current dungeon rooms to the generated rooms
         CurrentDungeonHallways = hallways; // Set the current dungeon hallways to the generated
         CurrentDungeonSeed = seed;
+
+        var graphReplacement = new DungeonGraphReplacement();
+
+        // Perform graph replacement to set rooms
+        graphReplacement.Replace(rooms, hallways, seed);
+
         PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
+        currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the starting room
         RefreshMiniMap(); // Refresh the minimap to show the new dungeon layout
     }
 
     public void OnPlayerEnterRoom(Vector2I newRoom)
     {
-        PlayerCurrentRoom = newRoom; // Update the player's current room
+        PlayerCurrentRoom = newRoom; // Update the player's current room\
+        currentRoom = GetRoomAt(PlayerCurrentRoom); // Update the current room reference to the new room
         RefreshMiniMap(); // Refresh the minimap to show the player's new position
     }
 
@@ -137,7 +151,8 @@ public partial class GameManager : Node
         CurrentDungeonHallways = new(); // Clear the current dungeon hallways
         CurrentDungeonSeed = 0; // Reset the current dungeon seed
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
-        GoTo("Dungeon"); // Go to the dungeon scene to start a new game
+        currentRoom = null; // Clear the current room reference
+        GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
 
@@ -161,6 +176,7 @@ public partial class GameManager : Node
         var data = new Godot.Collections.Dictionary();
         data["seed"] = CurrentDungeonSeed;
         data["playerRoom_x"] = PlayerCurrentRoom.X;
+        data["currentScene"] = CurrentScene;
         data["playerRoom_y"] = PlayerCurrentRoom.Y;
 
         var roomList = new Godot.Collections.Array();
@@ -228,12 +244,16 @@ public partial class GameManager : Node
         // 4. Get dungeon data, and load it into the game manager
         var dungeonJson = new Json();
         dungeonJson.Parse(saveFile["dungeon"].AsString());
-        LoadDungeon(dungeonJson.Data.AsGodotDictionary());
+        var dungeonData = dungeonJson.Data.AsGodotDictionary();
+        LoadDungeon(dungeonData);
 
         // 5. Get character data, and load it into the game manager
         var characterJson = new Json();
         characterJson.Parse(saveFile["character"].AsString());
         LoadCharacter(characterJson.Data.AsGodotDictionary());
+
+        string scene = dungeonData.ContainsKey("currentScene") ? dungeonData["currentScene"].AsString() : "Ship";
+        GoTo(scene); // Go to the saved scene after loading
 
     }
 
@@ -242,6 +262,7 @@ public partial class GameManager : Node
         //1.  Get the seed and play position
         CurrentDungeonSeed = (int)data["seed"];
         PlayerCurrentRoom = new Vector2I((int)data["playerRoom_x"], (int)data["playerRoom_y"]);
+        
 
 
         //2.  ReGenerate the dungeon with the loaded seed
@@ -278,6 +299,7 @@ public partial class GameManager : Node
 
         CurrentDungeonRooms = result.Rooms; // Set the current dungeon rooms to the loaded rooms
         CurrentDungeonHallways = result.Hallways; // Set the current dungeon hallways to the loaded hallways
+        currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the player's current room after loading
         RefreshMiniMap(); // Refresh the minimap to show the loaded dungeon
     }
 
@@ -355,6 +377,17 @@ public partial class GameManager : Node
             miniMap.Refresh(CurrentDungeonRooms, PlayerCurrentRoom, CurrentDungeonHallways);
         else
             miniMap = null; // clean up bad reference if the minimap was freed without unregistering
+    }
+
+    /// FOR CHARACTER TRANSITIONS
+    
+    public void StartCharacterTransition()
+    {
+        characterIsTransitioning = true;
+    }
+    public void EndCharacterTransition()
+    {
+        characterIsTransitioning = false;
     }
 
 }
