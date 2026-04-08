@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c5ddh4x5xadta"]
+
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_agccv"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_g4oe6"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_yu0ev"]
+[ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/KeyboardInputController.tscn" id="3_86atj"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
+[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="9_km4ui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
+size = Vector2(60, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
+size = Vector2(58, 57)
+
+[node name="Player" type="CharacterBody2D" unique_id=2069174916]
+script = ExtResource("1_agccv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
+shape = SubResource("RectangleShape2D_86atj")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1300123052]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_td8ue")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=236186401]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g4oe6")
+
+[node name="Input" parent="." unique_id=493573941 instance=ExtResource("3_86atj")]
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_g4oe6")]
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_86atj")]
+Health = NodePath("../Health")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
+
+[node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+ProjectileScene = ExtResource("8_ynt0t")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bx7tdjfbbxco"]
+
+[ext_resource type="Script" uid="uid://cevw52blt645a" path="res://Scripts/Components/BaseProjectileAbility.cs" id="1_4dlys"]
+
+[node name="BaseProjectileAbility" type="Node2D" unique_id=98863126]
+script = ExtResource("1_4dlys")

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cpwhqn4bi766a"]
+
+[ext_resource type="Script" uid="uid://vdfm1qhexyn1" path="res://Scripts/Components/BasicMeleeController.cs" id="1_45efm"]
+
+[node name="BasicMeleeController" type="Node2D" unique_id=1145655090]
+script = ExtResource("1_45efm")

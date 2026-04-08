@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cwhrphtw64ijl"]
+
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_78hjj"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_15tph"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_y65en"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_gbb8c"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_8lv13"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/BasicMeleeController.tscn" id="6_gbb8c"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="7_8lv13"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hakig"]
+size = Vector2(38, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exmld"]
+size = Vector2(126.666664, 126.666664)
+
+[node name="BasicMeleeEnemy" type="CharacterBody2D" unique_id=853225139]
+script = ExtResource("1_78hjj")
+Speed = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=851995086]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hakig")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_y65en")]
+scale = Vector2(0.3, 0.3)
+collision_layer = 5
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=130624372]
+position = Vector2(3.1789143e-06, 1.390775e-06)
+shape = SubResource("RectangleShape2D_exmld")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1637762339]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_15tph")
+flip_v = true
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_gbb8c")]
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_8lv13")]
+Health = NodePath("../Health")
+
+[node name="Input" parent="." unique_id=1145655090 instance=ExtResource("6_gbb8c")]
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("7_8lv13")]

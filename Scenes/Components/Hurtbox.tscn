@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cmbqx2cbrg4gd"]
+
+[ext_resource type="Script" uid="uid://cw4kph57jqyvg" path="res://Scripts/Components/Hurtbox.cs" id="1_ap2yb"]
+
+[node name="Hurtbox" type="Area2D" unique_id=1590146584]
+monitoring = false
+script = ExtResource("1_ap2yb")

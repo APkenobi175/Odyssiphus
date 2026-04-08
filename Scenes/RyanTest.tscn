@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dbp6mahmpwqg"]
+
+[ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="1_2pujo"]
+[ext_resource type="PackedScene" uid="uid://dlnqnumpvlwta" path="res://Scenes/Components/Hitbox.tscn" id="2_2rpbh"]
+[ext_resource type="PackedScene" uid="uid://cwhrphtw64ijl" path="res://Scenes/Entities/BasicMeleeEnemy.tscn" id="3_y41id"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y41id"]
+radius = 55.145264
+
+[node name="RyanTest" type="Node2D" unique_id=1706203670]
+
+[node name="Player" parent="." unique_id=2069174916 groups=["PlayerFaction"] instance=ExtResource("1_2pujo")]
+position = Vector2(110, 92)
+
+[node name="Hitbox" parent="." unique_id=672177678 instance=ExtResource("2_2rpbh")]
+position = Vector2(472, 127)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1271431939]
+shape = SubResource("CircleShape2D_y41id")
+
+[node name="BasicMeleeEnemy" parent="." unique_id=853225139 instance=ExtResource("3_y41id")]
+position = Vector2(613, 139)
