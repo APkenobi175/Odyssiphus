@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="9_km4ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
 size = Vector2(60, 60)
@@ -43,3 +44,5 @@ Health = NodePath("../Health")
 
 [node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
 ProjectileScene = ExtResource("8_ynt0t")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]

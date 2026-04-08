@@ -25,10 +25,9 @@ public partial class BasicMeleeController : Node2D, IInputController
       MovementInput?.Invoke(targetRelativePosition.Normalized());
       FocusInput?.Invoke(targetRelativePosition);
 
-      if (targetRelativePosition.Length() <= 50)
+      if (targetRelativePosition.Length() <= 100)
       {
         Ability1?.Invoke();
-        GD.Print("Enemy attacking!");
       }
     }
   }

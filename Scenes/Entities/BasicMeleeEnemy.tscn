@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_gbb8c"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_8lv13"]
 [ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/BasicMeleeController.tscn" id="6_gbb8c"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="7_8lv13"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hakig"]
 size = Vector2(38, 37)
@@ -41,3 +42,5 @@ flip_v = true
 Health = NodePath("../Health")
 
 [node name="Input" parent="." unique_id=1145655090 instance=ExtResource("6_gbb8c")]
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("7_8lv13")]
