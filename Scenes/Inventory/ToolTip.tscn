@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dklnh8vvrs4kt"]
+
+[ext_resource type="Script" uid="uid://dtp5dvmmy0peg" path="res://scripts/Inventory/ToolTip.cs" id="1_wwusv"]
+
+[node name="ToolTip" type="ColorRect" unique_id=1601238399]
+anchors_preset = -1
+anchor_right = 0.149
+anchor_bottom = 0.1
+offset_right = -95.36
+offset_bottom = -36.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_wwusv")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1042098088]
+layout_mode = 0
+offset_right = 95.0
+offset_bottom = 35.0
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=399088483]
+layout_mode = 2

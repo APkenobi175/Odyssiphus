@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dr3pr1np1ir5i"]
+
+[node name="InventoryItem" type="Control" unique_id=2100019558]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=561846398]
+
+[node name="Label" type="Label" parent="." unique_id=1232857917]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
