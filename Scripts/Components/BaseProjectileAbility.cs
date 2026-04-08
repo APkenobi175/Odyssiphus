@@ -1,0 +1,82 @@
+using Godot;
+using System;
+
+public partial class BaseProjectileAbility : Node2D, IAbility
+{
+  [Export]
+  public PackedScene ProjectileScene;
+  [Export]
+  public int SpreadCount = 1; // Number of projectiles in each spread
+  [Export]
+  public float SpreadAngle = 0; // Total angle of spread (0 = no spread, 360 = circle)
+  [Export]
+  public int BurstCount = 1;  // Number of bursts/separate spreads
+  [Export]
+  public float BurstDelay = 0.01f;  // Seconds between each burst
+
+  private int burstTotal = 0;
+  private Timer burstTimer;
+  private Vector2 direction;
+
+  public override void _Ready()
+  {
+    burstTimer = new Timer
+    {
+      WaitTime = BurstDelay,
+      OneShot = false
+    };
+    burstTimer.Timeout += OnBurstTimerTimeout;
+    AddChild(burstTimer);
+  }
+
+
+  public void Activate(Vector2 position, Vector2 direction)
+  {
+    if (BurstCount <= 0) return;
+
+    this.direction = direction;
+
+    SpawnSpread();
+
+    if (BurstCount > 1)
+    {
+      burstTotal = 1;
+      burstTimer.Start();
+    }
+  }
+
+  private void SpawnSpread()
+  {
+    if (SpreadCount <= 0) return;
+    float totalAngle = SpreadAngle * Mathf.Pi / 180;
+    float angleIncrement = totalAngle / SpreadCount;
+    float startAngle = direction.Angle() - (totalAngle - angleIncrement * ((SpreadCount + 1) / 2));
+    
+    for (int i = 0; i < SpreadCount; i++)
+    {
+      SpawnProjectile(GlobalPosition, Vector2.Right.Rotated(startAngle + (i * angleIncrement)));
+    }
+  }
+
+  private void SpawnProjectile(Vector2 position, Vector2 direction)
+  {
+    Node node = ProjectileScene.Instantiate<Node>();
+    if (node is IProjectile projectile)
+    {
+      projectile.Initialize(position, direction);
+      GetTree().Root.AddChild(node);
+    }
+  }
+
+  private void OnBurstTimerTimeout()
+  {
+    burstTotal++;
+    SpawnSpread();
+
+    if (burstTotal >= BurstCount)
+    {
+      burstTimer.Stop();
+      return;
+    }
+  }
+}

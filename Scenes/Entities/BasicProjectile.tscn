@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dgtdb3te0s3tu"]
+
+[ext_resource type="Script" uid="uid://bx6r2giso5pyt" path="res://Scripts/Entities/BasicProjectile.cs" id="1_h5im6"]
+[ext_resource type="PackedScene" uid="uid://dlnqnumpvlwta" path="res://Scenes/Components/Hitbox.tscn" id="2_cbe60"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="3_dqsl2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kcus"]
+size = Vector2(12, 12)
+
+[node name="BasicProjectile" type="Node2D" unique_id=2066262109]
+script = ExtResource("1_h5im6")
+Speed = 500.0
+
+[node name="Hitbox" parent="." unique_id=672177678 instance=ExtResource("2_cbe60")]
+collision_mask = 4
+damage = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=263232710]
+shape = SubResource("RectangleShape2D_6kcus")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=284643423]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_dqsl2")

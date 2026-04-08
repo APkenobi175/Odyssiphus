@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/KeyboardInputController.tscn" id="3_86atj"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
+[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
 size = Vector2(60, 60)
@@ -38,3 +40,6 @@ texture = ExtResource("2_g4oe6")
 Health = NodePath("../Health")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
+
+[node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+ProjectileScene = ExtResource("8_ynt0t")

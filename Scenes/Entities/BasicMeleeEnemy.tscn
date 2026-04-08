@@ -23,6 +23,7 @@ shape = SubResource("RectangleShape2D_hakig")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_y65en")]
 scale = Vector2(0.3, 0.3)
+collision_layer = 5
 Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=130624372]
