@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://tkyphjpvbf2t" path="res://Scenes/World/Rooms/bossRoom.tscn" id="5_4yimq"]
 [ext_resource type="PackedScene" uid="uid://tiywjyt7pd5y" path="res://Scenes/World/Rooms/miniBossRoom.tscn" id="6_cvwg2"]
 [ext_resource type="PackedScene" uid="uid://b62cv0tb7b233" path="res://Scenes/World/Rooms/puzzleRoom.tscn" id="7_sqayr"]
-[ext_resource type="PackedScene" uid="uid://c2lmat432akb4" path="res://Scenes/AmmonsTestScenes/godoticon.tscn" id="10_xaamn"]
+[ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="10_xaamn"]
 
 [node name="Dungeon" type="Node2D" unique_id=1429901411]
 script = ExtResource("1_cfi0b")
@@ -33,7 +33,10 @@ offset_bottom = 55.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=653017666]
 position = Vector2(320, 180)
 
-[node name="Player" parent="." unique_id=192849984 instance=ExtResource("10_xaamn")]
-
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
 process_mode = 3
+visible = false
+
+[node name="Player" parent="." unique_id=2069174916 instance=ExtResource("10_xaamn")]
+position = Vector2(314, 184)
+scale = Vector2(0.5, 0.5)

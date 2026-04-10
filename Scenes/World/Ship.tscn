@@ -6,10 +6,10 @@
 [ext_resource type="TileSet" uid="uid://5txoup8bonkw" path="res://Assets/Tiles/Beach.tres" id="3_cxfkb"]
 [ext_resource type="Texture2D" uid="uid://bgnbds535xtf6" path="res://Assets/AssetPacks/ship bases/SHIP_rework-base-front.png" id="4_f80v3"]
 [ext_resource type="Script" uid="uid://cmsuproeogcte" path="res://Scripts/World/Transition.cs" id="5_6tdsr"]
-[ext_resource type="PackedScene" uid="uid://c2lmat432akb4" path="res://Scenes/AmmonsTestScenes/godoticon.tscn" id="5_cxfkb"]
 [ext_resource type="Texture2D" uid="uid://d313ikktqd37t" path="res://Assets/AssetPacks/Ship Asset Pack/SHIP_rework-sails+masts.png" id="6_f80v3"]
 [ext_resource type="Texture2D" uid="uid://dq5wdpo2ur364" path="res://Assets/AssetPacks/Ship Asset Pack/SHIP_rework-misc.png" id="7_qxnnb"]
 [ext_resource type="Texture2D" uid="uid://2fqcxcy2mj1o" path="res://Assets/AssetPacks/latter2.png" id="10_4rd60"]
+[ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="10_6tdsr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxnnb"]
 radius = 34.42498
@@ -259,9 +259,6 @@ position = Vector2(135.37497, -80.906235)
 position = Vector2(12, 1)
 shape = SubResource("SegmentShape2D_qimyu")
 
-[node name="Godoticon" parent="." unique_id=192849984 instance=ExtResource("5_cxfkb")]
-position = Vector2(231, 235)
-
 [node name="shipPost" type="Sprite2D" parent="." unique_id=1159434948]
 position = Vector2(305.00003, 74)
 scale = Vector2(0.4475138, 0.6135135)
@@ -296,3 +293,7 @@ scale = Vector2(0.75614244, 0.6215376)
 texture = ExtResource("10_4rd60")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Player" parent="." unique_id=2069174916 instance=ExtResource("10_6tdsr")]
+position = Vector2(280, 217)
+scale = Vector2(0.5, 0.5)
