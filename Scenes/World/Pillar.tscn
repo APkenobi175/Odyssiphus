@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ddh3olh2kmq6l"]
+
+[ext_resource type="Texture2D" uid="uid://c1bqm1nrfben3" path="res://Assets/AssetPacks/buildings_48px.png" id="1_4mgtl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qysxb"]
+radius = 19.026299
+
+[node name="Pillar" type="Node2D" unique_id=541105478]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=80502044]
+position = Vector2(262, 194)
+texture = ExtResource("1_4mgtl")
+region_enabled = true
+region_rect = Rect2(2061.3955, 316.99927, 47.333008, 168.29456)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D" unique_id=925512412]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D" unique_id=220672367]
+position = Vector2(1, 65)
+shape = SubResource("CircleShape2D_qysxb")

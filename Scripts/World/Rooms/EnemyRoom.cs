@@ -16,6 +16,14 @@ public partial class EnemyRoom : Node2D
 	public override void _Ready()
 	{
 
+
+		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
+		var room = GameManager.Instance.currentRoom;
+		var tilemap = GetNode<TileMapLayer>("TileMapLayer");
+		var material = (ShaderMaterial)tilemap.Material;
+		material.SetShaderParameter("depth", room.Depth);
+		GD.Print($"Setting shader depth to {room.Depth} for room {room.Position}");
+
 		// Create my array of spawn points for enemies
 
 		enemyContainer = GetNode<Node2D>("SpawnPoints");
@@ -27,12 +35,6 @@ public partial class EnemyRoom : Node2D
 				spawnPoints.Add(marker);
 			}
 		}
-
-
-
-		
-		// Get current room from GameManager
-		var room = GameManager.Instance.currentRoom;
 
 		// Check hallways and set door visibility accordingly to only show doors that actually exist for this room
 		
