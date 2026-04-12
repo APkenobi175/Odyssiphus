@@ -6,6 +6,9 @@ public partial class Entity : CharacterBody2D
   [Export]
   public float Speed = 100;
 
+  [Export]
+  public Inventory inventory;
+
   private Vector2 focus = Vector2.Right;
 
   private IInputController input;
