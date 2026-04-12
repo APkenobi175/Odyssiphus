@@ -1,13 +1,14 @@
 using Godot;
 using System;
 
-public partial class BasicProjectile : Node2D, IProjectile
+public partial class BasicProjectile : Node2D, IProjectile, IFactionable
 {
   [Export]
   public float Speed = 1000;
   [Export]
   public float LifeDuration = 1;
   private Vector2 direction;
+  private Hitbox hitbox;
 
   public override void _PhysicsProcess(double delta)
   {
@@ -16,7 +17,7 @@ public partial class BasicProjectile : Node2D, IProjectile
 
   public void Initialize(Vector2 position, Vector2 direction)
   {
-    Hitbox hitbox = GetNodeOrNull<Hitbox>("Hitbox");
+    hitbox = GetNodeOrNull<Hitbox>("Hitbox");
     if (hitbox != null) hitbox.HurtboxHit += OnHurtboxHit;
 
     Position = position;
@@ -30,6 +31,11 @@ public partial class BasicProjectile : Node2D, IProjectile
     lifeTimer.Timeout += OnLifeTimerTimeout;
     AddChild(lifeTimer);
     lifeTimer.Autostart = true;
+  }
+
+  public void SetFaction(FactionManager.Faction faction)
+  {
+    hitbox?.SetFaction(faction);
   }
 
   private void OnHurtboxHit(Hurtbox hurtbox)

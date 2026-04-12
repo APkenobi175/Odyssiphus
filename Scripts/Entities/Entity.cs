@@ -5,10 +5,13 @@ public partial class Entity : CharacterBody2D
 {
   [Export]
   public float Speed = 100;
+  [Export]
+  public FactionManager.Faction Faction = FactionManager.Faction.Neutral;
 
   private Vector2 focus = Vector2.Right;
 
   private IInputController input;
+  private Hurtbox hurtbox;
   private Health health;
   private IDeathComponent death;
   private IAbility attack;
@@ -18,6 +21,7 @@ public partial class Entity : CharacterBody2D
   public override void _Ready()
   {
     input = GetNodeOrNull<IInputController>("Input");
+    hurtbox = GetNodeOrNull<Hurtbox>("Hurtbox");
     health = GetNodeOrNull<Health>("Health");
     death = GetNodeOrNull<IDeathComponent>("Death");
 
@@ -25,6 +29,7 @@ public partial class Entity : CharacterBody2D
     special = GetNodeOrNull<IAbility>("Special");
 
     ConnectEvents();
+    SetComponentFactions(Faction);
   }
 
   public override void _PhysicsProcess(double delta)
@@ -76,6 +81,32 @@ public partial class Entity : CharacterBody2D
     }
   }
 
+  public void SetComponentFactions(FactionManager.Faction faction)
+  {
+    // Should add IFactionable? With change to make it var with getter/setter?
+    // Also add entity to relevant group?
+    if (input is IFactionable factionableInput)
+    {
+      factionableInput.SetFaction(faction);
+    }
+
+    // Hitboxes/hurtboxes may not need check, since they most likely will always require a "faction"
+    if (hurtbox is IFactionable factionableHurtbox)
+    {
+      factionableHurtbox.SetFaction(faction);
+    }
+
+    if (attack is IFactionable factionableAttack)
+    {
+      factionableAttack.SetFaction(faction);
+    }
+
+    if (special is IFactionable factionableSpecial)
+    {
+      factionableSpecial.SetFaction(faction);
+    }
+  }
+
   public void OnMovementInput(Vector2 moveInput)
   {
     if (canAct) Velocity = moveInput * Speed;
@@ -84,7 +115,7 @@ public partial class Entity : CharacterBody2D
   public void OnFocusInput(Vector2 focus)
   {
     this.focus = focus;
-    if (canAct) Rotation = Position.AngleTo(focus);
+    //if (canAct) Rotation = Position.AngleTo(focus);
   }
 
   public void OnAttack()

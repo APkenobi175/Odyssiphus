@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BaseProjectileAbility : Node2D, IAbility
+public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
 {
   [Export]
   public PackedScene ProjectileScene;
@@ -17,6 +17,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility
   private int burstTotal = 0;
   private Timer burstTimer;
   private Vector2 direction;
+  private FactionManager.Faction faction = FactionManager.Faction.Neutral;
 
   public override void _Ready()
   {
@@ -45,6 +46,11 @@ public partial class BaseProjectileAbility : Node2D, IAbility
     }
   }
 
+  public void SetFaction(FactionManager.Faction faction)
+  {
+    this.faction = faction;
+  }
+
   private void SpawnSpread()
   {
     if (SpreadCount <= 0) return;
@@ -64,6 +70,12 @@ public partial class BaseProjectileAbility : Node2D, IAbility
     if (node is IProjectile projectile)
     {
       projectile.Initialize(position, direction);
+      
+      if (projectile is IFactionable factionableProjectile)
+      {
+        factionableProjectile.SetFaction(faction);
+      }
+
       GetTree().Root.AddChild(node);
     }
   }
