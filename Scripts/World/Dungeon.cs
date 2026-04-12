@@ -96,8 +96,15 @@ public partial class Dungeon : Node2D
 
             // WE NEED TO SET DOOR VISIBILITY FOR EACH ROOM
 
+            if (instance is EnemyRoom enemyRoom)
+            {
+                enemyRoom.RoomData = room; // Pass the room data to the enemy room instance so it can spawn the correct enemies and update the cleared state when all enemies are defeated.
+            }
+
+
             container.AddChild(instance);
             SetRoomDoors(instance, room);
+
 
 
 
