@@ -58,7 +58,7 @@ public partial class EnemyRoom : Node2D
 		hasSpawned = true;
 
 		GD.Print("Spawning Enemies!!");
-		return; // Comment this out to enable enemy spawning
+		// return; // Comment this out to enable enemy spawning
 		CallDeferred(MethodName.SpawnEnemies);
 	}
 

@@ -20,72 +20,59 @@ public class DungeonGraphReplacement
 
     private Random rng;
 
-    public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
+public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
+{
+    rng = new Random(seed);
+
+    // 1. Build Adjacency Map
+    var adjacency = BuildAdjacency(rooms, hallways);
+
+    // 2. BFS from origin (0,0)
+    var startRoom = rooms.Find(r => r.Position == Vector2I.Zero);
+    var (distances, parents) = BFS(startRoom, adjacency);
+
+    // 3. Boss is farthest from start
+    var bossRoom = distances.OrderByDescending(kvp => kvp.Value).First().Key;
+    bossRoom.RoomType = RoomType.BossRoom;
+
+    // 4. BFS from boss for depth assignment
+    var (distancesFromBoss, _) = BFS(bossRoom, adjacency);
+
+    int maxDistFromBoss = distancesFromBoss.Values.Max();
+    foreach (var kvp in distancesFromBoss)
     {
-        rng = new Random(seed);
-
-        //1.  Build Adjacency Map for graph traversal
-        var adjacency = BuildAdjacency(rooms, hallways);
-
-        // 2. Breadth First Search from start room
-
-        // 2.1 Find the start room (position 0,0)
-        var startRoom = rooms.Find(r => r.Position == Vector2I.Zero);
-        // 2.2 BFS to find distances from start room to all other rooms
-        var (distances, parents) = BFS(startRoom, adjacency);
-
-
-        // 3. Identify the boss room as the farthest room from the start
-        var bossRoom = distances.OrderByDescending(kvp => kvp.Value).First().Key;
-        bossRoom.RoomType = RoomType.BossRoom;
-
-        // DO BFS again to get distances from boss room for depth assignment
-        var (distancesFromBoss, _) = BFS(bossRoom, adjacency);
-
-        // Assign depth based on distances from boss
-        int maxDistanceFromBoss = distancesFromBoss.Values.Max();
-        foreach (var kvp in distancesFromBoss)
-        {
-            kvp.Key.Depth = maxDistanceFromBoss > 0 ? 1f - ((float)kvp.Value / maxDistanceFromBoss) : 0f; // Depth is 1.0 at boss, 0.0 at farthest rooms
-        }
-
-        // 4. Trace critical path from start to boss
-        var criticalPath = TracePath(bossRoom, startRoom, parents);
-
-        // 5. Assign start room
-        startRoom.RoomType = RoomType.Start;
-        startRoom.IsCleared = true; // Start room is always cleared
-
-        // 6. Assign Mini Boss Rooms
-        PlaceMiniBosses(criticalPath, RequiredMiniBosses);
-
-
-
-        // 8. Assign types to remaining rooms
-
-        var criticalSet = new HashSet<RandomWalkRoom>(criticalPath);
-        
-        foreach (var room in rooms)
-        {
-            if (room.RoomType != RoomType.EnemyRoom) continue; // Skip already assigned rooms
-
-            if (criticalSet.Contains(room)) continue; // Skip critical path rooms
-
-            double roll = rng.NextDouble();
-            if (roll < TreasureRoomChance)
-            {
-                room.RoomType = RoomType.TreasureRoom;
-            } 
-            else if(roll < TreasureRoomChance + PuzzleRoomChance)
-            {
-                room.RoomType = RoomType.PuzzleRoom;
-            }
-        }
-
-
-
-
+        kvp.Key.Depth = maxDistFromBoss > 0
+            ? 1f - ((float)kvp.Value / maxDistFromBoss)
+            : 0f;
     }
+
+    // 5. Assign start room
+    startRoom.RoomType = RoomType.Start;
+    startRoom.IsCleared = true;
+    startRoom.Depth = 0f; // force exactly 0
+
+    // 6. Trace critical path from start to boss
+    var (distancesFromStart, parentsFromStart) = BFS(startRoom, adjacency);
+    var criticalPath = TracePath(bossRoom, startRoom, parentsFromStart);
+
+    // 8. Place mini bosses along critical path
+    PlaceMiniBosses(criticalPath, RequiredMiniBosses);
+
+    // 9. Assign remaining room types
+    var criticalSet = new HashSet<RandomWalkRoom>(criticalPath);
+
+    foreach (var room in rooms)
+    {
+        if (room.RoomType != RoomType.EnemyRoom) continue;
+        if (criticalSet.Contains(room)) continue;
+
+        double roll = rng.NextDouble();
+        if (roll < TreasureRoomChance)
+            room.RoomType = RoomType.TreasureRoom;
+        else if (roll < TreasureRoomChance + PuzzleRoomChance)
+            room.RoomType = RoomType.PuzzleRoom;
+    }
+}
 
 
     private (Dictionary<RandomWalkRoom, int>, Dictionary<RandomWalkRoom, RandomWalkRoom>) BFS(RandomWalkRoom start, Dictionary<RandomWalkRoom, List<RandomWalkRoom>> adjacency)

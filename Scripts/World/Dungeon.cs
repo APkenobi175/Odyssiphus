@@ -33,24 +33,38 @@ public partial class Dungeon : Node2D
 
     private const int HallwayLength = 64;
 
+    private const int MaxRooms = 30; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
+    private const int minRooms = 20; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
+
     public override void _Ready()
     {
 
         // ADDED 3/29/26 ONLY GENERATE IF THERE IS NOT ONE ALREADY EXISTING.
         if (GameManager.Instance.CurrentDungeonRooms.Count == 0)
         {
+            
             // 1. Generate the dungeon layout using the RandomWalk algorithm
             var walker = new RandomWalk();
             var result = walker.Generate(
                 minSteps: 5,
-                maxSteps: 15,
-                stepChance: 0.8f,
-                branchChance: 0.3f,
+                maxSteps: 10,
+                stepChance: 0.7f,
+                branchChance: 0.2f,
                 allowLoops: false,
                 allowBranches: true,
                 allowBranchesToConnect: false,
                 seed: 0 // random walk function uses random seed when seed is 0
             );
+
+            if (result.Rooms.Count < minRooms || result.Rooms.Count > MaxRooms)
+            {
+                GD.Print($"Generated dungeon with {result.Rooms.Count} rooms, which is outside the desired range of {minRooms}-{MaxRooms}. Regenerating...");
+                // Clear the generated rooms and hallways before regenerating
+                result.Rooms.Clear();
+                result.Hallways.Clear();
+                _Ready(); // Call _Ready again to regenerate
+                return;
+            }
 
             // 2. Populate the doors for each room
             RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
