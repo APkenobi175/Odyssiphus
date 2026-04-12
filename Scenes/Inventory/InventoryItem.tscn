@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://dr3pr1np1ir5i"]
 
+[ext_resource type="Script" uid="uid://bmpvxflhpptgr" path="res://Scripts/Inventory/InventoryItem.cs" id="1_3pf8p"]
+
 [node name="InventoryItem" type="Control" unique_id=2100019558]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_3pf8p")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=561846398]
 
