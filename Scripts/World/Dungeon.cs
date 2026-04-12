@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 
@@ -59,21 +61,42 @@ public partial class Dungeon : Node2D
 
             GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, result.Seed); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
             GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
+            var positions = GameManager.Instance.CurrentDungeonRooms.Select(r => r.Position).ToList();
+            var duplicates = positions.GroupBy(p => p).Where(g => g.Count() > 1).ToList();
+            GD.Print($"Duplicate room positions: {duplicates.Count}");
+            foreach (var dup in duplicates)
+            {
+                GD.Print($"Position {dup.Key} has {dup.Count()} duplicates");
+            }
 
-            
         }
 
         SpawnRooms();
+        
 
 
     }
 
+    private bool hasSpawned = false; // Added to prevent multiple spawns when _Ready is called more than once (which can happen when re-entering the dungeon from the boss fight for example)
+
     private void SpawnRooms()
     {
+
+        if (hasSpawned)
+        {
+            return;
+        }
+        hasSpawned = true;
         var container = GetNode<Node2D>("RoomsContainer");
+        var spawnedPositions = new HashSet<Vector2I>(); // keep track of spawned positions to avoid duplicates
 
         foreach (var room in GameManager.Instance.CurrentDungeonRooms)
         {
+            if (!spawnedPositions.Add(room.Position))
+            {
+                GD.PrintErr($"Duplicate room position detected: {room.Position}. Skipping spawn for this room.");
+                continue;
+            }
             PackedScene scene = room.RoomType switch
             {
                 RoomType.Start => StartRoomScene,
@@ -97,14 +120,18 @@ public partial class Dungeon : Node2D
             // WE NEED TO SET DOOR VISIBILITY FOR EACH ROOM
 
             if (instance is EnemyRoom enemyRoom)
-            {
-                enemyRoom.RoomData = room; // Pass the room data to the enemy room instance so it can spawn the correct enemies and update the cleared state when all enemies are defeated.
-            }
-
+                enemyRoom.RoomData = room;
+            else if (instance is MiniBossRoom miniBossRoom)
+                miniBossRoom.RoomData = room;
+            else if (instance is BossRoom bossRoom)
+                bossRoom.RoomData = room;
+            else if (instance is TreasureRoom treasureRoom)
+                treasureRoom.RoomData = room;
+            else if (instance is PuzzleRoom puzzleRoom)
+                puzzleRoom.RoomData = room;
 
             container.AddChild(instance);
             SetRoomDoors(instance, room);
-
 
 
 

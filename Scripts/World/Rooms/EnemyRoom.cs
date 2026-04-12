@@ -23,9 +23,10 @@ public partial class EnemyRoom : Node2D
 		var room = RoomData ?? GameManager.Instance.currentRoom;
 		float depth = room.Depth;
 		var tilemap = GetNode<TileMapLayer>("TileMapLayer");
-		var material = (ShaderMaterial)tilemap.Material;
-		material.SetShaderParameter("depth", room.Depth);
-		GD.Print($"Setting shader depth to {room.Depth} for room {room.Position}");
+		var material = (ShaderMaterial)tilemap.Material.Duplicate(); // Added duplicate so that every room has its own.
+		tilemap.Material = material;
+		material.SetShaderParameter("depth", depth);
+		GD.Print($"Setting shader depth to {depth} for room {room.Position}");
 
 		// Create my array of spawn points for enemies
 
@@ -57,6 +58,7 @@ public partial class EnemyRoom : Node2D
 		hasSpawned = true;
 
 		GD.Print("Spawning Enemies!!");
+		return; // Comment this out to enable enemy spawning
 		CallDeferred(MethodName.SpawnEnemies);
 	}
 

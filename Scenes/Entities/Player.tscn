@@ -19,6 +19,7 @@ size = Vector2(58, 57)
 [node name="Player" type="CharacterBody2D" unique_id=2069174916 groups=["PlayerFaction"]]
 motion_mode = 1
 script = ExtResource("1_agccv")
+Speed = 400.0
 Faction = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]

@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://tkyphjpvbf2t"]
 
+[ext_resource type="Script" uid="uid://tgpeakcxghic" path="res://Scripts/World/Rooms/BossRoom.cs" id="1_07to6"]
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_rfqva"]
 [ext_resource type="Texture2D" uid="uid://cxg01vk2y5dmw" path="res://Assets/AssetPacks/Atlantis/tf_A5_atlantisA.png" id="2_g0y34"]
 [ext_resource type="PackedScene" uid="uid://biobf3qljc5o2" path="res://Scenes/Entities/Posiedon_AmmonTest.tscn" id="3_07to6"]
@@ -143,6 +144,7 @@ a = Vector2(-316, 3)
 b = Vector2(-315, -340)
 
 [node name="BossRoom" type="Node2D" unique_id=658943876]
+script = ExtResource("1_07to6")
 
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("1_rfqva")]
 process_mode = 3

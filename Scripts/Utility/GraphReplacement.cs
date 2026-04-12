@@ -39,6 +39,16 @@ public class DungeonGraphReplacement
         var bossRoom = distances.OrderByDescending(kvp => kvp.Value).First().Key;
         bossRoom.RoomType = RoomType.BossRoom;
 
+        // DO BFS again to get distances from boss room for depth assignment
+        var (distancesFromBoss, _) = BFS(bossRoom, adjacency);
+
+        // Assign depth based on distances from boss
+        int maxDistanceFromBoss = distancesFromBoss.Values.Max();
+        foreach (var kvp in distancesFromBoss)
+        {
+            kvp.Key.Depth = maxDistanceFromBoss > 0 ? 1f - ((float)kvp.Value / maxDistanceFromBoss) : 0f; // Depth is 1.0 at boss, 0.0 at farthest rooms
+        }
+
         // 4. Trace critical path from start to boss
         var criticalPath = TracePath(bossRoom, startRoom, parents);
 
@@ -50,13 +60,6 @@ public class DungeonGraphReplacement
         PlaceMiniBosses(criticalPath, RequiredMiniBosses);
 
 
-        // 7. Assign depth to all rooms (0.0 is start, 1.0 is boss)
-
-        int maxDistance = distances.Values.Max();
-        foreach (var kvp in distances)
-        {
-            kvp.Key.Depth = maxDistance > 0 ? (float)kvp.Value / maxDistance : 0f;
-        }
 
         // 8. Assign types to remaining rooms
 
