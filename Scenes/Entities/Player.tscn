@@ -16,8 +16,10 @@ size = Vector2(60, 60)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
 size = Vector2(58, 57)
 
-[node name="Player" type="CharacterBody2D" unique_id=2069174916]
+[node name="Player" type="CharacterBody2D" unique_id=2069174916 groups=["PlayerFaction"]]
+motion_mode = 1
 script = ExtResource("1_agccv")
+Faction = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
 shape = SubResource("RectangleShape2D_86atj")
