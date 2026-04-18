@@ -10,9 +10,36 @@ offset_top = -21.0
 offset_right = 20.0
 offset_bottom = 19.0
 
-[node name="ToolTip" parent="." unique_id=1601238399 instance=ExtResource("1_3kvya")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
+[node name="Player" type="CharacterBody2D" unique_id=2069174916 groups=["PlayerFaction"]]
+motion_mode = 1
+script = ExtResource("1_agccv")
+Speed = 400.0
+Faction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
+shape = SubResource("RectangleShape2D_86atj")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1300123052]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_td8ue")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=236186401]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g4oe6")
+
+[node name="Input" parent="." unique_id=493573941 instance=ExtResource("3_86atj")]
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_g4oe6")]
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_86atj")]
+Health = NodePath("../Health")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
+
+[node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+ProjectileScene = ExtResource("8_ynt0t")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]

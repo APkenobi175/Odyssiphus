@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 
@@ -31,24 +33,38 @@ public partial class Dungeon : Node2D
 
     private const int HallwayLength = 64;
 
+    private const int MaxRooms = 30; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
+    private const int minRooms = 20; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
+
     public override void _Ready()
     {
 
         // ADDED 3/29/26 ONLY GENERATE IF THERE IS NOT ONE ALREADY EXISTING.
         if (GameManager.Instance.CurrentDungeonRooms.Count == 0)
         {
+            
             // 1. Generate the dungeon layout using the RandomWalk algorithm
             var walker = new RandomWalk();
             var result = walker.Generate(
                 minSteps: 5,
-                maxSteps: 15,
-                stepChance: 0.8f,
-                branchChance: 0.3f,
+                maxSteps: 10,
+                stepChance: 0.7f,
+                branchChance: 0.2f,
                 allowLoops: false,
                 allowBranches: true,
                 allowBranchesToConnect: false,
                 seed: 0 // random walk function uses random seed when seed is 0
             );
+
+            if (result.Rooms.Count < minRooms || result.Rooms.Count > MaxRooms)
+            {
+                GD.Print($"Generated dungeon with {result.Rooms.Count} rooms, which is outside the desired range of {minRooms}-{MaxRooms}. Regenerating...");
+                // Clear the generated rooms and hallways before regenerating
+                result.Rooms.Clear();
+                result.Hallways.Clear();
+                _Ready(); // Call _Ready again to regenerate
+                return;
+            }
 
             // 2. Populate the doors for each room
             RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
@@ -59,21 +75,42 @@ public partial class Dungeon : Node2D
 
             GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, result.Seed); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
             GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
+            var positions = GameManager.Instance.CurrentDungeonRooms.Select(r => r.Position).ToList();
+            var duplicates = positions.GroupBy(p => p).Where(g => g.Count() > 1).ToList();
+            GD.Print($"Duplicate room positions: {duplicates.Count}");
+            foreach (var dup in duplicates)
+            {
+                GD.Print($"Position {dup.Key} has {dup.Count()} duplicates");
+            }
 
-            
         }
 
         SpawnRooms();
+        
 
 
     }
 
+    private bool hasSpawned = false; // Added to prevent multiple spawns when _Ready is called more than once (which can happen when re-entering the dungeon from the boss fight for example)
+
     private void SpawnRooms()
     {
+
+        if (hasSpawned)
+        {
+            return;
+        }
+        hasSpawned = true;
         var container = GetNode<Node2D>("RoomsContainer");
+        var spawnedPositions = new HashSet<Vector2I>(); // keep track of spawned positions to avoid duplicates
 
         foreach (var room in GameManager.Instance.CurrentDungeonRooms)
         {
+            if (!spawnedPositions.Add(room.Position))
+            {
+                GD.PrintErr($"Duplicate room position detected: {room.Position}. Skipping spawn for this room.");
+                continue;
+            }
             PackedScene scene = room.RoomType switch
             {
                 RoomType.Start => StartRoomScene,
@@ -95,6 +132,17 @@ public partial class Dungeon : Node2D
             instance.Position = new Vector2(room.Position.X * (RoomWidth + HallwayLength), room.Position.Y * (RoomHeight + HallwayLength));
 
             // WE NEED TO SET DOOR VISIBILITY FOR EACH ROOM
+
+            if (instance is EnemyRoom enemyRoom)
+                enemyRoom.RoomData = room;
+            else if (instance is MiniBossRoom miniBossRoom)
+                miniBossRoom.RoomData = room;
+            else if (instance is BossRoom bossRoom)
+                bossRoom.RoomData = room;
+            else if (instance is TreasureRoom treasureRoom)
+                treasureRoom.RoomData = room;
+            else if (instance is PuzzleRoom puzzleRoom)
+                puzzleRoom.RoomData = room;
 
             container.AddChild(instance);
             SetRoomDoors(instance, room);

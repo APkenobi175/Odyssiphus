@@ -1,14 +1,24 @@
 using Godot;
 using System;
 
-public partial class Hitbox : Area2D
+public partial class Hitbox : Area2D, IFactionable
 {
   [Export]
-  public float damage = 10;
+  public float Damage = 10;
+  [Export]
+  public FactionManager.Faction Faction = FactionManager.Faction.Neutral;
 
   public override void _Ready()
   {
+    SetFaction(Faction);
     AreaEntered += OnAreaEntered;
+  }
+
+  public void SetFaction(FactionManager.Faction faction)
+  {
+    Faction = faction;
+    CollisionLayer = 0;
+    CollisionMask = FactionManager.GetHitboxMask(faction, false);
   }
 
   public void OnAreaEntered(Node2D body)
@@ -17,7 +27,7 @@ public partial class Hitbox : Area2D
     {
       HurtboxHit?.Invoke(hurtbox);
 
-      hurtbox.Health?.ChangeHealth(-damage);
+      hurtbox.Health?.ChangeHealth(-Damage);
     }
   }
 

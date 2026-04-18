@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://cvbr021v5hir3"]
+
+[ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_u044i"]
+[ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_ibhaj"]
+[ext_resource type="StyleBox" uid="uid://ctmip2spmu01l" path="res://Assets/Styles/ButtonStyle.tres" id="3_rdmv2"]
+[ext_resource type="StyleBox" uid="uid://ddnpyj2misjrl" path="res://Assets/Styles/ButtonStylePressed.tres" id="4_lo4k6"]
+[ext_resource type="StyleBox" uid="uid://ctftheyx3fq" path="res://Assets/Styles/ButtonStyleOnHover.tres" id="5_i7qry"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l78q6"]
+content_margin_top = 1.0
+bg_color = Color(0.61875415, 0.21239537, 0.21619985, 1)
+
+[node name="YouDied" type="CanvasLayer" unique_id=52838180]
+
+[node name="HomeControls" type="VBoxContainer" parent="." unique_id=305185918]
+offset_left = 122.0
+offset_top = 6.0
+offset_right = 505.0
+offset_bottom = 356.0
+
+[node name="Title" type="VBoxContainer" parent="HomeControls" unique_id=405044876]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="HomeControls/Title" unique_id=1389701384]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_l78q6")
+
+[node name="Label" type="Label" parent="HomeControls/Title" unique_id=1032205891]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61875415, 0.21239537, 0.21619985, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HomeControls/Title" unique_id=314939126]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_l78q6")
+
+[node name="Title" type="Label" parent="HomeControls/Title" unique_id=1585085750]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61875415, 0.21239537, 0.21619985, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_u044i")
+theme_override_font_sizes/font_size = 52
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="HomeControls/Title" unique_id=1892159462]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_l78q6")
+
+[node name="Label2" type="Label" parent="HomeControls/Title" unique_id=453899454]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61875415, 0.21239537, 0.21619985, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="HomeControls/Title" unique_id=1923459094]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_l78q6")
+
+[node name="Buttons" type="VBoxContainer" parent="HomeControls" unique_id=1071319818]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="Continue" type="Button" parent="HomeControls/Buttons" unique_id=1213555928]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ibhaj")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_rdmv2")
+theme_override_styles/pressed = ExtResource("4_lo4k6")
+theme_override_styles/hover = ExtResource("5_i7qry")
+theme_override_styles/hover_pressed = ExtResource("5_i7qry")
+theme_override_styles/focus = ExtResource("5_i7qry")
+text = "Back To Ship"
+
+[node name="Exit" type="Button" parent="HomeControls/Buttons" unique_id=1654313529]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ibhaj")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = ExtResource("3_rdmv2")
+theme_override_styles/pressed = ExtResource("4_lo4k6")
+theme_override_styles/hover = ExtResource("5_i7qry")
+theme_override_styles/hover_pressed = ExtResource("5_i7qry")
+theme_override_styles/focus = ExtResource("5_i7qry")
+text = "Save and Exit To Menu
+"

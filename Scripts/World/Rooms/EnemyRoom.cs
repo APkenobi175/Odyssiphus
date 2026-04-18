@@ -12,17 +12,21 @@ public partial class EnemyRoom : Node2D
 	private List<Marker2D> spawnPoints = new();
 
 	Node2D enemyContainer; 
+
+	public RandomWalkRoom RoomData { get; set; } // This will be set by the Dungeon when it creates the room instance so that the room can spawn the correct enemies and update the cleared state when all enemies are defeated.
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 
 
 		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
-		var room = GameManager.Instance.currentRoom;
+		var room = RoomData ?? GameManager.Instance.currentRoom;
+		float depth = room.Depth;
 		var tilemap = GetNode<TileMapLayer>("TileMapLayer");
-		var material = (ShaderMaterial)tilemap.Material;
-		material.SetShaderParameter("depth", room.Depth);
-		GD.Print($"Setting shader depth to {room.Depth} for room {room.Position}");
+		var material = (ShaderMaterial)tilemap.Material.Duplicate(); // Added duplicate so that every room has its own.
+		tilemap.Material = material;
+		material.SetShaderParameter("depth", depth);
+		GD.Print($"Setting shader depth to {depth} for room {room.Position}");
 
 		// Create my array of spawn points for enemies
 
@@ -50,9 +54,11 @@ public partial class EnemyRoom : Node2D
 	{
 		GD.Print("Player Entered Enemy Room!!");
 		if(body is not Entity entity || hasSpawned) return;
+
 		hasSpawned = true;
 
 		GD.Print("Spawning Enemies!!");
+		// return; // Comment this out to enable enemy spawning
 		CallDeferred(MethodName.SpawnEnemies);
 	}
 
@@ -65,7 +71,7 @@ public partial class EnemyRoom : Node2D
 	{
 
 		
-		float depth = GameManager.Instance.currentRoom.Depth;
+		float depth = RoomData?.Depth ?? GameManager.Instance.currentRoom.Depth;
 		int count = GetEnemyCount(depth);
 		List<Marker2D> shuffled = spawnPoints.OrderBy(x => GD.Randf()).ToList();
 
