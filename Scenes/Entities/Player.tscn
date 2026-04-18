@@ -1,14 +1,20 @@
 [gd_scene format=3 uid="uid://c5ddh4x5xadta"]
 
-[ext_resource type="PackedScene" uid="uid://dklnh8vvrs4kt" path="res://Scenes/Inventory/ToolTip.tscn" id="1_3kvya"]
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_agccv"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_g4oe6"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_yu0ev"]
+[ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/KeyboardInputController.tscn" id="3_86atj"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
+[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="9_km4ui"]
 
-[node name="Inventory" type="Node" unique_id=423280603]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
+size = Vector2(60, 60)
 
-[node name="InventoryGrid" type="GridContainer" parent="." unique_id=2015447538]
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 19.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
+size = Vector2(58, 57)
 
 [node name="Player" type="CharacterBody2D" unique_id=2069174916 groups=["PlayerFaction"]]
 motion_mode = 1
