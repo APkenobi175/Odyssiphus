@@ -5,27 +5,34 @@
 
 [node name="InventoryUI" type="Control" unique_id=903099080 node_paths=PackedStringArray("InventoryGrid")]
 layout_mode = 3
-anchor_right = 0.015000001
-anchor_bottom = 0.023000002
-offset_right = -9.6
-offset_bottom = -8.280001
+anchor_bottom = 0.003
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = -0.08000004
 script = ExtResource("2_nqetm")
-InventoryGrid = NodePath("InventoryGrid")
+InventoryGrid = NodePath("CenterContainer/InventoryGrid")
 
 [node name="ToolTip" parent="." unique_id=1601238399 instance=ExtResource("2_qx8s5")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -20.0
-offset_top = -21.0
-offset_right = -20.0
-offset_bottom = -21.0
+offset_left = 25.0
+offset_top = -3.0
+offset_right = 25.0
+offset_bottom = -3.0
 
-[node name="InventoryGrid" type="GridContainer" parent="." unique_id=2015447538]
-layout_mode = 0
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 19.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=329157792]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -1.0
+offset_top = -1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="CenterContainer" unique_id=2015447538]
+layout_mode = 2
 columns = 3

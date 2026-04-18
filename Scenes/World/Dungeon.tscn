@@ -32,12 +32,12 @@ offset_bottom = 55.0
 [node name="InventoryUI" parent="CanvasLayer" unique_id=903099080 instance=ExtResource("9_1u0ql")]
 anchor_left = -0.009000001
 anchor_top = 0.011000001
-anchor_right = 0.0
-anchor_bottom = 0.011000001
+anchor_right = 0.123
+anchor_bottom = 0.186
 offset_left = 320.76
 offset_top = 179.04
-offset_right = 315.0
-offset_bottom = 179.04
+offset_right = 236.28
+offset_bottom = 116.04
 
 [node name="RoomsContainer" type="Node2D" parent="." unique_id=1938428540]
 
