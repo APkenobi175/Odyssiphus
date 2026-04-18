@@ -2,13 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-[Tool] // Equivalent to @tool
+[Tool] 
 public partial class InventoryData : Control
 {
-    private PackedScene _inventoryItemScene = GD.Load<PackedScene>("res://Inventory/InventorySlot/InventoryItem/InventoryItem.tscn");
+    [Export] public PackedScene InventorySlotScene = GD.Load<PackedScene>("res://Scenes/Inventory/InventorySlot.tscn");
 
     [Export] public GridContainer InventoryGrid;
-    [Export] public PackedScene InventorySlotScene;
     [Export] public ToolTip Tooltip;
     [Export] public Inventory TargetInventory;
 
@@ -16,18 +15,32 @@ public partial class InventoryData : Control
 
     public static Item SelectedItem = null;
 
-    public override void _Ready()
+   public override void _Ready()
     {
+        // 1. Find the inventory if it's missing
         if (TargetInventory == null)
         {
-            GD.PrintErr("InventoryData: TargetInventory is not assigned!");
-            return;
+            var player = GetTree().GetFirstNodeInGroup("Player"); 
+            if (player != null)
+            {
+                // Note: Make sure the node name matches "InventoryController" exactly in the editor
+                TargetInventory = player.GetNodeOrNull<Inventory>("InventoryController");
+            }
         }
 
-        TargetInventory.InventoryChanged += RefreshUI;
+        // 2. Setup the Grid
+        if (TargetInventory != null)
+        {
+            TargetInventory.InventoryChanged += RefreshUI;
 
-        InitializeGrid();
-        RefreshUI();
+            // Pick ONLY InitializeGrid() because it also sets up the signals (SlotInput/Hovered)
+            InitializeGrid();
+            RefreshUI();
+        }
+        else
+        {
+            GD.PrintErr("InventoryData: Could not find TargetInventory on Player!");
+        }
     }
 
     public override void _Process(double delta)
@@ -107,6 +120,7 @@ public partial class InventoryData : Control
             var slot = InventorySlotScene.Instantiate<InventorySlot>();
             _slots.Add(slot);
             InventoryGrid.AddChild(slot);
+            GD.Print($"Created slot {i}");
 
             slot.SlotInput += OnSlotInput;
             slot.SlotHovered += OnSlotHovered;
@@ -122,6 +136,48 @@ public partial class InventoryData : Control
                 _slots[i].item = TargetInventory.Items[i];
                 _slots[i].UpdateSlot();
             }
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        // Make sure "toggle_inventory" is defined in your Project Settings -> Input Map
+        if (@event.IsActionPressed("Inventory"))
+        {
+            Visible = !Visible;
+            // Handle the mouse cursor
+            if (Visible)
+            {
+                Input.MouseMode = Input.MouseModeEnum.Visible;
+                RefreshUI(); // Update slots just in case
+            }
+            else
+            {
+                // If it's a top-down/action game, you might want to capture the mouse again
+                // Input.MouseMode = Input.MouseModeEnum.Captured; 
+                if (Tooltip != null) Tooltip.Visible = false;
+            }
+        }
+    }
+
+    private void CreateVisualSlots()
+    {
+        // Clear old slots
+        foreach (Node child in InventoryGrid.GetChildren()) child.QueueFree();
+        _slots.Clear();
+
+        // Loop through how many slots we are *supposed* to have
+        // (We get this from TargetInventory.Rows * TargetInventory.Cols)
+        for (int i = 0; i < (TargetInventory.Rows * TargetInventory.Cols); i++)
+        {
+            // 1. Instantiate the slot scene
+            var slot = InventorySlotScene.Instantiate<InventorySlot>();
+
+            // 2. Add it to the visual GridContainer
+            InventoryGrid.AddChild(slot);
+
+            // 3. Keep track of it in our list
+            _slots.Add(slot);
         }
     }
 }

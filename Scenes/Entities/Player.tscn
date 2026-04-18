@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="9_km4ui"]
+[ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_rsj4h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
 size = Vector2(60, 60)
@@ -49,3 +50,6 @@ Health = NodePath("../Health")
 ProjectileScene = ExtResource("8_ynt0t")
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
+
+[node name="InventoryController" parent="." unique_id=1379622013 node_paths=PackedStringArray("Items") instance=ExtResource("10_rsj4h")]
+Items = []

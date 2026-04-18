@@ -3,7 +3,7 @@ using System;
 
 public partial class InventorySlot : CenterContainer
 {
-	[Export] PackedScene InventoryItemScene = GD.Load<PackedScene>("res://Inventory/InventorySlot/InventoryItem/InventoryItem.tscn");
+	[Export] PackedScene InventoryItemScene = GD.Load<PackedScene>("res://Scenes/Inventory/InventoryItem.tscn");
 	[Export] public InventoryItem item;
 	[Export] public InventoryItem ItemHint = null;
 

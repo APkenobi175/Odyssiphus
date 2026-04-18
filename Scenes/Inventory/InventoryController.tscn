@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bcxavu8wcv18j"]
+
+[ext_resource type="Script" uid="uid://blq4yatgt41hp" path="res://Scripts/Inventory/Inventory.cs" id="1_58gea"]
+
+[node name="InventoryController" type="Node" unique_id=1379622013 node_paths=PackedStringArray("Items")]
+script = ExtResource("1_58gea")
+Items = []
