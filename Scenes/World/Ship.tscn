@@ -194,6 +194,7 @@ shape = SubResource("SegmentShape2D_u6dej")
 position = Vector2(217.37497, 1.0937653)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall10" unique_id=445613425]
+position = Vector2(-3, 1)
 shape = SubResource("SegmentShape2D_6tdsr")
 
 [node name="Invisible Wall9" type="StaticBody2D" parent="." unique_id=1930786506]
