@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b4al23fn1ixt6" path="res://Scripts/Inventory/InventorySlot.cs" id="1_bo8fl"]
 [ext_resource type="Texture2D" uid="uid://cw7a44uvugjgp" path="res://Assets/ItemSprites/InventoryBackground.png" id="1_w8tn1"]
-[ext_resource type="PackedScene" uid="uid://dr3pr1np1ir5i" path="res://Scenes/Inventory/InventoryItem.tscn" id="2_mnslx"]
 
 [node name="InventorySlot" type="CenterContainer" unique_id=403934664]
+custom_minimum_size = Vector2(32, 32)
 anchors_preset = -1
 anchor_left = 0.002
 anchor_right = 1.0
@@ -14,7 +14,6 @@ offset_top = -1.0
 offset_right = -3.0
 offset_bottom = -2.0
 script = ExtResource("1_bo8fl")
-InventoryItemScene = ExtResource("2_mnslx")
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=219971876]
 layout_mode = 2

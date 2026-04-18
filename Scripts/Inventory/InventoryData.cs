@@ -17,29 +17,25 @@ public partial class InventoryData : Control
 
    public override void _Ready()
     {
-        // 1. Find the inventory if it's missing
         if (TargetInventory == null)
         {
-            var player = GetTree().GetFirstNodeInGroup("Player"); 
-            if (player != null)
+            TargetInventory = GetNodeOrNull<Inventory>("/root/Dungeon/Player/InventoryController");
+
+            if (TargetInventory == null)
             {
-                // Note: Make sure the node name matches "InventoryController" exactly in the editor
-                TargetInventory = player.GetNodeOrNull<Inventory>("InventoryController");
+                TargetInventory = GetParent().GetNodeOrNull<Inventory>("../Player/InventoryController");
             }
         }
 
-        // 2. Setup the Grid
         if (TargetInventory != null)
         {
             TargetInventory.InventoryChanged += RefreshUI;
-
-            // Pick ONLY InitializeGrid() because it also sets up the signals (SlotInput/Hovered)
             InitializeGrid();
             RefreshUI();
         }
         else
         {
-            GD.PrintErr("InventoryData: Could not find TargetInventory on Player!");
+            GD.PrintErr("CRITICAL: InventoryUI could not find the Player's InventoryController");
         }
     }
 

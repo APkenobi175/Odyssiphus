@@ -3,13 +3,14 @@
 [ext_resource type="Script" uid="uid://cxbxo0prnrda6" path="res://Scripts/Inventory/InventoryData.cs" id="2_nqetm"]
 [ext_resource type="PackedScene" uid="uid://dklnh8vvrs4kt" path="res://Scenes/Inventory/ToolTip.tscn" id="2_qx8s5"]
 
-[node name="InventoryUI" type="Control" unique_id=903099080]
+[node name="InventoryUI" type="Control" unique_id=903099080 node_paths=PackedStringArray("InventoryGrid")]
 layout_mode = 3
 anchor_right = 0.015000001
 anchor_bottom = 0.023000002
 offset_right = -9.6
 offset_bottom = -8.280001
 script = ExtResource("2_nqetm")
+InventoryGrid = NodePath("InventoryGrid")
 
 [node name="ToolTip" parent="." unique_id=1601238399 instance=ExtResource("2_qx8s5")]
 layout_mode = 0
