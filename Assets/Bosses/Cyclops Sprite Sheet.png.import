@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2bqo5btb63js"
-path="res://.godot/imported/GodPoseidon-Sheet.png-2f7dac0c3509ee2732c48007ec60c13b.ctex"
+uid="uid://bjjry7gncoeyx"
+path="res://.godot/imported/Cyclops Sprite Sheet.png-0c8390bc1f74eb7c7bd90232892c3db0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/GodPoseidon-Sheet.png"
-dest_files=["res://.godot/imported/GodPoseidon-Sheet.png-2f7dac0c3509ee2732c48007ec60c13b.ctex"]
+source_file="res://Assets/Bosses/Cyclops Sprite Sheet.png"
+dest_files=["res://.godot/imported/Cyclops Sprite Sheet.png-0c8390bc1f74eb7c7bd90232892c3db0.ctex"]
 
 [params]
 

@@ -36,6 +36,7 @@ public partial class Dungeon : Node2D
     private const int MaxRooms = 30; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
     private const int minRooms = 20; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
 
+
     public override void _Ready()
     {
 
@@ -86,12 +87,29 @@ public partial class Dungeon : Node2D
         }
 
         SpawnRooms();
+
+        var player = GetNode<CharacterBody2D>("Player");
+        var health = player.GetNodeOrNull<Health>("Health");
+
+        if (health != null)
+        {
+            health.HealthDepleted += GameManager.Instance.OnPlayerDied;
+        }
+        else
+        {
+            GD.Print("no Health node found on player!");
+        }
         
 
 
     }
 
     private bool hasSpawned = false; // Added to prevent multiple spawns when _Ready is called more than once (which can happen when re-entering the dungeon from the boss fight for example)
+
+    private void OnPlayerHealthDepleted()
+    {
+        GameManager.Instance.OnPlayerDied();
+    }
 
     private void SpawnRooms()
     {

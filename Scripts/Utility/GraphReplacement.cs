@@ -20,6 +20,9 @@ public class DungeonGraphReplacement
 
     private Random rng;
 
+    private const int MinTreasureRooms = 3;
+    private const int MinPuzzleRooms = 2;
+
 public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
 {
     rng = new Random(seed);
@@ -50,6 +53,7 @@ public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways
     startRoom.RoomType = RoomType.Start;
     startRoom.IsCleared = true;
     startRoom.Depth = 0f; // force exactly 0
+    startRoom.IsDiscovered = true; // Start room is always discovered
 
     // 6. Trace critical path from start to boss
     var (distancesFromStart, parentsFromStart) = BFS(startRoom, adjacency);
@@ -68,10 +72,19 @@ public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways
 
         double roll = rng.NextDouble();
         if (roll < TreasureRoomChance)
+        {
             room.RoomType = RoomType.TreasureRoom;
+            room.IsCleared = true; // TREASURE ROOMS AUTO CLEAR
+        }
         else if (roll < TreasureRoomChance + PuzzleRoomChance)
+        {
             room.RoomType = RoomType.PuzzleRoom;
+        }
     }
+
+    // Ensure we have the minimum number of room types
+    EnsureMinimum(rooms, criticalSet, RoomType.TreasureRoom, MinTreasureRooms);
+    EnsureMinimum(rooms, criticalSet, RoomType.PuzzleRoom, MinPuzzleRooms);
 }
 
 
@@ -160,4 +173,31 @@ public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways
         }
 
     }
+
+    private void EnsureMinimum(List<RandomWalkRoom> rooms, HashSet<RandomWalkRoom> criticalSet, RoomType type, int minimum)
+    {
+        int current = rooms.Count(r => r.RoomType == type);
+        int needed = minimum - current;
+        if (needed <=0) return;
+
+        var candidates = rooms
+            .Where(r => r.RoomType == RoomType.EnemyRoom && !criticalSet.Contains(r))
+            .OrderBy(_ => rng.Next()) // Shuffle candidates
+            .Take(needed)
+            .ToList();
+
+        foreach (var room in candidates)
+        {
+            room.RoomType = type;
+            if (type == RoomType.TreasureRoom)
+            {
+                room.IsCleared = true; // TREASURE ROOMS AUTO CLEAR
+            }
+        }
+        if (candidates.Count < needed)
+        {
+            GD.PrintErr($"Warning: Not enough rooms to assign {type}. Needed {needed}, but only found {candidates.Count} candidates.");
+        }
+    }
+            
 }

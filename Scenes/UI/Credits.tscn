@@ -607,3 +607,47 @@ text = "Atlantis Tileset
 by finalbossblues
 (itch.io)"
 vertical_alignment = 1
+
+[node name="Node9" type="Label" parent="VBoxContainer/Credits" unique_id=2046837574]
+layout_mode = 2
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1322163395]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer12" unique_id=2083728382]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer12/GameDeveloper" unique_id=735510459]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Cyclops Sprite"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer12" unique_id=1078527772]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer12/Name" unique_id=847931448]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "2D Pixel Art
+Cyclops Sprites
+by Elthen
+(itch.io)"
+vertical_alignment = 1

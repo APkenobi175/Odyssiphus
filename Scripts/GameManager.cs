@@ -27,6 +27,8 @@ public partial class GameManager : Node
     public RandomWalkRoom currentRoom; // Track the player's current room for easy access to its properties when needed
 
     public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
+
+    public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
     
 
 
@@ -83,7 +85,13 @@ public partial class GameManager : Node
     {
         PlayerCurrentRoom = newRoom; // Update the player's current room\
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Update the current room reference to the new room
+
+        if (currentRoom != null)
+        {
+            currentRoom.IsDiscovered = true; // Mark the new room as discovered when the player enters it
+        }
         RefreshMiniMap(); // Refresh the minimap to show the player's new position
+
     }
 
     public void OnRoomCleared(Vector2I roomPos)
@@ -92,6 +100,12 @@ public partial class GameManager : Node
         if (room == null) return; // If no room found at this position, do nothing
         room.IsCleared = true; // Mark the room as cleared
         RefreshMiniMap(); // Refresh the minimap to show the cleared room
+
+        if (room.RoomType == RoomType.MiniBoss)
+        {
+            MiniBossesDeafted++; // Increment the mini boss defeat count if a mini boss was defeated
+            GD.Print($"Mini Boss defeated! Total mini bosses defeated: {MiniBossesDeafted}");
+        }
 
         // TODO: Unlock doors
     }
@@ -167,6 +181,7 @@ public partial class GameManager : Node
         CurrentDungeonSeed = 0; // Reset the current dungeon seed
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
+        MiniBossesDeafted = 0; // Reset the mini boss defeat count
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
@@ -193,6 +208,7 @@ public partial class GameManager : Node
         data["playerRoom_x"] = PlayerCurrentRoom.X;
         data["currentScene"] = CurrentScene;
         data["playerRoom_y"] = PlayerCurrentRoom.Y;
+        data["miniBossesDefeated"] = MiniBossesDeafted;
 
         var roomList = new Godot.Collections.Array();
         foreach (var room in CurrentDungeonRooms)
@@ -204,6 +220,7 @@ public partial class GameManager : Node
             r["hasGhost"] = room.hasGhost;
             r["depth"] = room.Depth;
             r["roomType"] = (int)room.RoomType;
+            r["isDiscovered"] = room.IsDiscovered;
             roomList.Add(r);
         }
         data["rooms"] = roomList;
@@ -310,11 +327,13 @@ public partial class GameManager : Node
             room.hasGhost = r["hasGhost"].AsBool();
             room.RoomType = (RoomType)(int)r["roomType"];
             room.Depth = (float)r["depth"];
+            room.IsDiscovered = r["isDiscovered"].AsBool();
         }
 
         CurrentDungeonRooms = result.Rooms; // Set the current dungeon rooms to the loaded rooms
         CurrentDungeonHallways = result.Hallways; // Set the current dungeon hallways to the loaded hallways
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the player's current room after loading
+        MiniBossesDeafted = (int)data["miniBossesDefeated"]; // Set the mini boss defeat count to the loaded value
         RefreshMiniMap(); // Refresh the minimap to show the loaded dungeon
     }
 
@@ -414,7 +433,15 @@ public partial class GameManager : Node
     {
         foreach(var room in CurrentDungeonRooms)
         {
-            room.IsCleared = false;
+            if (room.RoomType == RoomType.Start || room.RoomType == RoomType.TreasureRoom)
+            {
+                room.IsCleared = true; // Keep start and treasure rooms set to clear so you can traverse them.
+            }
+            else
+            {
+                room.IsCleared = false;
+            }
+            
         }
 
         PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
@@ -424,6 +451,7 @@ public partial class GameManager : Node
 
         characterIsTransitioning = false; // reset character transition state
         GetTree().Paused = false; // Unpause the game 
+        MiniBossesDeafted = 0; // Reset mini boss defeat count
     }
 
     public void OnPlayerDied()

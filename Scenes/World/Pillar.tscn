@@ -8,7 +8,8 @@ radius = 19.026299
 [node name="Pillar" type="Node2D" unique_id=541105478]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=80502044]
-position = Vector2(262, 194)
+position = Vector2(256.25, 161)
+scale = Vector2(0.7553192, 0.60714287)
 texture = ExtResource("1_4mgtl")
 region_enabled = true
 region_rect = Rect2(2061.3955, 316.99927, 47.333008, 168.29456)
