@@ -45,7 +45,7 @@ public partial class GameManager : Node
         Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
         Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
         Levels["DevMapView"] = GD.Load<PackedScene>("Scenes/AmmonsTestScenes/DEV_FullMap.tscn"); // Load the dev map view scene and add it to the dictionary
-        Levels["YOuDied"] = GD.Load<PackedScene>("Scenes/UI/YouDied.tscn"); // Load the you died screen and add it to the dictionary
+        Levels["YouDied"] = GD.Load<PackedScene>("Scenes/UI/YouDied.tscn"); // Load the you died screen and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 

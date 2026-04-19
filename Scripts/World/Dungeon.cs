@@ -153,10 +153,32 @@ public partial class Dungeon : Node2D
 
         }
 
-        // move camera to start room
+        
+
+
+        
+        // Get players current room position and move player and camera there
+        var currentRoomPos = GameManager.Instance.PlayerCurrentRoom;
+        GD.Print($"PlayerCurrentRoom =  {currentRoomPos}");
+        var worldPos = new Vector2(currentRoomPos.X * (RoomWidth + HallwayLength),
+            currentRoomPos.Y * (RoomHeight + HallwayLength));
+        GD.Print($" worldPos = {worldPos}");
 
         var camera = GetNode<Camera2D>("Camera2D");
-        camera.Position = new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+        camera.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+        GD.Print($"Camera positioned at {camera.Position}");
+
+        var player = GetNodeOrNull<CharacterBody2D>("Player");
+        if (player != null)
+        {
+            player.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+            GD.Print($"Player positioned at {player.Position}");
+        }
+        else
+        {
+            GD.Print("Player node not found in dungeon scene!");
+        }
+
     }
 
     private void SetRoomDoors(Node2D instance, RandomWalkRoom room)
@@ -205,6 +227,11 @@ public partial class Dungeon : Node2D
             else if (mouse.ButtonIndex == MouseButton.WheelDown)
                 camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
         }
+
+        if (Input.IsActionJustPressed("Suicide"))
+        {
+            GameManager.Instance.OnPlayerDied();
+        }
     }
 
     public void MoveCamera(Vector2I roomPos)
@@ -219,4 +246,5 @@ public partial class Dungeon : Node2D
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
+
 }
