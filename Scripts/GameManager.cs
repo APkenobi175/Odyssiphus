@@ -390,4 +390,25 @@ public partial class GameManager : Node
         characterIsTransitioning = false;
     }
 
+
+    /// Other Utilities
+    
+
+
+    public void ResetDungeon()
+    {
+        foreach(var room in CurrentDungeonRooms)
+        {
+            room.IsCleared = false;
+        }
+
+        PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
+        currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the starting room
+
+        miniMap = null; // clear mini map
+
+        characterIsTransitioning = false; // reset character transition state
+        GetTree().Paused = false; // Unpause the game 
+    }
+
 }
