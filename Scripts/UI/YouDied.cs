@@ -19,13 +19,11 @@ public Button backToShipButton;
 
     private void OnBackToMenuPressed()
     {
-        GameManager.Instance.ResetDungeon();
         GameManager.Instance.GoTo("HomeScreen");
     }
 
     private void OnBackToShipPressed()
     {
-        GameManager.Instance.ResetDungeon();
         GameManager.Instance.GoTo("Ship");
     }
 }
