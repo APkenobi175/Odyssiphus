@@ -1,0 +1,317 @@
+[gd_scene format=3 uid="uid://xqs1n1681jol"]
+
+[ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_eg3jt"]
+[ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_u63pf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng6he"]
+content_margin_top = 1.0
+bg_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+
+[node name="Credits" type="Node2D" unique_id=88948681]
+position = Vector2(0, 97)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=790567925]
+offset_right = 639.0
+offset_bottom = 356.0
+
+[node name="Title" type="VBoxContainer" parent="VBoxContainer" unique_id=510165007]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/Title" unique_id=1148324890]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_ng6he")
+
+[node name="Label" type="Label" parent="VBoxContainer/Title" unique_id=318494359]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Title" unique_id=1166502818]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_ng6he")
+
+[node name="Title" type="Label" parent="VBoxContainer/Title" unique_id=718935082]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_eg3jt")
+theme_override_font_sizes/font_size = 52
+text = "Odyssiphus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/Title" unique_id=1017299441]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_ng6he")
+
+[node name="Label2" type="Label" parent="VBoxContainer/Title" unique_id=1043932987]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5411765, 0.40784314, 0.1254902, 1)
+theme_override_font_sizes/font_size = 10
+text = "-   ✦   -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer/Title" unique_id=742768415]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxFlat_ng6he")
+
+[node name="Node2" type="Label" parent="VBoxContainer/Title" unique_id=527397142]
+layout_mode = 2
+
+[node name="Node" type="Label" parent="VBoxContainer/Title" unique_id=1818275916]
+layout_mode = 2
+
+[node name="Node5" type="Label" parent="VBoxContainer" unique_id=681303136]
+layout_mode = 2
+
+[node name="Node6" type="Label" parent="VBoxContainer" unique_id=1293113077]
+layout_mode = 2
+
+[node name="Node7" type="Label" parent="VBoxContainer" unique_id=2023184934]
+layout_mode = 2
+
+[node name="Node8" type="Label" parent="VBoxContainer" unique_id=461140089]
+layout_mode = 2
+
+[node name="Node2" type="Label" parent="VBoxContainer" unique_id=1328384216]
+layout_mode = 2
+
+[node name="Node" type="Label" parent="VBoxContainer" unique_id=789809035]
+layout_mode = 2
+
+[node name="Node3" type="Label" parent="VBoxContainer" unique_id=1368211933]
+layout_mode = 2
+
+[node name="Node4" type="Label" parent="VBoxContainer" unique_id=1062406786]
+layout_mode = 2
+
+[node name="Credits" type="VBoxContainer" parent="VBoxContainer" unique_id=1325306761]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Inspiration" type="Label" parent="VBoxContainer/Credits" unique_id=1003393999]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Story Inspired by The Odyssey"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title2" type="VBoxContainer" parent="VBoxContainer/Credits" unique_id=1423744371]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Credits/Title2" unique_id=437654435]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_eg3jt")
+theme_override_font_sizes/font_size = 31
+text = "Our Team"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=839409249]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer2" unique_id=1626935891]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer2/GameDeveloper" unique_id=1815150587]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Game Developer:   "
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer2" unique_id=792809352]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer2/Name" unique_id=1950421790]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Ammon Phipps"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=90648754]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer" unique_id=97373236]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer/GameDeveloper" unique_id=1168821648]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Game Developer:   "
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer" unique_id=639815810]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer/Name" unique_id=190569888]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Grayson Hamp"
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=538504312]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer3" unique_id=826422478]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer3/GameDeveloper" unique_id=772544855]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Game Developer:   "
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer3" unique_id=1580892317]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer3/Name" unique_id=1394749406]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Ryan Gieson"
+vertical_alignment = 1
+
+[node name="Title3" type="VBoxContainer" parent="VBoxContainer/Credits" unique_id=1204908516]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Credits/Title3" unique_id=864188154]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_eg3jt")
+theme_override_font_sizes/font_size = 31
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1501575548]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer4" unique_id=1236390466]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer4/GameDeveloper" unique_id=1032359397]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Menu Music:             "
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer4" unique_id=863884206]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer4/Name" unique_id=920826229]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Sons Of  The Storm
+By Patrick Maney
+(OpenGameArt.org)"
+vertical_alignment = 1
+
+[node name="Title4" type="VBoxContainer" parent="VBoxContainer/Credits" unique_id=1509671845]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Credits/Title4" unique_id=941286224]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_eg3jt")
+theme_override_font_sizes/font_size = 31
+text = "Art"
+horizontal_alignment = 1
+vertical_alignment = 1

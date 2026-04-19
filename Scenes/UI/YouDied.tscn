@@ -18,10 +18,10 @@ script = ExtResource("1_rdmv2")
 [node name="Background" parent="." unique_id=1880354520 instance=ExtResource("2_lo4k6")]
 
 [node name="HomeControls" type="VBoxContainer" parent="." unique_id=305185918]
-offset_left = 122.0
-offset_top = 6.0
-offset_right = 505.0
-offset_bottom = 356.0
+offset_left = 132.0
+offset_top = 70.0
+offset_right = 515.0
+offset_bottom = 305.0
 
 [node name="Title" type="VBoxContainer" parent="HomeControls" unique_id=405044876]
 layout_mode = 2

@@ -232,6 +232,10 @@ public partial class Dungeon : Node2D
         {
             GameManager.Instance.OnPlayerDied();
         }
+        if (Input.IsActionJustPressed("Win"))
+        {
+            GameManager.Instance.OnPlayerWon();
+        }
     }
 
     public void MoveCamera(Vector2I roomPos)

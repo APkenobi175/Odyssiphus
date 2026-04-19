@@ -46,6 +46,7 @@ public partial class GameManager : Node
         Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
         Levels["DevMapView"] = GD.Load<PackedScene>("Scenes/AmmonsTestScenes/DEV_FullMap.tscn"); // Load the dev map view scene and add it to the dictionary
         Levels["YouDied"] = GD.Load<PackedScene>("Scenes/UI/YouDied.tscn"); // Load the you died screen and add it to the dictionary
+        Levels["YouWon"] = GD.Load<PackedScene>("Scenes/UI/YouWon.tscn"); // Load the you won screen and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
@@ -415,6 +416,12 @@ public partial class GameManager : Node
     public void OnPlayerDied()
     {
         GoTo("YouDied"); // Go to the you died screen when the player dies
+        ResetDungeon(); // Reset the dungeon
+    }
+
+    public void OnPlayerWon()
+    {
+        GoTo("YouWon"); // Go to the you won screen when the player wins
         ResetDungeon(); // Reset the dungeon
     }
 
