@@ -124,10 +124,13 @@ public partial class GameManager : Node
         GetTree().Paused = false; // Ensure the game is unpaused when changing scenes
         PreviousScene = CurrentScene; // Set the previous scene to the current scene before changing
         CurrentScene = key; // Update the current scene to the new scene
-        GetTree().ChangeSceneToPacked(Levels[key]); // Change the scene to the level specified by the key
+        CallDeferred(nameof(changeScene), key);
 
-        // TODO: ADD transitions or parameters for level change such as if you are allowed to change or not
+    }
 
+    public void changeScene(string key)
+    {
+        GetTree().ChangeSceneToPacked(Levels[key]);
     }
 
     public void GoBack()
