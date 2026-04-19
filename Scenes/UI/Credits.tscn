@@ -260,6 +260,49 @@ text = "Music"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HBoxContainer11" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1923510826]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer11" unique_id=1425110538]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer11/GameDeveloper" unique_id=2121113387]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Boss Music:                    "
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer11" unique_id=872613385]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer11/Name" unique_id=1160426165]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Walking With Posiedon
+by mvrasseli
+(OpenGameArt.org)"
+vertical_alignment = 1
+
+[node name="Node8" type="Label" parent="VBoxContainer/Credits" unique_id=153568965]
+layout_mode = 2
+
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1501575548]
 layout_mode = 2
 alignment = 1
@@ -314,4 +357,253 @@ theme_override_fonts/font = ExtResource("1_eg3jt")
 theme_override_font_sizes/font_size = 31
 text = "Art"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=2057757081]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer5" unique_id=1875224793]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer5/GameDeveloper" unique_id=550180549]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Title Font:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer5" unique_id=2079423056]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer5/Name" unique_id=2085555326]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Cinzel"
+vertical_alignment = 1
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1755431754]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer6" unique_id=1233826787]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer6/GameDeveloper" unique_id=1524294813]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Sub Font:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer6" unique_id=401784519]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer6/Name" unique_id=660020471]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "IMFellEnglish"
+vertical_alignment = 1
+
+[node name="Node4" type="Label" parent="VBoxContainer/Credits" unique_id=1157427946]
+layout_mode = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=420500924]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer7" unique_id=547591877]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer7/GameDeveloper" unique_id=2050280723]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Ship Asset Pack:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer7" unique_id=539199882]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer7/Name" unique_id=1853880644]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Ship Tileset
+by Sevarihk
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node5" type="Label" parent="VBoxContainer/Credits" unique_id=175344310]
+layout_mode = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1089971236]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer8" unique_id=2007590895]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer8/GameDeveloper" unique_id=180352185]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Dungeon Tiles:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer8" unique_id=1140246765]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer8/Name" unique_id=1346327348]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "2D Pixel Dungeon
+Asset Pack
+by Pixel_Poem
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node6" type="Label" parent="VBoxContainer/Credits" unique_id=977452907]
+layout_mode = 2
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1193067645]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer9" unique_id=1788830203]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer9/GameDeveloper" unique_id=272859595]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Treasure Tiles:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer9" unique_id=48396658]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer9/Name" unique_id=1259928798]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Treasure+
+by SciGho
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node7" type="Label" parent="VBoxContainer/Credits" unique_id=928347218]
+layout_mode = 2
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1150393290]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer10" unique_id=1726791209]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer10/GameDeveloper" unique_id=931522130]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Atlantis Tiles:"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer10" unique_id=60126344]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer10/Name" unique_id=1926761332]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Atlantis Tileset
+by finalbossblues
+(itch.io)"
 vertical_alignment = 1

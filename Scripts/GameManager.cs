@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class GameManager : Node
 {
@@ -52,7 +53,7 @@ public partial class GameManager : Node
 
 
         // ================MUSIC================== //
-        Tracks["Menu"] = GD.Load<AudioStream>("Assets/Sounds/Music/TitleScreen.mp3"); // Load the menu music and add it to the dictionary
+        Tracks["Menu"] = GD.Load<AudioStream>("Assets/Sounds/Music/TitleScreen.ogg"); // Load the menu music and add it to the dictionary
          // TODO: ADD MORE TRACKS
 
 
@@ -140,11 +141,23 @@ public partial class GameManager : Node
         musicPlayer.Stop(); // Stop the background music
     }
 
-    public void ChangeSong(string key)
+    public async Task ChangeSong(string key, float fromPosition = 0f)
     {
         musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
         musicPlayer.Play(); // Play the new song
+        if (fromPosition > 0f)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
+            CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+        }
+        GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
+        GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
 
+    }
+
+    public void DeferredSeek(float positon)
+    {
+        musicPlayer.Seek(positon); // Seek to the specified position in the song
     }
     public void NewGame()
     {
