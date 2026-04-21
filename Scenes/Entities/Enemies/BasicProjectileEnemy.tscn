@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://7yipxi5yuy0g"]
+
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="1_3uok3"]
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_yk51p"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="3_tgv8k"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_5lvmq"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_xg2m6"]
+[ext_resource type="PackedScene" uid="uid://dmtuj7jnnks85" path="res://Scenes/Components/DeathComponents/BasicDeath.tscn" id="6_pyaoc"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="7_nlb7i"]
+[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_5lvmq"]
+[ext_resource type="PackedScene" uid="uid://imdfj25a08kh" path="res://Scenes/Components/InputComponents/BasicProjectileController.tscn" id="8_tgv8k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sau4v"]
+radius = 31.016125
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lvmq"]
+size = Vector2(59, 59)
+
+[node name="BasicProjectileEnemy" type="CharacterBody2D" unique_id=120682037]
+motion_mode = 1
+script = ExtResource("1_yk51p")
+Speed = 20.0
+Faction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=972774851]
+shape = SubResource("CircleShape2D_sau4v")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1482416242]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_3uok3")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("3_tgv8k")]
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=945638201]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_5lvmq")
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_5lvmq")]
+MaxHealth = 50.0
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_xg2m6")]
+Health = NodePath("../Health")
+
+[node name="Death" parent="." unique_id=401763635 instance=ExtResource("6_pyaoc")]
+
+[node name="Attack" parent="." unique_id=98863126 instance=ExtResource("7_nlb7i")]
+ProjectileScene = ExtResource("8_5lvmq")
+
+[node name="Input" parent="." unique_id=1140697106 instance=ExtResource("8_tgv8k")]

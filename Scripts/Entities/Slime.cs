@@ -8,6 +8,5 @@ public partial class Slime : Entity, IProjectile
   public void Initialize(Vector2 position, Vector2 direction)
   {
     Position = position + direction.Normalized() * SpawnDistance;
-    GD.Print($"New slime spawned at {Position}, {GlobalPosition}");
   }
 }

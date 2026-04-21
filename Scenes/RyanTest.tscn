@@ -3,7 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="1_2pujo"]
 [ext_resource type="PackedScene" uid="uid://dlnqnumpvlwta" path="res://Scenes/Components/Hitbox.tscn" id="2_2rpbh"]
 [ext_resource type="PackedScene" uid="uid://cwhrphtw64ijl" path="res://Scenes/Entities/Enemies/BasicMeleeEnemy.tscn" id="3_y41id"]
-[ext_resource type="PackedScene" uid="uid://d1co6n02skh3s" path="res://Scenes/Entities/Enemies/SlimeLarge.tscn" id="4_5pqrr"]
+[ext_resource type="PackedScene" uid="uid://7yipxi5yuy0g" path="res://Scenes/Entities/Enemies/BasicProjectileEnemy.tscn" id="4_5pqrr"]
+[ext_resource type="PackedScene" uid="uid://d1co6n02skh3s" path="res://Scenes/Entities/Enemies/SlimeLarge.tscn" id="5_esg24"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y41id"]
 radius = 55.145264
@@ -22,5 +23,8 @@ shape = SubResource("CircleShape2D_y41id")
 [node name="BasicMeleeEnemy" parent="." unique_id=853225139 instance=ExtResource("3_y41id")]
 position = Vector2(613, 139)
 
-[node name="SlimeLarge" parent="." unique_id=1011106800 instance=ExtResource("4_5pqrr")]
-position = Vector2(350, 83)
+[node name="BasicProjectileEnemy" parent="." unique_id=120682037 instance=ExtResource("4_5pqrr")]
+position = Vector2(363, 95)
+
+[node name="SlimeLarge" parent="." unique_id=1011106800 instance=ExtResource("5_esg24")]
+position = Vector2(276, 94)
