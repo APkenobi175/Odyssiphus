@@ -179,26 +179,26 @@ public partial class InventorySlot : CenterContainer
 
 	public void UpdateSlot()
 	{
-		if (item != null)
-		{
-			if (!GetChildren().Contains(item))
-			{
-				AddChild(item);
-			}
-
-			if (item.Amount < 1)
-			{
-				item.Fade();
-			}
-		}
-
-		if (ItemHint != null)
-		{
-			if (!GetChildren().Contains(ItemHint))
-			{
-				AddChild(ItemHint);
-			}
-			ItemHint.Fade();
-		}
+	    if (item != null)
+	    {
+	        // 1. Safe Disable (using SetDeferred)
+	        item.SetDeferred("process_mode", (int)ProcessModeEnum.Disabled);
+	        item.SetDeferred("monitoring", false);
+	        item.SetDeferred("monitorable", false);
+	
+	        // 2. Safe Reparenting
+	        if (item.GetParent() != this)
+	        {
+	            // If it has a parent, remove it safely
+	            item.GetParent()?.CallDeferred("remove_child", item);
+	            // Add it to this slot safely
+	            CallDeferred("add_child", item);
+	        }
+	
+	        // 3. Safe Positioning
+	        item.SetDeferred("position", Vector2.Zero);
+	
+	        if (item.Amount < 1) item.Fade();
+	    }
 	}
 }
