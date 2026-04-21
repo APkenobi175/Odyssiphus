@@ -8,7 +8,7 @@ public partial class BasicMeleeController : Node2D, IInputController
   private Node2D target;
   public override void _Ready()
   {
-    OnTargetSwitchTimerTimeout();
+    SwitchTarget();
 
     Timer targetSwitchTimer = new Timer();
     AddChild(targetSwitchTimer);
@@ -19,7 +19,7 @@ public partial class BasicMeleeController : Node2D, IInputController
 
   public override void _Process(double delta)
   {
-    if (target is not null)
+    if (target is not null && IsInstanceValid(target))
     {
       Vector2 targetRelativePosition = target.GlobalPosition - GlobalPosition;
       MovementInput?.Invoke(targetRelativePosition.Normalized());
@@ -30,10 +30,14 @@ public partial class BasicMeleeController : Node2D, IInputController
         Ability1?.Invoke();
       }
     }
+    else
+    {
+      MovementInput?.Invoke(Vector2.Zero);
+      SwitchTarget();
+    }
   }
 
-
-  private void OnTargetSwitchTimerTimeout()
+  private void SwitchTarget()
   {
     float closestDistance = float.PositiveInfinity;
     foreach (Node node in GetTree().GetNodesInGroup("PlayerFaction"))
@@ -49,6 +53,11 @@ public partial class BasicMeleeController : Node2D, IInputController
         }
       }
     }
+  }
+
+  private void OnTargetSwitchTimerTimeout()
+  {
+    SwitchTarget();
   }
 
   public event Action<Vector2> MovementInput;
