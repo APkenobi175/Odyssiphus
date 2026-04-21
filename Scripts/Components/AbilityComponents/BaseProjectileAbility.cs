@@ -44,6 +44,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
       burstTotal = 1;
       burstTimer.Start();
     }
+    else BurstsFinished?.Invoke();
   }
 
   public void SetFaction(FactionManager.Faction faction)
@@ -76,7 +77,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
         factionableProjectile.SetFaction(faction);
       }
 
-      GetTree().Root.AddChild(node);
+      GetTree().Root.CallDeferred("add_child", node);
     }
   }
 
@@ -87,8 +88,11 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
 
     if (burstTotal >= BurstCount)
     {
+      BurstsFinished?.Invoke();
       burstTimer.Stop();
       return;
     }
   }
+
+  public event Action BurstsFinished;
 }

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c450i8j27ga"]
 
-[ext_resource type="Script" uid="uid://cjlvb7xar4odj" path="res://Scripts/Components/KeyboardInputController.cs" id="1_bfncc"]
+[ext_resource type="Script" uid="uid://cjlvb7xar4odj" path="res://Scripts/Components/InputComponents/KeyboardInputController.cs" id="1_bfncc"]
 
 [node name="PlayerInputController" type="Node2D" unique_id=493573941]
 script = ExtResource("1_bfncc")
