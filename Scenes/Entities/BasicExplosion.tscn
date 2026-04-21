@@ -126,6 +126,7 @@ texture = ExtResource("2_qof8k")
 
 [node name="Hitbox" parent="." unique_id=672177678 instance=ExtResource("3_l34ak")]
 monitoring = false
+Damage = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=548569020]
 shape = SubResource("CircleShape2D_nue2a")

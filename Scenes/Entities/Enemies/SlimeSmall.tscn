@@ -43,6 +43,6 @@ Health = NodePath("../Health")
 [node name="Death" parent="." unique_id=401763635 instance=ExtResource("6_ik1mq")]
 
 [node name="Input" parent="." unique_id=1145655090 instance=ExtResource("7_asuix")]
-AttackDistance = 30.0
+AttackDistance = 50.0
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_dua6y")]

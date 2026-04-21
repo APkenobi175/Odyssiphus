@@ -39,6 +39,7 @@ shape = SubResource("RectangleShape2D_8wpcs")
 
 [node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_w1s5y")]
 Health = NodePath("../Health")
+Length = 100.0
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("6_t3865")]
 

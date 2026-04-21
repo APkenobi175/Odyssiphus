@@ -47,8 +47,10 @@ Health = NodePath("../Health")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
 
 [node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+Cooldown = 0.3
 ProjectileScene = ExtResource("8_ynt0t")
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
+Cooldown = 0.2
 
 [node name="Death" parent="." unique_id=1702970833 instance=ExtResource("10_rsj4h")]
