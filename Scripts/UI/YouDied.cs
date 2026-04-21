@@ -10,9 +10,9 @@ public Button backToShipButton;
 
     public override void _Ready()
     {
-        backToMenuButton = GetNode<Button>("Continue");
+        backToMenuButton = GetNode<Button>("HomeControls/Buttons/Exit");
         backToMenuButton.Pressed += OnBackToMenuPressed;
-        backToShipButton = GetNode<Button>("Exit");
+        backToShipButton = GetNode<Button>("HomeControls/Buttons/Continue");
         backToShipButton.Pressed += OnBackToShipPressed;
 
     }
@@ -25,5 +25,6 @@ public Button backToShipButton;
     private void OnBackToShipPressed()
     {
         GameManager.Instance.GoTo("Ship");
+        GameManager.Instance.SaveGame();
     }
 }

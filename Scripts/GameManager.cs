@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class GameManager : Node
 {
@@ -26,6 +27,8 @@ public partial class GameManager : Node
     public RandomWalkRoom currentRoom; // Track the player's current room for easy access to its properties when needed
 
     public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
+
+    public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
     
 
 
@@ -45,12 +48,14 @@ public partial class GameManager : Node
         Levels["Dungeon"] = GD.Load<PackedScene>("Scenes/World/Dungeon.tscn"); // Load the dungeon scene and add it to the dictionary
         Levels["LoadGame"] = GD.Load<PackedScene>("Scenes/World/LoadGame.tscn"); // Load the load game screen and add it to the dictionary
         Levels["DevMapView"] = GD.Load<PackedScene>("Scenes/AmmonsTestScenes/DEV_FullMap.tscn"); // Load the dev map view scene and add it to the dictionary
+        Levels["YouDied"] = GD.Load<PackedScene>("Scenes/UI/YouDied.tscn"); // Load the you died screen and add it to the dictionary
+        Levels["YouWon"] = GD.Load<PackedScene>("Scenes/UI/YouWon.tscn"); // Load the you won screen and add it to the dictionary
         // TODO: ADD MORE LEVELS
 
 
 
         // ================MUSIC================== //
-        Tracks["Menu"] = GD.Load<AudioStream>("Assets/Sounds/Music/TitleScreen.mp3"); // Load the menu music and add it to the dictionary
+        Tracks["Menu"] = GD.Load<AudioStream>("Assets/Sounds/Music/TitleScreen.ogg"); // Load the menu music and add it to the dictionary
          // TODO: ADD MORE TRACKS
 
 
@@ -80,7 +85,13 @@ public partial class GameManager : Node
     {
         PlayerCurrentRoom = newRoom; // Update the player's current room\
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Update the current room reference to the new room
+
+        if (currentRoom != null)
+        {
+            currentRoom.IsDiscovered = true; // Mark the new room as discovered when the player enters it
+        }
         RefreshMiniMap(); // Refresh the minimap to show the player's new position
+
     }
 
     public void OnRoomCleared(Vector2I roomPos)
@@ -89,6 +100,12 @@ public partial class GameManager : Node
         if (room == null) return; // If no room found at this position, do nothing
         room.IsCleared = true; // Mark the room as cleared
         RefreshMiniMap(); // Refresh the minimap to show the cleared room
+
+        if (room.RoomType == RoomType.MiniBoss)
+        {
+            MiniBossesDeafted++; // Increment the mini boss defeat count if a mini boss was defeated
+            GD.Print($"Mini Boss defeated! Total mini bosses defeated: {MiniBossesDeafted}");
+        }
 
         // TODO: Unlock doors
     }
@@ -107,10 +124,13 @@ public partial class GameManager : Node
         GetTree().Paused = false; // Ensure the game is unpaused when changing scenes
         PreviousScene = CurrentScene; // Set the previous scene to the current scene before changing
         CurrentScene = key; // Update the current scene to the new scene
-        GetTree().ChangeSceneToPacked(Levels[key]); // Change the scene to the level specified by the key
+        CallDeferred(nameof(changeScene), key);
 
-        // TODO: ADD transitions or parameters for level change such as if you are allowed to change or not
+    }
 
+    public void changeScene(string key)
+    {
+        GetTree().ChangeSceneToPacked(Levels[key]);
     }
 
     public void GoBack()
@@ -138,11 +158,23 @@ public partial class GameManager : Node
         musicPlayer.Stop(); // Stop the background music
     }
 
-    public void ChangeSong(string key)
+    public async Task ChangeSong(string key, float fromPosition = 0f)
     {
         musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
         musicPlayer.Play(); // Play the new song
+        if (fromPosition > 0f)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
+            CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+        }
+        GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
+        GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
 
+    }
+
+    public void DeferredSeek(float positon)
+    {
+        musicPlayer.Seek(positon); // Seek to the specified position in the song
     }
     public void NewGame()
     {
@@ -152,6 +184,7 @@ public partial class GameManager : Node
         CurrentDungeonSeed = 0; // Reset the current dungeon seed
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
+        MiniBossesDeafted = 0; // Reset the mini boss defeat count
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
@@ -178,6 +211,7 @@ public partial class GameManager : Node
         data["playerRoom_x"] = PlayerCurrentRoom.X;
         data["currentScene"] = CurrentScene;
         data["playerRoom_y"] = PlayerCurrentRoom.Y;
+        data["miniBossesDefeated"] = MiniBossesDeafted;
 
         var roomList = new Godot.Collections.Array();
         foreach (var room in CurrentDungeonRooms)
@@ -189,6 +223,7 @@ public partial class GameManager : Node
             r["hasGhost"] = room.hasGhost;
             r["depth"] = room.Depth;
             r["roomType"] = (int)room.RoomType;
+            r["isDiscovered"] = room.IsDiscovered;
             roomList.Add(r);
         }
         data["rooms"] = roomList;
@@ -295,11 +330,13 @@ public partial class GameManager : Node
             room.hasGhost = r["hasGhost"].AsBool();
             room.RoomType = (RoomType)(int)r["roomType"];
             room.Depth = (float)r["depth"];
+            room.IsDiscovered = r["isDiscovered"].AsBool();
         }
 
         CurrentDungeonRooms = result.Rooms; // Set the current dungeon rooms to the loaded rooms
         CurrentDungeonHallways = result.Hallways; // Set the current dungeon hallways to the loaded hallways
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the player's current room after loading
+        MiniBossesDeafted = (int)data["miniBossesDefeated"]; // Set the mini boss defeat count to the loaded value
         RefreshMiniMap(); // Refresh the minimap to show the loaded dungeon
     }
 
@@ -388,6 +425,48 @@ public partial class GameManager : Node
     public void EndCharacterTransition()
     {
         characterIsTransitioning = false;
+    }
+
+
+    /// Other Utilities
+    
+
+
+    public void ResetDungeon()
+    {
+        foreach(var room in CurrentDungeonRooms)
+        {
+            if (room.RoomType == RoomType.Start || room.RoomType == RoomType.TreasureRoom)
+            {
+                room.IsCleared = true; // Keep start and treasure rooms set to clear so you can traverse them.
+            }
+            else
+            {
+                room.IsCleared = false;
+            }
+            
+        }
+
+        PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
+        currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the starting room
+
+        miniMap = null; // clear mini map
+
+        characterIsTransitioning = false; // reset character transition state
+        GetTree().Paused = false; // Unpause the game 
+        MiniBossesDeafted = 0; // Reset mini boss defeat count
+    }
+
+    public void OnPlayerDied()
+    {
+        GoTo("YouDied"); // Go to the you died screen when the player dies
+        ResetDungeon(); // Reset the dungeon
+    }
+
+    public void OnPlayerWon()
+    {
+        GoTo("YouWon"); // Go to the you won screen when the player wins
+        ResetDungeon(); // Reset the dungeon
     }
 
 }

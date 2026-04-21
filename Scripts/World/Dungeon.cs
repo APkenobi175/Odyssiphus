@@ -36,6 +36,7 @@ public partial class Dungeon : Node2D
     private const int MaxRooms = 30; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
     private const int minRooms = 20; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
 
+
     public override void _Ready()
     {
 
@@ -86,12 +87,29 @@ public partial class Dungeon : Node2D
         }
 
         SpawnRooms();
+
+        var player = GetNode<CharacterBody2D>("Player");
+        var health = player.GetNodeOrNull<Health>("Health");
+
+        if (health != null)
+        {
+            health.HealthDepleted += GameManager.Instance.OnPlayerDied;
+        }
+        else
+        {
+            GD.Print("no Health node found on player!");
+        }
         
 
 
     }
 
     private bool hasSpawned = false; // Added to prevent multiple spawns when _Ready is called more than once (which can happen when re-entering the dungeon from the boss fight for example)
+
+    private void OnPlayerHealthDepleted()
+    {
+        GameManager.Instance.OnPlayerDied();
+    }
 
     private void SpawnRooms()
     {
@@ -153,10 +171,32 @@ public partial class Dungeon : Node2D
 
         }
 
-        // move camera to start room
+        
+
+
+        
+        // Get players current room position and move player and camera there
+        var currentRoomPos = GameManager.Instance.PlayerCurrentRoom;
+        GD.Print($"PlayerCurrentRoom =  {currentRoomPos}");
+        var worldPos = new Vector2(currentRoomPos.X * (RoomWidth + HallwayLength),
+            currentRoomPos.Y * (RoomHeight + HallwayLength));
+        GD.Print($" worldPos = {worldPos}");
 
         var camera = GetNode<Camera2D>("Camera2D");
-        camera.Position = new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+        camera.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+        GD.Print($"Camera positioned at {camera.Position}");
+
+        var player = GetNodeOrNull<CharacterBody2D>("Player");
+        if (player != null)
+        {
+            player.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
+            GD.Print($"Player positioned at {player.Position}");
+        }
+        else
+        {
+            GD.Print("Player node not found in dungeon scene!");
+        }
+
     }
 
     private void SetRoomDoors(Node2D instance, RandomWalkRoom room)
@@ -205,6 +245,15 @@ public partial class Dungeon : Node2D
             else if (mouse.ButtonIndex == MouseButton.WheelDown)
                 camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
         }
+
+        if (Input.IsActionJustPressed("Suicide"))
+        {
+            GameManager.Instance.OnPlayerDied();
+        }
+        if (Input.IsActionJustPressed("Win"))
+        {
+            GameManager.Instance.OnPlayerWon();
+        }
     }
 
     public void MoveCamera(Vector2I roomPos)
@@ -219,4 +268,5 @@ public partial class Dungeon : Node2D
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
+
 }

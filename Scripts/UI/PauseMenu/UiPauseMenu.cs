@@ -33,7 +33,7 @@ public partial class UiPauseMenu : CanvasLayer
 
     public override void _Input(InputEvent e)
     {
-        if (e.IsActionPressed("ui_cancel"))
+        if (e.IsActionPressed("Pause"))
             TogglePause();
     }
 

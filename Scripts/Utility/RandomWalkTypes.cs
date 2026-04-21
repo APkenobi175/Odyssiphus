@@ -26,6 +26,8 @@ public class RandomWalkRoom
     public bool hasGhost; // NEW: Whether the room has a ghost
     public float Depth; // NEW: Depth of the room (so we can calculate difficulty and shaders for the room)
 
+    public bool IsDiscovered; // NEW: Whether the player has discovered this room
+
     // Constructor
     public RandomWalkRoom(Vector2I pos) 
     {
@@ -35,7 +37,8 @@ public class RandomWalkRoom
         Doors = new List<string>(); // NEW initialize empty list of doors
         hasGhost = false; // NEW default to no ghost
         Depth = 0.0f; // NEW default depth to 0, will be updated during generation
-        
+        IsDiscovered = false; // NEW default to not discovered
+
     }
 }
 

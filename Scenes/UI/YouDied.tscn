@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cvbr021v5hir3"]
 
+[ext_resource type="Script" uid="uid://bxv1i3lti4eoy" path="res://Scripts/UI/YouDied.cs" id="1_rdmv2"]
 [ext_resource type="FontFile" uid="uid://iea6l6u2cxa3" path="res://Assets/Fonts/Cinzel/static/Cinzel-Medium.ttf" id="1_u044i"]
 [ext_resource type="FontFile" uid="uid://cks4vfe7y0kgq" path="res://Assets/Fonts/IMFellEnglish/IMFellEnglish-Regular.ttf" id="2_ibhaj"]
+[ext_resource type="PackedScene" uid="uid://cie1qajism7p" path="res://Scenes/Background.tscn" id="2_lo4k6"]
 [ext_resource type="StyleBox" uid="uid://ctmip2spmu01l" path="res://Assets/Styles/ButtonStyle.tres" id="3_rdmv2"]
 [ext_resource type="StyleBox" uid="uid://ddnpyj2misjrl" path="res://Assets/Styles/ButtonStylePressed.tres" id="4_lo4k6"]
 [ext_resource type="StyleBox" uid="uid://ctftheyx3fq" path="res://Assets/Styles/ButtonStyleOnHover.tres" id="5_i7qry"]
@@ -11,12 +13,15 @@ content_margin_top = 1.0
 bg_color = Color(0.61875415, 0.21239537, 0.21619985, 1)
 
 [node name="YouDied" type="CanvasLayer" unique_id=52838180]
+script = ExtResource("1_rdmv2")
+
+[node name="Background" parent="." unique_id=1880354520 instance=ExtResource("2_lo4k6")]
 
 [node name="HomeControls" type="VBoxContainer" parent="." unique_id=305185918]
-offset_left = 122.0
-offset_top = 6.0
-offset_right = 505.0
-offset_bottom = 356.0
+offset_left = 132.0
+offset_top = 70.0
+offset_right = 515.0
+offset_bottom = 305.0
 
 [node name="Title" type="VBoxContainer" parent="HomeControls" unique_id=405044876]
 layout_mode = 2

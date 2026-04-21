@@ -58,8 +58,13 @@ public partial class EnemyRoom : Node2D
 		hasSpawned = true;
 
 		GD.Print("Spawning Enemies!!");
+		var room = RoomData ?? GameManager.Instance.currentRoom;
 		// return; // Comment this out to enable enemy spawning
-		CallDeferred(MethodName.SpawnEnemies);
+		if(room.IsCleared){
+			GD.Print("Room is already cleared, not spawning enemies.");
+			return;
+		}
+		//CallDeferred(MethodName.SpawnEnemies);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
