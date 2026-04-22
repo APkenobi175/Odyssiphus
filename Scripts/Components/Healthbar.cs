@@ -5,6 +5,12 @@ public partial class Healthbar : ProgressBar
 {
   [Export]
   public Health Health;
+  [Export]
+  public float Length = 50;
+  [Export]
+  public float Offset = 40;
+
+  private float widthRatio = 0.1f;
 
   public override void _Ready()
   {
@@ -18,6 +24,10 @@ public partial class Healthbar : ProgressBar
     Value = Health.CurrentHealth;
 
     Health.HealthChanged += OnHealthChanged;
+
+    Size = new Vector2(Length, Length * widthRatio);
+
+    Position = new Vector2(-Size.X/2, -Offset);
   }
 
   public void OnHealthChanged(float currentHealth, float maxHealth)

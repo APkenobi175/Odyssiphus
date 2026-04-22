@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bfrf04rd0hixk"]
+
+[ext_resource type="Script" uid="uid://ckudvkqa4w3jl" path="res://Scripts/Entities/Slime.cs" id="1_ik1mq"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_cuu4t"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_e6d6n"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="3_65mdv"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="4_vfdua"]
+[ext_resource type="PackedScene" uid="uid://dmtuj7jnnks85" path="res://Scenes/Components/DeathComponents/BasicDeath.tscn" id="6_ik1mq"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="7_asuix"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="8_dua6y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ik1mq"]
+radius = 18.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5dy6"]
+size = Vector2(36, 36)
+
+[node name="SlimeSmall" type="CharacterBody2D" unique_id=2088483759]
+motion_mode = 1
+script = ExtResource("1_ik1mq")
+SpawnDistance = 30.0
+Faction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1701060377]
+shape = SubResource("CircleShape2D_ik1mq")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1644369183]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_e6d6n")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_cuu4t")]
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=616177477]
+shape = SubResource("RectangleShape2D_o5dy6")
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("3_65mdv")]
+MaxHealth = 20.0
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("4_vfdua")]
+Health = NodePath("../Health")
+
+[node name="Death" parent="." unique_id=401763635 instance=ExtResource("6_ik1mq")]
+
+[node name="Input" parent="." unique_id=1145655090 instance=ExtResource("7_asuix")]
+AttackDistance = 50.0
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_dua6y")]

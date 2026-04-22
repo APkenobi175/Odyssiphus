@@ -5,7 +5,11 @@ public partial class BasicMeleeController : Node2D, IInputController
 {
   [Export]
   public float TargetSwitchTime = 2.0f;
+  [Export]
+  public float AttackDistance = 100;
+
   private Node2D target;
+
   public override void _Ready()
   {
     SwitchTarget();
@@ -25,7 +29,7 @@ public partial class BasicMeleeController : Node2D, IInputController
       MovementInput?.Invoke(targetRelativePosition.Normalized());
       FocusInput?.Invoke(targetRelativePosition);
 
-      if (targetRelativePosition.Length() <= 100)
+      if (targetRelativePosition.Length() <= AttackDistance)
       {
         Ability1?.Invoke();
       }
