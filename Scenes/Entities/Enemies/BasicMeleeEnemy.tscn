@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="7_8lv13"]
 [ext_resource type="PackedScene" uid="uid://dmtuj7jnnks85" path="res://Scenes/Components/DeathComponents/BasicDeath.tscn" id="8_exmld"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hakig"]
-size = Vector2(38, 37)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ey6x6"]
+radius = 19.006578
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exmld"]
 size = Vector2(126.666664, 126.666664)
@@ -23,7 +23,7 @@ Faction = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=851995086]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_hakig")
+shape = SubResource("CircleShape2D_ey6x6")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_y65en")]
 scale = Vector2(0.3, 0.3)

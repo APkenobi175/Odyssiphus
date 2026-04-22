@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
 [ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="10_rsj4h"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
-size = Vector2(60, 60)
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsj4h"]
+radius = 29.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
 size = Vector2(58, 57)
@@ -24,7 +24,7 @@ Speed = 400.0
 Faction = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
-shape = SubResource("RectangleShape2D_86atj")
+shape = SubResource("CircleShape2D_rsj4h")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
 Health = NodePath("../Health")
@@ -40,6 +40,7 @@ texture = ExtResource("2_g4oe6")
 [node name="Input" parent="." unique_id=493573941 instance=ExtResource("3_86atj")]
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_g4oe6")]
+MaxHealth = 200.0
 
 [node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_86atj")]
 Health = NodePath("../Health")
@@ -51,6 +52,7 @@ Cooldown = 0.3
 ProjectileScene = ExtResource("8_ynt0t")
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
+scale = Vector2(1.5, 1.5)
 Cooldown = 0.2
 
 [node name="Death" parent="." unique_id=1702970833 instance=ExtResource("10_rsj4h")]
