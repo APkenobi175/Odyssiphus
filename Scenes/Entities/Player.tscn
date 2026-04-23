@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="7_td8ue"]
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
-[ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="10_rsj4h"]
+[ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_inventory"]
+[ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="11_death"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsj4h"]
 radius = 29.0
@@ -55,4 +56,6 @@ ProjectileScene = ExtResource("8_ynt0t")
 scale = Vector2(1.5, 1.5)
 Cooldown = 0.2
 
-[node name="Death" parent="." unique_id=1702970833 instance=ExtResource("10_rsj4h")]
+[node name="InventoryController" parent="." unique_id=1379622013 instance=ExtResource("10_inventory")]
+
+[node name="Death" parent="." unique_id=1702970833 instance=ExtResource("11_death")]
