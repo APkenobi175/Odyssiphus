@@ -11,6 +11,7 @@ public partial class InventorySlot : CenterContainer
 	{
 		Select,
 		Split,
+		LeftClick,
 	}
 
 	[Signal] public delegate void SlotInputEventHandler(InventorySlot which, inventorySlotAction action);

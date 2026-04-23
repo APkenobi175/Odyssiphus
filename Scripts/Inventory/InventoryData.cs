@@ -76,28 +76,25 @@ public partial class InventoryData : Control
         }
     }
 
-    private void OnSlotInput(InventorySlot slot, InventorySlot.inventorySlotAction action)
+   private void OnSlotInput(InventorySlot slot, InventorySlot.inventorySlotAction action)
     {
-        // CASE A: We are holding nothing, and clicking a slot with an item
+        // Now that you added it to the Enum, this should work!
+        if (action != InventorySlot.inventorySlotAction.LeftClick) return;
+
+        // This is the "Muzzle" for the sword. 
+        // It tells Godot: "I handled this event, stop passing it around."
+        GetViewport().SetInputAsHandled(); 
+
         if (SelectedItem == null && !slot.IsEmpty())
         {
-            SelectedItem = slot.SelectItem(); // This removes it from the slot and gives it to us
+            SelectedItem = slot.SelectItem();
             GD.Print($"Picked up {SelectedItem.ItemName}");
         }
-
-        // CASE B: We are holding an item, and clicking an empty (or different) slot
         else if (SelectedItem != null)
         {
-            // DeselectItem handles placing it in the slot or swapping if something is already there
             SelectedItem = slot.DeselectItem(SelectedItem);
-
-            // If SelectedItem is now null, we dropped it successfully.
-            // If it's NOT null, it means we swapped and are now holding the old item.
             GD.Print(SelectedItem == null ? "Dropped item" : $"Swapped for {SelectedItem.ItemName}");
         }
-
-        // Finally, tell the Inventory Data logic that things moved so it stays in sync
-        // RefreshUI(); // Optional: Usually DeselectItem/SelectItem handle the visuals locally
     }
 
     private void OnSlotHovered(InventorySlot which, bool isHovering)
@@ -157,7 +154,7 @@ public partial class InventoryData : Control
         if (@event.IsActionPressed("Inventory"))
         {
             GD.Print("Tab was pressed, opening inventory!");
-            Visible = !Visible;
+            this.Visible = !Visible;
             // Handle the mouse cursor
             if (Visible)
             {
