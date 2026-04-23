@@ -4,6 +4,8 @@ using System;
 public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
 {
   [Export]
+  public float Cooldown = 1;
+  [Export]
   public PackedScene ProjectileScene;
   [Export]
   public int SpreadCount = 1; // Number of projectiles in each spread
@@ -16,6 +18,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
 
   private int burstTotal = 0;
   private Timer burstTimer;
+  private Timer cooldownTimer;
   private Vector2 direction;
   private FactionManager.Faction faction = FactionManager.Faction.Neutral;
 
@@ -28,22 +31,32 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
     };
     burstTimer.Timeout += OnBurstTimerTimeout;
     AddChild(burstTimer);
+
+    cooldownTimer = new Timer
+    {
+      WaitTime = Cooldown,
+      OneShot = true
+    };
+    AddChild(cooldownTimer);
   }
 
 
   public void Activate(Vector2 position, Vector2 direction)
   {
+    if (!cooldownTimer.IsStopped()) return;
     if (BurstCount <= 0) return;
 
     this.direction = direction;
 
     SpawnSpread();
+    cooldownTimer.Start();
 
     if (BurstCount > 1)
     {
       burstTotal = 1;
       burstTimer.Start();
     }
+    else BurstsFinished?.Invoke();
   }
 
   public void SetFaction(FactionManager.Faction faction)
@@ -76,7 +89,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
         factionableProjectile.SetFaction(faction);
       }
 
-      GetTree().Root.AddChild(node);
+      GetTree().Root.CallDeferred("add_child", node);
     }
   }
 
@@ -87,8 +100,11 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
 
     if (burstTotal >= BurstCount)
     {
+      BurstsFinished?.Invoke();
       burstTimer.Stop();
       return;
     }
   }
+
+  public event Action BurstsFinished;
 }

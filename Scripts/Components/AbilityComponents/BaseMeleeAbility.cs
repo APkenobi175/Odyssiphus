@@ -4,21 +4,32 @@ using System;
 public partial class BaseMeleeAbility : Node2D, IAbility, IFactionable
 {
   [Export]
-  public Sprite2D Sprite;
+  public float Cooldown = 1;
   [Export]
   public AnimationPlayer AnimationPlayer;
 
   private Hitbox hitbox;
+  private Timer cooldownTimer;
 
   public override void _Ready()
   {
     hitbox = GetNodeOrNull<Hitbox>("Hitbox");
+
+    cooldownTimer = new Timer
+    {
+      WaitTime = Cooldown,
+      OneShot = true
+    };
+    AddChild(cooldownTimer);
   }
 
   public void Activate(Vector2 position, Vector2 direction)
   {
+    if (!cooldownTimer.IsStopped()) return;
+
     GlobalRotation = direction.Angle();
     AnimationPlayer?.Play("Attack");
+    cooldownTimer.Start();
   }
 
   public void SetFaction(FactionManager.Faction faction)

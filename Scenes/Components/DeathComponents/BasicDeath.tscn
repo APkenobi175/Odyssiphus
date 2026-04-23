@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dmtuj7jnnks85"]
+
+[ext_resource type="Script" uid="uid://b4uo64oes8lmu" path="res://Scripts/Components/DeathComponents/BasicDeath.cs" id="1_x7e0w"]
+
+[node name="BasicDeath" type="Node2D" unique_id=401763635]
+script = ExtResource("1_x7e0w")

@@ -8,14 +8,14 @@ public partial class Entity : CharacterBody2D
   [Export]
   public FactionManager.Faction Faction = FactionManager.Faction.Neutral;
 
-  private Vector2 focus = Vector2.Right;
-
   private IInputController input;
   private Hurtbox hurtbox;
   private Health health;
   private IDeathComponent death;
   private IAbility attack;
   private IAbility special;
+
+  private Vector2 focus = Vector2.Right;
 
   private bool canAct = true;
   public override void _Ready()
@@ -94,6 +94,11 @@ public partial class Entity : CharacterBody2D
     if (hurtbox is IFactionable factionableHurtbox)
     {
       factionableHurtbox.SetFaction(faction);
+    }
+
+    if (death is IFactionable factionableDeath)
+    {
+      factionableDeath.SetFaction(faction);
     }
 
     if (attack is IFactionable factionableAttack)

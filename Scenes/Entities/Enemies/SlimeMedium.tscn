@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bmxqh2g5lqo34"]
+
+[ext_resource type="Script" uid="uid://ckudvkqa4w3jl" path="res://Scripts/Entities/Slime.cs" id="1_kk43c"]
+[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_jwg38"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="3_aqqx4"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_mr4kq"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_l6wfx"]
+[ext_resource type="PackedScene" uid="uid://hnh5i70pkkts" path="res://Scenes/Components/DeathComponents/ProjectileDeath.tscn" id="6_ih1dq"]
+[ext_resource type="PackedScene" uid="uid://bfrf04rd0hixk" path="res://Scenes/Entities/Enemies/SlimeSmall.tscn" id="7_cgdxs"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="8_l6wfx"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="9_ih1dq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjwap"]
+radius = 29.274563
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qdj2m"]
+size = Vector2(62, 63)
+
+[node name="SlimeMedium" type="CharacterBody2D" unique_id=905670950]
+script = ExtResource("1_kk43c")
+Faction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1467139079]
+shape = SubResource("CircleShape2D_kjwap")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1106135725]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jwg38")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("3_aqqx4")]
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1313149827]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qdj2m")
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_mr4kq")]
+MaxHealth = 50.0
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_l6wfx")]
+Health = NodePath("../Health")
+
+[node name="Death" parent="." unique_id=386282697 instance=ExtResource("6_ih1dq")]
+ProjectileScene = ExtResource("7_cgdxs")
+SpreadCount = 4
+SpreadAngle = 360.0
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_l6wfx")]
+
+[node name="Input" parent="." unique_id=1145655090 instance=ExtResource("9_ih1dq")]

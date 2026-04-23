@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bhl0f0ulhhvxj"]
 
-[ext_resource type="Script" uid="uid://d01xhwp5qcaoy" path="res://Scripts/Components/BaseMeleeAbility.cs" id="1_xio7h"]
+[ext_resource type="Script" uid="uid://d01xhwp5qcaoy" path="res://Scripts/Components/AbilityComponents/BaseMeleeAbility.cs" id="1_xio7h"]
 [ext_resource type="PackedScene" uid="uid://dlnqnumpvlwta" path="res://Scenes/Components/Hitbox.tscn" id="2_f0vhi"]
 [ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="3_a25p2"]
 

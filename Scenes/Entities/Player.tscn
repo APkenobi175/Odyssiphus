@@ -3,16 +3,17 @@
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_agccv"]
 [ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_g4oe6"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_yu0ev"]
-[ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/KeyboardInputController.tscn" id="3_86atj"]
+[ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/InputComponents/KeyboardInputController.tscn" id="3_86atj"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
-[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/BaseProjectileAbility.tscn" id="7_td8ue"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="7_td8ue"]
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
-[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="9_km4ui"]
-[ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_rsj4h"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
+[ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_inventory"]
+[ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="11_death"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_86atj"]
-size = Vector2(60, 60)
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsj4h"]
+radius = 29.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
 size = Vector2(58, 57)
@@ -24,7 +25,7 @@ Speed = 400.0
 Faction = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
-shape = SubResource("RectangleShape2D_86atj")
+shape = SubResource("CircleShape2D_rsj4h")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
 Health = NodePath("../Health")
@@ -40,6 +41,7 @@ texture = ExtResource("2_g4oe6")
 [node name="Input" parent="." unique_id=493573941 instance=ExtResource("3_86atj")]
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_g4oe6")]
+MaxHealth = 200.0
 
 [node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("5_86atj")]
 Health = NodePath("../Health")
@@ -47,9 +49,13 @@ Health = NodePath("../Health")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
 
 [node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+Cooldown = 0.3
 ProjectileScene = ExtResource("8_ynt0t")
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
+scale = Vector2(1.5, 1.5)
+Cooldown = 0.2
 
-[node name="InventoryController" parent="." unique_id=1379622013 node_paths=PackedStringArray("Items") instance=ExtResource("10_rsj4h")]
-Items = []
+[node name="InventoryController" parent="." unique_id=1379622013 instance=ExtResource("10_inventory")]
+
+[node name="Death" parent="." unique_id=1702970833 instance=ExtResource("11_death")]
