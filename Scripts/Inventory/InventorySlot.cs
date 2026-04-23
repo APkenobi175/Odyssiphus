@@ -115,6 +115,7 @@ public partial class InventorySlot : CenterContainer
 		if (IsEmpty())
 		{
 			NewItem.Reparent(this);
+			NewItem.Position = Vector2.Zero;
 			item = NewItem;
 			item.ZIndex = 64;
 			return null;
@@ -131,6 +132,7 @@ public partial class InventorySlot : CenterContainer
 			else
 			{
 				NewItem.Reparent(this);
+				NewItem.Position = Vector2.Zero;
 				item.Reparent(inventory);
 
 				InventoryItem TempItem = item;
