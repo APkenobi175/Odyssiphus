@@ -95,6 +95,10 @@ public partial class InventoryData : Control
             SelectedItem = slot.DeselectItem(SelectedItem);
             GD.Print(SelectedItem == null ? "Dropped item" : $"Swapped for {SelectedItem.ItemName}");
         }
+        for (int i = 0; i < _slots.Count; i++)
+        {
+            TargetInventory.Items[i] = _slots[i].item;
+        }
     }
 
     private void OnSlotHovered(InventorySlot which, bool isHovering)
@@ -150,6 +154,10 @@ public partial class InventoryData : Control
 
     public override void _Input(InputEvent @event)
     {
+        if (!Visible && SelectedItem != null)
+        {
+           TargetInventory.AddItem(SelectedItem, SelectedItem.Amount);
+        }
         // Make sure "toggle_inventory" is defined in your Project Settings -> Input Map
         if (@event.IsActionPressed("Inventory"))
         {
@@ -160,10 +168,15 @@ public partial class InventoryData : Control
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 RefreshUI(); // Update slots just in case
-                GD.Print($"Inventory Pos: {GlobalPosition} | Size: {Size} | Scale: {Scale}");
             }
             else
             {
+                // Puts item in the first available slot if the inventory is closed without
+                // putting the item in a slot.
+                if (SelectedItem != null)
+                {
+                    ReturnItemToFirstAvailableSlot();
+                }
                 // If it's a top-down/action game, you might want to capture the mouse again
                 // Input.MouseMode = Input.MouseModeEnum.Captured; 
                 if (Tooltip != null) Tooltip.Visible = false;
@@ -192,6 +205,41 @@ public partial class InventoryData : Control
         }
     }
 
+    private void ReturnItemToFirstAvailableSlot()
+    {
+        if (SelectedItem == null) return;
+
+        foreach (var slot in _slots)
+        {
+            if (slot.IsEmpty())
+            {
+                // 1. Hand the item to the slot data
+                slot.item = SelectedItem; 
+                
+                // 2. IMPORTANT: Manually call UpdateSlot so the item is 
+                // re-enabled and positioned correctly in its new home
+                slot.UpdateSlot();
+
+                // 3. Sync the backend data array
+                int index = _slots.IndexOf(slot);
+                if (index != -1)
+                {
+                    TargetInventory.Items[index] = slot.item;
+                }
+
+                // 4. Clear the "Grabbed" state
+                SelectedItem = null;
+                if (GrabbedItemSprite != null) 
+                {
+                    GrabbedItemSprite.Visible = false;
+                    GrabbedItemSprite.Texture = null; // Clear the ghost texture
+                }
+                
+                GD.Print("Item safely returned and reactivated.");
+                return;
+            }
+        }
+    }
     
 
 }

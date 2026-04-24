@@ -173,26 +173,41 @@ public partial class InventorySlot : CenterContainer
 
 	public void UpdateSlot()
 	{
-	    if (item != null)
-	    {
-	        // 1. Safe Disable (using SetDeferred)
-	        item.SetDeferred("process_mode", (int)ProcessModeEnum.Disabled);
-	        item.SetDeferred("monitoring", false);
-	        item.SetDeferred("monitorable", false);
-	
-	        // 2. Safe Reparenting
-	        if (item.GetParent() != this)
-	        {
-	            // If it has a parent, remove it safely
-	            item.GetParent()?.CallDeferred("remove_child", item);
-	            // Add it to this slot safely
-	            CallDeferred("add_child", item);
-	        }
-	
-	        // 3. Safe Positioning
-	        item.SetDeferred("position", Vector2.Zero);
-	
-	        if (item.Amount < 1) item.Fade();
-	    }
+		// If there is no item, there is nothing to position
+		if (item == null) return;
+
+		// 1. Physical State: Disable collisions/processing while in the UI
+		item.SetDeferred("process_mode", (int)ProcessModeEnum.Disabled);
+		
+		// Using string names for Area2D properties to avoid potential cast errors
+		item.SetDeferred("monitoring", false);
+		item.SetDeferred("monitorable", false);
+
+		// 2. Hierarchy: Ensure the item is a child of THIS slot
+		if (item.GetParent() != this)
+		{
+			// Use CallDeferred to move nodes safely during physics/input frames
+			item.GetParent()?.CallDeferred("remove_child", item);
+			CallDeferred("add_child", item);
+		}
+
+		// 3. The Center Fix: 
+		// We calculate the center based on the Slot's Size.
+		// If Size is (0,0) because it hasn't rendered yet, we use a default or wait.
+		Vector2 slotSize = Size;
+		if (slotSize == Vector2.Zero) 
+		{
+			// fallback to a standard size if the UI hasn't 'laid out' yet
+			slotSize = new Vector2(64, 64); 
+		}
+
+		Vector2 centerOfSlot = slotSize / 2;
+		item.SetDeferred("position", centerOfSlot);
+
+		// 4. Visuals
+		if (item.Amount < 1) 
+		{
+			item.Fade();
+		}
 	}
 }
