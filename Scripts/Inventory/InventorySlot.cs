@@ -28,7 +28,7 @@ public partial class InventorySlot : CenterContainer
 		{
 			if (mouseEvent.ButtonIndex == MouseButton.Left)
 			{
-				EmitSignal(SignalName.SlotInput, this, (int)inventorySlotAction.Select);
+				EmitSignal(SignalName.SlotInput, this, (int)inventorySlotAction.LeftClick);
 			}
 			else if (mouseEvent.ButtonIndex == MouseButton.Right)
 			{
@@ -49,11 +49,12 @@ public partial class InventorySlot : CenterContainer
 
 	public bool IsRespectingHint(InventoryItem NewItem, bool InAmmountAsWell = true)
 	{
-		if (ItemHint != null)
+		if (ItemHint == null)
 		{
 			return true;
 		}
-		if  (InAmmountAsWell)
+
+		if (InAmmountAsWell)
 		{
 			return NewItem.ItemName == ItemHint.ItemName && NewItem.Amount >= ItemHint.Amount;
 		}
@@ -110,40 +111,30 @@ public partial class InventorySlot : CenterContainer
 	public InventoryItem DeselectItem(InventoryItem NewItem)
 	{
 		if (!IsRespectingHint(NewItem)) return NewItem;
-
-		Node inventory = GetParent().GetParent();
-
 		if (IsEmpty())
 		{
-			NewItem.Reparent(this);
-			NewItem.Position = Vector2.Zero;
 			item = NewItem;
-			item.ZIndex = 64;
+			UpdateSlot();
 			return null;
 		}
 		else
 		{
-			if (HasSameItem(NewItem))
+			if (HasSameItem(NewItem) && item.IsStackable)
 			{
-				GD.Print("Has same item");
 				item.Amount += NewItem.Amount;
 				NewItem.QueueFree();
 				return null;
 			}
 			else
 			{
-				NewItem.Reparent(this);
-				NewItem.Position = Vector2.Zero;
-				item.Reparent(inventory);
-
-				InventoryItem TempItem = item;
+				InventoryItem oldItem = item;
 				item = NewItem;
 
-				NewItem.ZIndex = 64;
-				TempItem.ZIndex = 128;
-				return TempItem;
+				UpdateSlot();
+
+				return oldItem;
 			}
-		}
+		}	
 	}
 
 	public InventoryItem SplitItem()

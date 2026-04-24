@@ -154,7 +154,7 @@ public partial class InventoryData : Control
         if (@event.IsActionPressed("Inventory"))
         {
             GD.Print("Tab was pressed, opening inventory!");
-            this.Visible = !Visible;
+            Visible = !Visible;
             // Handle the mouse cursor
             if (Visible)
             {
