@@ -6,6 +6,7 @@ public partial class InventoryItem : Item
 	[Export] public int Amount = 0;
 	[Export] Sprite2D ItemSprite;
 	[Export] Label SpriteLabel;
+	protected bool _OffPickupCooldown = true;
 
 	public void SetData(string name, Texture2D icon, bool IsStackable, int amount)
 	{
@@ -31,7 +32,10 @@ public partial class InventoryItem : Item
 		}
 		else
 		{
-			SpriteLabel.Visible = false;
+			if (SpriteLabel != null)
+			{
+				SpriteLabel.Visible = false;
+			}
 		}
 	}
 
@@ -50,4 +54,17 @@ public partial class InventoryItem : Item
 		ItemSprite.Modulate = fadeColor;
 		SpriteLabel.Modulate = fadeColor;
 	}
+
+	public async void StartDropCooldown(float duration)
+	{
+	    _OffPickupCooldown = false;
+	    // Optional: make it slightly transparent to show it's "cooling down"
+	    Modulate = new Color(1, 1, 1, 0.5f); 
+	
+	    await ToSignal(GetTree().CreateTimer(duration), "timeout");
+	
+	    _OffPickupCooldown = true;
+	    Modulate = new Color(1, 1, 1, 1f); // Back to normal
+	}
+
 }
