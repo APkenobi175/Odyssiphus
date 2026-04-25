@@ -18,6 +18,8 @@ script = ExtResource("1_lmpnb")
 [node name="Background" parent="." unique_id=964556999 instance=ExtResource("2_sf0qa")]
 
 [node name="Exit2" type="Button" parent="." unique_id=2109229127]
+process_mode = 4
+visible = false
 offset_left = 458.0
 offset_top = 56.0
 offset_right = 634.0

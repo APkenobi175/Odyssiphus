@@ -34,10 +34,10 @@
 
 ### Ammon Tasks:
 
-- [ ] Remove dev features.
-  - [ ] Dev map
-  - [ ] dev camera 
-  - [ ] space bar to skip rooms
+- [x] Remove dev features.
+  - [x] Dev map
+  - [x] dev camera 
+  - [x] space bar to skip rooms
   - [x] button to kill player (k)
   - [x] button to win the game ( 5 key on keypad )
 
