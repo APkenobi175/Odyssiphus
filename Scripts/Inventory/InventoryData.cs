@@ -240,6 +240,58 @@ public partial class InventoryData : Control
             }
         }
     }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        // If we click the mouse AND the inventory is open AND we are holding an item...
+        if (Visible && SelectedItem != null && @event is InputEventMouseButton mouseEvent)
+        {
+            if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
+            {
+                // If the click reaches here, it means we didn't click a slot.
+                // Drop the item!
+                DropItem();
+            }
+        }
+    }
+
+   private void DropItem()
+    {
+        if (SelectedItem == null) return;
+    
+        var player = GetTree().GetFirstNodeInGroup("PlayerFaction") as CharacterBody2D;
+        if (player == null) return;
+    
+        var world = GetTree().CurrentScene;
+        SelectedItem.Reparent(world);
+    
+        // --- NEW PHYSICS FIXES START ---
+        // 1. Force the Area2D to start looking for collisions again
+        SelectedItem.SetDeferred("monitoring", true);
+        SelectedItem.SetDeferred("monitorable", true);
+        
+        // 2. Ensure the item is on the correct "Process Mode" to run physics
+        SelectedItem.ProcessMode = ProcessModeEnum.Inherit; 
+        // --- NEW PHYSICS FIXES END ---
+    
+        SelectedItem.Visible = true;
+    
+        if (player != null)
+        {
+            SelectedItem.GlobalPosition = player.GlobalPosition + new Vector2(30, 0);
+        }
+    
+        if (SelectedItem.HasMethod("StartDropCooldown"))
+        {
+            SelectedItem.Call("StartDropCooldown", 1.5f);
+        }
+    
+        SelectedItem = null;
+        if (GrabbedItemSprite != null) GrabbedItemSprite.Visible = false;
+    
+        GD.Print("Item dropped successfully!");
+    }
+    
     
 
 }
