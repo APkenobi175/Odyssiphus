@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_7ax10"]
 [ext_resource type="Script" uid="uid://1625myw06e6n" path="res://Scripts/Entities/Polyphemus3.cs" id="4_ygyvg"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_4thmc"]
-[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/BasicMeleeController.tscn" id="6_3o64d"]
-[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="7_xqefq"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="6_3o64d"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="7_xqefq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jw6ef"]
 size = Vector2(24.221447, 38.40829)
@@ -19,6 +19,7 @@ size = Vector2(6.920412, 16.079784)
 position = Vector2(289, 116)
 scale = Vector2(1.7, 1.7)
 script = ExtResource("1_34ei3")
+Faction = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=605785068]
 position = Vector2(2.9411774, 29.70588)

@@ -311,7 +311,7 @@ public partial class GameManager : Node
         //2.  ReGenerate the dungeon with the loaded seed
         var walker = new RandomWalk();
         var result = walker.Generate(
-            minSteps: 5,
+            minSteps: 8,
             maxSteps: 15,
             stepChance: 0.8f,
             branchChance: 0.3f,
@@ -323,10 +323,6 @@ public partial class GameManager : Node
 
         // 3. Re populate the doors for each room
         RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
-
-        var graphReplacement = new DungeonGraphReplacement();
-        graphReplacement.Replace(result.Rooms, result.Hallways, CurrentDungeonSeed);         // TODO: Do the graph replacement thingy (not done yet)
-        // Maybe we don't need to do that here because we'll already be setting room type next
 
         // 5. Update the generated rooms with the cleared status and room types from the save data
         foreach(var entry in data["rooms"].AsGodotArray())

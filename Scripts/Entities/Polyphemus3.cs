@@ -70,7 +70,6 @@ public partial class Polyphemus3 : AnimatedSprite2D
         if (Animation == "death_" + facing)
         {
             body.QueueFree();
-            GameManager.Instance.OnRoomCleared(GameManager.Instance.PlayerCurrentRoom);
         }
         else if (Animation == "attack_" + facing)
         {

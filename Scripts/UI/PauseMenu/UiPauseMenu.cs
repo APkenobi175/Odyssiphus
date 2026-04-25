@@ -1,4 +1,7 @@
 using Godot;
+using System;
+using System.Threading.Tasks;
+
 
 public partial class UiPauseMenu : CanvasLayer
 {
@@ -11,6 +14,7 @@ public partial class UiPauseMenu : CanvasLayer
     
     public override void _Ready()
     {
+        ProcessMode = ProcessModeEnum.Always; // So that it can detect input even when paused
         resumeButton = GetNode<Button>("PauseMenu/Buttons/ResumeButton");
         teleportToShipButton = GetNode<Button>("PauseMenu/Buttons/TeleportToShipButton");
         saveAndExitButton = GetNode<Button>("PauseMenu/Buttons/Exit");
@@ -29,14 +33,18 @@ public partial class UiPauseMenu : CanvasLayer
         GetTree().Paused = returningFromSettings;
 
         RefreshButtons();
+
+        resumeButton.ProcessMode = ProcessModeEnum.Always;
     }
 
     public override void _Input(InputEvent e)
     {
-        if (e.IsActionPressed("Pause"))
+        if (e is InputEventKey && e.IsActionPressed("Pause"))
+        {
             TogglePause();
+            GetViewport().SetInputAsHandled();
+        }
     }
-
     private void TogglePause()
     {
         Visible = !Visible;
@@ -67,10 +75,11 @@ public partial class UiPauseMenu : CanvasLayer
         }
     }
 
-    private void OnResumePressed()
+    private async void OnResumePressed()
     {
-        Visible = false;
         GetTree().Paused = false;
+        Visible = false;
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 
     private void OnTeleportToShipPressed()

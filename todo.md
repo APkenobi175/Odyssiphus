@@ -38,22 +38,22 @@
   - [ ] Dev map
   - [ ] dev camera 
   - [ ] space bar to skip rooms
-  - [ ] button to kill player (k)
-  - [ ] button to win the game ( 5 key on keypad )
+  - [x] button to kill player (k)
+  - [x] button to win the game ( 5 key on keypad )
 
 - [ ] Add animated text to ship scene with instructions/story
-- [ ] Make enemy room spawn random enemies
+- [x] Make enemy room spawn random enemies
   - Slimes can be depth based.
 - [ ] Save character's health and inventory in save data and load.
 - [ ] Finish the final boss fight / trigger game ending
-- [ ] Disable Puzzle Rooms
+- [x] Disable Puzzle Rooms
 - [ ] Controls on settings tab/hud maybe on canvas layer
-- [ ] Figure out when all the enemies die so a room will clear
+- [x] Figure out when all the enemies die so a room will clear
 
 
 ### Bugs Needed Fixing:
 
-- [ ] Fix the resume button
+- [x] Fix the resume button
 - [ ] Investigate bug where character moves forward.
 - [ ] Investigate bug where character gets stuck in ship scene (stairs collision)
 

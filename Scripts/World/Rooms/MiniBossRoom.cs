@@ -21,8 +21,17 @@ public partial class MiniBossRoom : Node2D
 	Node2D enemyContainer; 
 
 	public RandomWalkRoom RoomData { get; set; } 
+
+	public AnimationPlayer roomClearedAnimation;
+	public Label roomClearLabel;
 	public override void _Ready()
 	{
+
+		// Make room clear label invisible
+		roomClearLabel = GetNode<Label>("Label2");
+		roomClearLabel.Visible = false;
+
+		roomClearedAnimation = GetNode<AnimationPlayer>("AnimationPlayer");
 
 
 		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
@@ -67,23 +76,27 @@ public partial class MiniBossRoom : Node2D
 
 		if(!room.IsCleared)
 		{
-			//3 second delay before the mini boss spawns to give the player a moment to prepare
-			await WaitFor(3);
+			//2 second delay before the mini boss spawns to give the player a moment to prepare
+			await WaitFor(2);
 			spawnEnemy(miniBossScene);
 		}
 	}
 
 	private PackedScene pickMiniBossToSpawn()
 	{
+
 		int miniBossesDefeated = GameManager.Instance.MiniBossesDeafted;
 
 		switch (miniBossesDefeated)
 		{
 			case 0:
+				roomClearLabel.Text = "Polyphemus Deafeted! (Posiedon Will Be PISSED)";
 				return Cyclops;
 			case 1:
+				roomClearLabel.Text = "Large Slime Defeated! (One Step Closer To Penelope!)";
 				return Sirens;
 			case 2:
+				roomClearLabel.Text = "Scylla Defeated! (Maybe You Can Finally Get Home Now?)";
 				return Scylla;
 			case 3:
 				return Cerberus;
@@ -103,6 +116,35 @@ public partial class MiniBossRoom : Node2D
 	private async Task WaitFor(float seconds)
 	{
 		await ToSignal(GetTree().CreateTimer(seconds), "timeout");
+	}
+
+	public float clearRoomDelay = 5f;
+	private const float ClearCheckTime = 1.5f;
+
+	public override void _Process(double delta)
+	{
+		if (!hasSpawned) return;
+		if (RoomData == null) return;
+		if (RoomData.IsCleared) return; // If room is already cleared, no need to check for enemies
+
+		bool hasLivingEnemies = GetTree().GetNodesInGroup("Enemies").Count > 0;
+
+		if (hasLivingEnemies)
+		{
+			clearRoomDelay = ClearCheckTime; // Start the clear delay timer
+			return;
+		}
+
+		clearRoomDelay -= (float)delta;
+		if (clearRoomDelay <= 0f)
+		{
+			GameManager.Instance.OnRoomCleared(RoomData.Position);
+
+			GD.Print("Mini Boss Room Clearred!!");
+
+			// Play animation room cleared!
+			roomClearedAnimation.Play("Room Cleared!");
+		}
 	}
 
 }

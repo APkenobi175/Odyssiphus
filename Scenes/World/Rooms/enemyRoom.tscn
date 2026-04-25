@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://d2vbsqtvlffwk" path="res://Scripts/World/Rooms/EnemyRoom.cs" id="1_r5gin"]
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_t2abk"]
-[ext_resource type="PackedScene" uid="uid://d1co6n02skh3s" path="res://Scenes/Entities/Enemies/SlimeLarge.tscn" id="2_05cwq"]
 [ext_resource type="TileSet" uid="uid://du4i8s8h7ior0" path="res://Assets/Tiles/DungeonTiles.tres" id="2_uockr"]
 [ext_resource type="PackedScene" uid="uid://cwhrphtw64ijl" path="res://Scenes/Entities/Enemies/BasicMeleeEnemy.tscn" id="2_vugkp"]
 [ext_resource type="PackedScene" uid="uid://bfrf04rd0hixk" path="res://Scenes/Entities/Enemies/SlimeSmall.tscn" id="3_5pkt8"]
@@ -46,7 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ghhyj"]
 resource_name = "Room Cleared!"
-length = 1.0333333
+length = 1.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -68,7 +67,6 @@ _data = {
 
 [node name="EnemyRoom" type="Node2D" unique_id=1383749713]
 script = ExtResource("1_r5gin")
-SlimeLarge = ExtResource("2_05cwq")
 SlimeSmall = ExtResource("3_5pkt8")
 BasicMeleeEnemy = ExtResource("2_vugkp")
 RangedEnemy = ExtResource("5_hrjmg")
@@ -142,43 +140,45 @@ position = Vector2(229, 0)
 shape = SubResource("SegmentShape2D_vugkp")
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=737787810]
-position = Vector2(-52, 31)
+position = Vector2(-50, 56)
 
 [node name="SpawnPoint6" type="Marker2D" parent="SpawnPoints" unique_id=1909058773]
-position = Vector2(344, 172)
+position = Vector2(369, 179)
 
 [node name="SpawnPoint5" type="Marker2D" parent="SpawnPoints" unique_id=648113300]
-position = Vector2(518, 189)
+position = Vector2(418, 179)
 
 [node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=1689967548]
-position = Vector2(232, 187)
+position = Vector2(320, 177)
 
 [node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints" unique_id=305529076]
-position = Vector2(216, 62)
+position = Vector2(323, 93)
 
 [node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints" unique_id=587496307]
-position = Vector2(340, 75)
+position = Vector2(370, 93)
 
 [node name="SpawnPoint1" type="Marker2D" parent="SpawnPoints" unique_id=263800547]
-position = Vector2(509, 66)
+position = Vector2(418, 93)
 
 [node name="EnteredRoom" type="Area2D" parent="." unique_id=1270928210]
 script = ExtResource("6_2f233")
 
 [node name="onRoomEntered" type="CollisionShape2D" parent="EnteredRoom" unique_id=931114954]
-position = Vector2(319, 183.5)
+position = Vector2(321, 185)
 shape = SubResource("RectangleShape2D_h4osb")
 
 [node name="Label2" type="Label" parent="." unique_id=1524428078]
 visible = false
-offset_left = 265.0
-offset_top = 37.0
-offset_right = 378.0
-offset_bottom = 60.0
+offset_left = 17.0
+offset_top = 41.0
+offset_right = 623.0
+offset_bottom = 64.0
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("13_5pkt8")
 text = "Room Cleared!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1930321676]
 libraries/ = SubResource("AnimationLibrary_sqnfu")

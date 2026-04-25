@@ -2,12 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class EnemyRoom : Node2D
 {
 
-	[Export]
-	public PackedScene SlimeLarge { get; set; }
+
 	[Export]
 	public PackedScene SlimeSmall { get; set; }
 	[Export]
@@ -19,7 +19,7 @@ public partial class EnemyRoom : Node2D
 	[Export]
 	public PackedScene SlimeMedium { get; set; }
 
-	public List<PackedScene> EnemySceneList => new List<PackedScene> { SlimeLarge, SlimeMedium, SlimeSmall, BasicMeleeEnemy, RangedEnemy, ExplodingEnemy };
+	public List<PackedScene> EnemySceneList => new List<PackedScene> {SlimeMedium, SlimeSmall, BasicMeleeEnemy, RangedEnemy, ExplodingEnemy };
 	private bool hasSpawned = false;
 	private List<Marker2D> spawnPoints = new();
 
@@ -71,7 +71,7 @@ public partial class EnemyRoom : Node2D
 
 	}
 
-	private void onRoomEntered(Node2D body)
+	private async void onRoomEntered(Node2D body)
 	{
 		GD.Print("Player Entered Enemy Room!!");
 		if(body is not Entity entity || hasSpawned) return;
@@ -85,12 +85,14 @@ public partial class EnemyRoom : Node2D
 			GD.Print("Room is already cleared, not spawning enemies.");
 			return;
 		}
+		// 2 second delay
+		await WaitFor(2);
 		CallDeferred(MethodName.SpawnEnemies);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 
-	public float clearRoomDelay = 1.5f;
+	public float clearRoomDelay = 5f;
 	private const float ClearCheckTime = 1.5f;
 
 	public override void _Process(double delta)
@@ -101,15 +103,7 @@ public partial class EnemyRoom : Node2D
 		if (!hasSpawned) return;
 		if (RoomData.IsCleared) return; // If room is already cleared, no need to check for enemies
 
-		bool hasLivingEnemies = false;
-		foreach (Node child in GetChildren())
-		{
-			if (child is Entity)
-			{
-				hasLivingEnemies = true;
-				break;
-			}
-		}
+		bool hasLivingEnemies = GetTree().GetNodesInGroup("Enemies").Count > 0;
 
 		if (hasLivingEnemies)
 		{
@@ -157,12 +151,11 @@ public partial class EnemyRoom : Node2D
 
 		float[] weights = new float[]
 		{
-			Mathf.Lerp(30f, 5f, depth), // Slime Large, likely early, rare late
-			Mathf.Lerp(25f, 10f, depth), // Slime Medium, likely early, somewhat rare late
-			Mathf.Lerp(20f, 15f, depth), // Slime Small, somewhat likely early, somewhat likely late
-			Mathf.Lerp(15f, 30f, depth), // Basic Melee Enemy, somewhat rare early, likely late
-			Mathf.Lerp(7f, 25f, depth), // Ranged Enemy, rare early, likely late
-			Mathf.Lerp(3f, 25f, depth), // Exploding Enemy, very rare early, likely late
+			Mathf.Lerp(2f, 25f, depth),  // Slime Medium - rare early, common late
+			Mathf.Lerp(35f, 15f, depth), // Slime Small - very common early, less late
+			Mathf.Lerp(15f, 30f, depth), // Basic Melee Enemy
+			Mathf.Lerp(7f, 25f, depth),  // Ranged Enemy
+			Mathf.Lerp(3f, 25f, depth),  // Exploding Enemy
 		};
 
 		// Pick random weight in the total weight
@@ -185,7 +178,6 @@ public partial class EnemyRoom : Node2D
 	private int GetEnemyCount(float depth)
 	{
 		// We are going to spawn a number of enemies based on how far in to the dungeon we are
-
 		float[] weights = new float[]
 		{
 			Mathf.Lerp(30f, 2f, depth), // 1 Enemy, very likely early, very rare late
@@ -195,7 +187,6 @@ public partial class EnemyRoom : Node2D
 			Mathf.Lerp(7f, 30f, depth), // 5 Enemies, somewhat rare early, somewhat likely late
 			Mathf.Lerp(3f, 33f, depth), // 6 Enemies, rare early, likely late
 		};
-
 
 		// Pick random weight in the total weight
 
@@ -218,4 +209,10 @@ public partial class EnemyRoom : Node2D
 
 
 	}
+
+	private async Task WaitFor(float seconds)
+	{
+		await ToSignal(GetTree().CreateTimer(seconds), "timeout");
+	}
+
 }

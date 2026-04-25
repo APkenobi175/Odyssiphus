@@ -30,6 +30,7 @@ offset_right = 548.0
 offset_bottom = 55.0
 
 [node name="InventoryUI" parent="CanvasLayer" unique_id=903099080 instance=ExtResource("9_1u0ql")]
+process_mode = 3
 visible = false
 anchor_left = -0.009000001
 anchor_top = 0.011000001
@@ -45,10 +46,10 @@ offset_bottom = 116.04
 [node name="Camera2D" type="Camera2D" parent="." unique_id=653017666]
 position = Vector2(320, 180)
 
-[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
-process_mode = 3
-visible = false
-
 [node name="Player" parent="." unique_id=2069174916 instance=ExtResource("10_xaamn")]
 position = Vector2(314, 184)
 scale = Vector2(0.5, 0.5)
+
+[node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
+process_mode = 3
+visible = false

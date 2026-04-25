@@ -5,7 +5,9 @@
 [ext_resource type="TileSet" uid="uid://du4i8s8h7ior0" path="res://Assets/Tiles/DungeonTiles.tres" id="2_akanu"]
 [ext_resource type="PackedScene" uid="uid://c2rsady4nnlsy" path="res://Scenes/Entities/Polyphemus(Cyclops).tscn" id="2_c45mo"]
 [ext_resource type="Shader" uid="uid://b8bcexhyykq0i" path="res://Assets/Shaders/enemyRoom.gdshader" id="2_ksqqw"]
+[ext_resource type="PackedScene" uid="uid://d1co6n02skh3s" path="res://Scenes/Entities/Enemies/SlimeLarge.tscn" id="3_2b7di"]
 [ext_resource type="PackedScene" uid="uid://bsp4teccfxh4j" path="res://Scenes/World/Rooms/doors.tscn" id="3_ksqqw"]
+[ext_resource type="FontFile" uid="uid://ce37s7x0idtab" path="res://Assets/Fonts/Cinzel/Cinzel-VariableFont_wght.ttf" id="8_uykk8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x4kas"]
 shader = ExtResource("2_ksqqw")
@@ -22,12 +24,49 @@ b = Vector2(-315, -340)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c45mo"]
 size = Vector2(606, 337)
 
+[sub_resource type="Animation" id="Animation_hrjmg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ghhyj"]
+resource_name = "Room Cleared!"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vishq"]
+_data = {
+&"RESET": SubResource("Animation_hrjmg"),
+&"Room Cleared!": SubResource("Animation_ghhyj")
+}
+
 [node name="MiniBossRoom" type="Node2D" unique_id=1799222531]
 script = ExtResource("1_x4kas")
 Cyclops = ExtResource("2_c45mo")
-Sirens = ExtResource("2_c45mo")
+Sirens = ExtResource("3_2b7di")
 Scylla = ExtResource("2_c45mo")
-Cerberus = ExtResource("2_c45mo")
+Cerberus = ExtResource("3_2b7di")
 
 [node name="Label" type="Label" parent="." unique_id=1371012358]
 offset_right = 40.0
@@ -91,5 +130,21 @@ position = Vector2(317, 178)
 [node name="onRoomEntered" type="CollisionShape2D" parent="EnteredRoom" unique_id=361516026]
 position = Vector2(322, 185)
 shape = SubResource("RectangleShape2D_c45mo")
+
+[node name="Label2" type="Label" parent="." unique_id=1928637321]
+visible = false
+offset_left = 22.0
+offset_top = 37.0
+offset_right = 616.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_uykk8")
+text = "Room Cleared!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2147213144]
+libraries/ = SubResource("AnimationLibrary_vishq")
 
 [connection signal="body_entered" from="EnteredRoom" to="." method="onRoomEntered"]
