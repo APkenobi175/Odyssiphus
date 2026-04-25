@@ -110,6 +110,11 @@ public partial class Entity : CharacterBody2D
     {
       factionableSpecial.SetFaction(faction);
     }
+
+    if (Faction == FactionManager.Faction.Enemy)
+    {
+      AddToGroup("Enemies");
+    }
   }
 
   public void OnMovementInput(Vector2 moveInput)

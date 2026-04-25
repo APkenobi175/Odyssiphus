@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://da8lb8n3sldo3" path="res://Scripts/World/Rooms/EnteredRoom.cs" id="6_2f233"]
 [ext_resource type="PackedScene" uid="uid://dyg8odt1pxsy5" path="res://Scenes/Entities/Enemies/ExplodingEnemy.tscn" id="6_ghhyj"]
 [ext_resource type="PackedScene" uid="uid://bmxqh2g5lqo34" path="res://Scenes/Entities/Enemies/SlimeMedium.tscn" id="7_sqnfu"]
+[ext_resource type="FontFile" uid="uid://ce37s7x0idtab" path="res://Assets/Fonts/Cinzel/Cinzel-VariableFont_wght.ttf" id="13_5pkt8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_60alc"]
 shader = ExtResource("4_h4osb")
@@ -27,6 +28,43 @@ b = Vector2(-315, -340)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4osb"]
 size = Vector2(606, 337)
+
+[sub_resource type="Animation" id="Animation_hrjmg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ghhyj"]
+resource_name = "Room Cleared!"
+length = 1.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqnfu"]
+_data = {
+&"RESET": SubResource("Animation_hrjmg"),
+&"Room Cleared!": SubResource("Animation_ghhyj")
+}
 
 [node name="EnemyRoom" type="Node2D" unique_id=1383749713]
 script = ExtResource("1_r5gin")
@@ -130,6 +168,20 @@ script = ExtResource("6_2f233")
 [node name="onRoomEntered" type="CollisionShape2D" parent="EnteredRoom" unique_id=931114954]
 position = Vector2(319, 183.5)
 shape = SubResource("RectangleShape2D_h4osb")
+
+[node name="Label2" type="Label" parent="." unique_id=1524428078]
+visible = false
+offset_left = 265.0
+offset_top = 37.0
+offset_right = 378.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_5pkt8")
+text = "Room Cleared!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1930321676]
+libraries/ = SubResource("AnimationLibrary_sqnfu")
 
 [connection signal="body_entered" from="EnteredRoom" to="." method="onRoomEntered"]
 

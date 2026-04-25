@@ -25,11 +25,20 @@ public partial class EnemyRoom : Node2D
 
 	Node2D enemyContainer; 
 
+	private Label roomClearLabel;
+	private AnimationPlayer roomClearedAnimation;
+
 	public RandomWalkRoom RoomData { get; set; } // This will be set by the Dungeon when it creates the room instance so that the room can spawn the correct enemies and update the cleared state when all enemies are defeated.
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 
+		// Make room clear label invisible
+		roomClearLabel = GetNode<Label>("Label2");
+		roomClearLabel.Visible = false;
+
+		// Get node reference to room cleared animation player
+		roomClearedAnimation = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
 		var room = RoomData;
@@ -76,12 +85,51 @@ public partial class EnemyRoom : Node2D
 			GD.Print("Room is already cleared, not spawning enemies.");
 			return;
 		}
-		//CallDeferred(MethodName.SpawnEnemies);
+		CallDeferred(MethodName.SpawnEnemies);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
+
+	public float clearRoomDelay = 1.5f;
+	private const float ClearCheckTime = 1.5f;
+
 	public override void _Process(double delta)
 	{
+
+
+		// Check the enemy container, if the container it means all the enemies are dead and we can clear the room
+		if (!hasSpawned) return;
+		if (RoomData.IsCleared) return; // If room is already cleared, no need to check for enemies
+
+		bool hasLivingEnemies = false;
+		foreach (Node child in GetChildren())
+		{
+			if (child is Entity)
+			{
+				hasLivingEnemies = true;
+				break;
+			}
+		}
+
+		if (hasLivingEnemies)
+		{
+			clearRoomDelay = ClearCheckTime; // Start the clear delay timer
+			return;
+		}
+
+		clearRoomDelay -= (float)delta;
+		if (clearRoomDelay <= 0f)
+		{
+
+			GameManager.Instance.OnRoomCleared(RoomData.Position);
+			GD.Print("Enemies Clearred!!");
+
+			// Play animation room cleared!
+			roomClearedAnimation.Play("Room Cleared!");
+		}
+
+
+
 	}
 
 	private void SpawnEnemies()
