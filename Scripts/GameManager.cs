@@ -30,7 +30,7 @@ public partial class GameManager : Node
 
     public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
     
-
+    public bool isNewGame = true; // Flag to check if new game, if new game then cut scene will play
 
 
     public override void _Ready()
@@ -185,6 +185,7 @@ public partial class GameManager : Node
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
         MiniBossesDeafted = 0; // Reset the mini boss defeat count
+        isNewGame = true; // Set the new game flag to true so the cut scene will play
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
@@ -288,6 +289,7 @@ public partial class GameManager : Node
         LoadCharacter(characterJson.Data.AsGodotDictionary());
 
         string scene = dungeonData.ContainsKey("currentScene") ? dungeonData["currentScene"].AsString() : "Ship";
+        isNewGame = false; // Set the new game flag to false so the cut scene won't play
         GoTo(scene); // Go to the saved scene after loading
 
     }
@@ -455,6 +457,7 @@ public partial class GameManager : Node
         characterIsTransitioning = false; // reset character transition state
         GetTree().Paused = false; // Unpause the game 
         MiniBossesDeafted = 0; // Reset mini boss defeat count
+        isNewGame = false; // Set new game flag to false so cut scene won't play on reset
     }
 
     public void OnPlayerDied()
