@@ -167,15 +167,36 @@ public partial class GameManager : Node
 
     public async Task ChangeSong(string key, float fromPosition = 0f)
     {
-        musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
-        if (fromPosition > 0f)
+
+        // Special thanks to claude code for helping me figure out how to do the fade effect.
+
+        if (musicPlayer.Playing)
         {
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
-            CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+            var tween = CreateTween();
+            tween.TweenProperty(musicPlayer, "volume_db", -80f, 2f); // Fade out over 2 second
+            tween.TweenCallback(Callable.From(() =>
+            {
+                musicPlayer.Stream = Tracks[key];
+                musicPlayer.Play();
+                if (fromPosition > 0f)
+                    musicPlayer.Seek(fromPosition);
+            }));
+            tween.TweenProperty(musicPlayer, "volume_db", 0f, 2f);
         }
-        GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
-        GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
-        GD.Print($"Is playing: {musicPlayer.Playing}, Stream: {musicPlayer.Stream?.ResourcePath}");
+        else
+        {
+            musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
+            if (fromPosition > 0f)
+            {
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
+                CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+            }
+            GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
+            GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
+            GD.Print($"Is playing: {musicPlayer.Playing}, Stream: {musicPlayer.Stream?.ResourcePath}");
+                
+        }
+
 
     }
 

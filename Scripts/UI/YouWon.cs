@@ -26,7 +26,7 @@ public partial class YouWon : CanvasLayer
     public void OnReturnToMenuPressed()
     {
         GameManager.Instance.StopMusic();
-        GameManager.Instance.ChangeSong("Menu");
+        _ = GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
         GameManager.Instance.GoTo("HomeScreen");
         

@@ -76,7 +76,7 @@ public partial class BossRoom : Node2D
 
         GD.Print("Changed music to boss music!");
 
-		GameManager.Instance.ChangeSong("Boss");
+		_ = GameManager.Instance.ChangeSong("Boss");
 
         GD.Print("Playing music!");
         GameManager.Instance.PlayMusic();
@@ -129,7 +129,8 @@ public partial class BossRoom : Node2D
 
         if (cutsceneAnimation != null && GodotObject.IsInstanceValid(cutsceneAnimation))
         {
-            _ = GameManager.Instance.ChangeSong("Menu", 52f);
+            _ = GameManager.Instance.ChangeSong("Menu", 45f);
+            
             cutsceneAnimation.Play("The End");
             await ToSignal(cutsceneAnimation, AnimationPlayer.SignalName.AnimationFinished);
         }

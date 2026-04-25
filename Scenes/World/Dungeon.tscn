@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b62cv0tb7b233" path="res://Scenes/World/Rooms/puzzleRoom.tscn" id="7_sqayr"]
 [ext_resource type="PackedScene" uid="uid://dsxg3vuwglnft" path="res://Scenes/Inventory/Inventory.tscn" id="9_1u0ql"]
 [ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="10_xaamn"]
+[ext_resource type="PackedScene" uid="uid://eesqlggfq03o" path="res://Scenes/UI/UI_CharacterHUD.tscn" id="12_4yimq"]
 
 [node name="Dungeon" type="Node2D" unique_id=1429901411]
 script = ExtResource("1_cfi0b")
@@ -53,3 +54,5 @@ scale = Vector2(0.5, 0.5)
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("3_1cg3s")]
 process_mode = 3
 visible = false
+
+[node name="UiCharacterHud" parent="." unique_id=1695420951 instance=ExtResource("12_4yimq")]

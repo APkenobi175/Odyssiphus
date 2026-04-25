@@ -45,9 +45,9 @@
 - [x] Make enemy room spawn random enemies
   - Slimes can be depth based.
 - [ ] Save character's health and inventory in save data and load.
-- [ ] Finish the final boss fight / trigger game ending
+- [x] Finish the final boss fight / trigger game ending
 - [x] Disable Puzzle Rooms
-- [ ] Controls on settings tab/hud maybe on canvas layer
+- [x] Controls on settings tab/hud maybe on canvas layer
 - [x] Figure out when all the enemies die so a room will clear
 
 
