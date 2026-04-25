@@ -198,7 +198,7 @@ position = Vector2(532, -167)
 shape = SubResource("RectangleShape2D_albie")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible Wall15" unique_id=252107949]
-position = Vector2(-91.5, -170)
+position = Vector2(-92, -174)
 shape = SubResource("RectangleShape2D_pmbxq")
 
 [node name="EnteredRoom" type="Area2D" parent="." unique_id=209181306]
