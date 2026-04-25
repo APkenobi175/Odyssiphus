@@ -295,8 +295,8 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
 theme_override_font_sizes/font_size = 20
-text = "Walking With Posiedon
-by mvrasseli
+text = "Epic Boss Battle
+by SubspaceAudio
 (OpenGameArt.org)"
 vertical_alignment = 1
 

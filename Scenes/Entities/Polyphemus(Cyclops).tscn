@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_34ei3"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_epir6"]
-[ext_resource type="SpriteFrames" uid="uid://cdjbtkw7fnacy" path="res://Assets/Bosses/cyclops.tres" id="3_epir6"]
+[ext_resource type="SpriteFrames" path="res://Assets/Bosses/cyclops.tres" id="3_epir6"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_7ax10"]
 [ext_resource type="Script" uid="uid://1625myw06e6n" path="res://Scripts/Entities/Polyphemus3.cs" id="4_ygyvg"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_4thmc"]
