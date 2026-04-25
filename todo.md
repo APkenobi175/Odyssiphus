@@ -24,9 +24,11 @@
 
 ### Ryan Tasks:
 
+
 - [ ] Find a way to make enemies scale
 - [ ] Add shaders to progress enemies
 - [ ] Add sprites for the enemies and character
+- [ ] Make posiedons projectile a trident.
 
 ---
 
