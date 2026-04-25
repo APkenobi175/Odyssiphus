@@ -2,11 +2,16 @@
 
 [ext_resource type="Script" uid="uid://d2vbsqtvlffwk" path="res://Scripts/World/Rooms/EnemyRoom.cs" id="1_r5gin"]
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_t2abk"]
+[ext_resource type="PackedScene" uid="uid://d1co6n02skh3s" path="res://Scenes/Entities/Enemies/SlimeLarge.tscn" id="2_05cwq"]
 [ext_resource type="TileSet" uid="uid://du4i8s8h7ior0" path="res://Assets/Tiles/DungeonTiles.tres" id="2_uockr"]
-[ext_resource type="PackedScene" uid="uid://cwhrphtw64ijl" path="res://Scenes/Entities/BasicMeleeEnemy.tscn" id="2_vugkp"]
+[ext_resource type="PackedScene" uid="uid://cwhrphtw64ijl" path="res://Scenes/Entities/Enemies/BasicMeleeEnemy.tscn" id="2_vugkp"]
+[ext_resource type="PackedScene" uid="uid://bfrf04rd0hixk" path="res://Scenes/Entities/Enemies/SlimeSmall.tscn" id="3_5pkt8"]
 [ext_resource type="PackedScene" uid="uid://bsp4teccfxh4j" path="res://Scenes/World/Rooms/doors.tscn" id="3_r5gin"]
 [ext_resource type="Shader" uid="uid://b8bcexhyykq0i" path="res://Assets/Shaders/enemyRoom.gdshader" id="4_h4osb"]
+[ext_resource type="PackedScene" uid="uid://7yipxi5yuy0g" path="res://Scenes/Entities/Enemies/BasicProjectileEnemy.tscn" id="5_hrjmg"]
 [ext_resource type="Script" uid="uid://da8lb8n3sldo3" path="res://Scripts/World/Rooms/EnteredRoom.cs" id="6_2f233"]
+[ext_resource type="PackedScene" uid="uid://dyg8odt1pxsy5" path="res://Scenes/Entities/Enemies/ExplodingEnemy.tscn" id="6_ghhyj"]
+[ext_resource type="PackedScene" uid="uid://bmxqh2g5lqo34" path="res://Scenes/Entities/Enemies/SlimeMedium.tscn" id="7_sqnfu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_60alc"]
 shader = ExtResource("4_h4osb")
@@ -25,7 +30,12 @@ size = Vector2(606, 337)
 
 [node name="EnemyRoom" type="Node2D" unique_id=1383749713]
 script = ExtResource("1_r5gin")
-EnemyScene = ExtResource("2_vugkp")
+SlimeLarge = ExtResource("2_05cwq")
+SlimeSmall = ExtResource("3_5pkt8")
+BasicMeleeEnemy = ExtResource("2_vugkp")
+RangedEnemy = ExtResource("5_hrjmg")
+ExplodingEnemy = ExtResource("6_ghhyj")
+SlimeMedium = ExtResource("7_sqnfu")
 
 [node name="UiPauseMenu" parent="." unique_id=1845154346 instance=ExtResource("1_t2abk")]
 process_mode = 3

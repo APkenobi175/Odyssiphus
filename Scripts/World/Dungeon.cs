@@ -33,8 +33,13 @@ public partial class Dungeon : Node2D
 
     private const int HallwayLength = 64;
 
-    private const int MaxRooms = 30; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
-    private const int minRooms = 20; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
+    private const int MaxRooms = 40; // Added a max room limit to prevent infinite loops in generation, can be adjusted as needed.
+    private const int minRooms = 30; // Added a minimum room limit to ensure dungeons aren't too small, can be adjusted as needed.
+
+
+    private double printTimer = 0;
+
+
 
 
     public override void _Ready()
@@ -47,10 +52,10 @@ public partial class Dungeon : Node2D
             // 1. Generate the dungeon layout using the RandomWalk algorithm
             var walker = new RandomWalk();
             var result = walker.Generate(
-                minSteps: 5,
-                maxSteps: 10,
-                stepChance: 0.7f,
-                branchChance: 0.2f,
+                minSteps: 8,
+                maxSteps: 15,
+                stepChance: 0.8f,
+                branchChance: 0.3f,
                 allowLoops: false,
                 allowBranches: true,
                 allowBranchesToConnect: false,
@@ -74,15 +79,21 @@ public partial class Dungeon : Node2D
 
             result.Rooms[0].IsCleared = true;
 
-            GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, result.Seed); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
+            bool validDungeon = GameManager.Instance.LoadDungeon(result.Rooms, result.Hallways, result.Seed); // Load the generated dungeon into the GameManager so it can be accessed by other parts of the game (like the minimap and player movement)
+            
+            if (!validDungeon)
+            {
+                GD.Print("Critical Path Too Short. Regenerating...");
+                result.Rooms.Clear();
+                result.Hallways.Clear();
+                _Ready();
+                return;
+            }
+            
+            
             GD.Print($"Generated dungeon with {result.Rooms.Count} rooms and {result.Hallways.Count} hallways. Max rooms hit: {result.maxRoomsHit}");
             var positions = GameManager.Instance.CurrentDungeonRooms.Select(r => r.Position).ToList();
             var duplicates = positions.GroupBy(p => p).Where(g => g.Count() > 1).ToList();
-            GD.Print($"Duplicate room positions: {duplicates.Count}");
-            foreach (var dup in duplicates)
-            {
-                GD.Print($"Position {dup.Key} has {dup.Count()} duplicates");
-            }
 
         }
 
@@ -161,6 +172,9 @@ public partial class Dungeon : Node2D
                 treasureRoom.RoomData = room;
             else if (instance is PuzzleRoom puzzleRoom)
                 puzzleRoom.RoomData = room;
+            else if (instance is StartRoom startRoom)
+                startRoom.RoomData = room;
+            
 
             container.AddChild(instance);
             SetRoomDoors(instance, room);
@@ -177,25 +191,26 @@ public partial class Dungeon : Node2D
         
         // Get players current room position and move player and camera there
         var currentRoomPos = GameManager.Instance.PlayerCurrentRoom;
-        GD.Print($"PlayerCurrentRoom =  {currentRoomPos}");
+        //GD.Print($"PlayerCurrentRoom =  {currentRoomPos}");
         var worldPos = new Vector2(currentRoomPos.X * (RoomWidth + HallwayLength),
             currentRoomPos.Y * (RoomHeight + HallwayLength));
-        GD.Print($" worldPos = {worldPos}");
+        //GD.Print($" worldPos = {worldPos}");
 
         var camera = GetNode<Camera2D>("Camera2D");
         camera.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
-        GD.Print($"Camera positioned at {camera.Position}");
+        //GD.Print($"Camera positioned at {camera.Position}");
 
         var player = GetNodeOrNull<CharacterBody2D>("Player");
         if (player != null)
         {
             player.Position = worldPos + new Vector2(RoomWidth / 2f, RoomHeight / 2f);
-            GD.Print($"Player positioned at {player.Position}");
+            //GD.Print($"Player positioned at {player.Position}");
         }
         else
         {
             GD.Print("Player node not found in dungeon scene!");
         }
+       // GD.Print($"[SPAWN] Player position set to: {player.Position}, GlobalPosition: {player.GlobalPosition}");
 
     }
 
@@ -212,7 +227,7 @@ public partial class Dungeon : Node2D
         var door = instance.GetNodeOrNull<Node2D>($"Doors/{doorName}");
         if (door == null)
         {
-            GD.PrintErr($"No door named {doorName} found in room instance!");
+            //GD.PrintErr($"No door named {doorName} found in room instance!");
             return;
         }
         door.Visible = active;
@@ -222,7 +237,7 @@ public partial class Dungeon : Node2D
 
 
 
-    //////////////// FOR TESTING ONLY //////////////////////
+    //////////////// DEV FEATURES //////////////////////
     /// 
     
     public override void _Input(InputEvent e)
@@ -246,14 +261,14 @@ public partial class Dungeon : Node2D
                 camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
         }
 
-        if (Input.IsActionJustPressed("Suicide"))
-        {
-            GameManager.Instance.OnPlayerDied();
-        }
-        if (Input.IsActionJustPressed("Win"))
-        {
-            GameManager.Instance.OnPlayerWon();
-        }
+        // if (Input.IsActionJustPressed("Suicide"))
+        // {
+        //     GameManager.Instance.OnPlayerDied();
+        // }
+        // if (Input.IsActionJustPressed("Win"))
+        // {
+        //     GameManager.Instance.OnPlayerWon();
+        // }
     }
 
     public void MoveCamera(Vector2I roomPos)
@@ -268,5 +283,21 @@ public partial class Dungeon : Node2D
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.InOut);
     }
+
+    // public override void _Process(double delta)
+    // {
+    //     printTimer += delta;
+    //     if (printTimer >= 0.5)
+    //     {
+    //         printTimer = 0;
+    //         var player = GetNodeOrNull<CharacterBody2D>("Player");
+    //         if (player != null)            {
+    //             GD.Print($"Player position: {player.GlobalPosition}");
+    //         }
+    //     }
+        
+    // }
+
+
 
 }

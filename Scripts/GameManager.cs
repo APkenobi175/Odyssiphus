@@ -30,7 +30,7 @@ public partial class GameManager : Node
 
     public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
     
-    public bool isNewGame = true; // Flag to check if new game, if new game then cut scene will play
+
 
 
     public override void _Ready()
@@ -65,7 +65,7 @@ public partial class GameManager : Node
 
         //========================== DUNGEON STUFF =================================== //
 
-    public void LoadDungeon(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
+    public bool LoadDungeon(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
     {
         CurrentDungeonRooms = rooms; // Set the current dungeon rooms to the generated rooms
         CurrentDungeonHallways = hallways; // Set the current dungeon hallways to the generated
@@ -74,11 +74,17 @@ public partial class GameManager : Node
         var graphReplacement = new DungeonGraphReplacement();
 
         // Perform graph replacement to set rooms
-        graphReplacement.Replace(rooms, hallways, seed);
+        bool success =graphReplacement.Replace(rooms, hallways, seed);
+
+        if (!success)
+        {
+            return false;
+        }
 
         PlayerCurrentRoom = Vector2I.Zero; // Reset player position to the starting room
         currentRoom = GetRoomAt(PlayerCurrentRoom); // Set the current room to the starting room
         RefreshMiniMap(); // Refresh the minimap to show the new dungeon layout
+        return true;
     }
 
     public void OnPlayerEnterRoom(Vector2I newRoom)
@@ -185,7 +191,6 @@ public partial class GameManager : Node
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
         MiniBossesDeafted = 0; // Reset the mini boss defeat count
-        isNewGame = true; // Set the new game flag to true so the cut scene will play
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
@@ -207,6 +212,7 @@ public partial class GameManager : Node
 
     private string SaveDungeon()
     {
+        GD.Print("Saving Game. Player Current Room: " + PlayerCurrentRoom);
         var data = new Godot.Collections.Dictionary();
         data["seed"] = CurrentDungeonSeed;
         data["playerRoom_x"] = PlayerCurrentRoom.X;
@@ -289,7 +295,7 @@ public partial class GameManager : Node
         LoadCharacter(characterJson.Data.AsGodotDictionary());
 
         string scene = dungeonData.ContainsKey("currentScene") ? dungeonData["currentScene"].AsString() : "Ship";
-        isNewGame = false; // Set the new game flag to false so the cut scene won't play
+        GD.Print($"Loading into scene: {scene}, PlayerCurrentRoom: {PlayerCurrentRoom}");
         GoTo(scene); // Go to the saved scene after loading
 
     }
@@ -318,7 +324,8 @@ public partial class GameManager : Node
         // 3. Re populate the doors for each room
         RandomWalk.PopulateDoors(result.Rooms, result.Hallways);
 
-        // TODO: Do the graph replacement thingy (not done yet)
+        var graphReplacement = new DungeonGraphReplacement();
+        graphReplacement.Replace(result.Rooms, result.Hallways, CurrentDungeonSeed);         // TODO: Do the graph replacement thingy (not done yet)
         // Maybe we don't need to do that here because we'll already be setting room type next
 
         // 5. Update the generated rooms with the cleared status and room types from the save data
@@ -457,7 +464,6 @@ public partial class GameManager : Node
         characterIsTransitioning = false; // reset character transition state
         GetTree().Paused = false; // Unpause the game 
         MiniBossesDeafted = 0; // Reset mini boss defeat count
-        isNewGame = false; // Set new game flag to false so cut scene won't play on reset
     }
 
     public void OnPlayerDied()

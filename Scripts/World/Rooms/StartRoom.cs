@@ -10,7 +10,7 @@ public partial class StartRoom : Node2D
 	{
 
 		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
-		var room = RoomData ?? GameManager.Instance.currentRoom;
+		var room = RoomData;
 		float depth = room.Depth;
 		var tilemap = GetNode<TileMapLayer>("TileMapLayer");
 		var material = (ShaderMaterial)tilemap.Material.Duplicate(); // Added duplicate so that every room has its own.
@@ -19,10 +19,10 @@ public partial class StartRoom : Node2D
 		GD.Print($"Setting shader depth to {depth} for room {room.Position} START room btw");
 
 		// hide doors that don't exist
-		GetNode<Node2D>("Doors/SouthDoor").Visible = room.Doors.Contains("N");
-		GetNode<Node2D>("Doors/NorthDoor").Visible = room.Doors.Contains("S");
-		GetNode<Node2D>("Doors/EastDoor").Visible = room.Doors.Contains("W");
-		GetNode<Node2D>("Doors/WestDoor").Visible = room.Doors.Contains("E");
+		GetNode<Node2D>("Doors/SouthDoor").Visible = room.Doors.Contains("S");
+		GetNode<Node2D>("Doors/NorthDoor").Visible = room.Doors.Contains("N");
+		GetNode<Node2D>("Doors/EastDoor").Visible = room.Doors.Contains("E");
+		GetNode<Node2D>("Doors/WestDoor").Visible = room.Doors.Contains("W");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

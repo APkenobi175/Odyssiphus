@@ -7,7 +7,19 @@ public partial class EnemyRoom : Node2D
 {
 
 	[Export]
-	public PackedScene EnemyScene { get; set; }
+	public PackedScene SlimeLarge { get; set; }
+	[Export]
+	public PackedScene SlimeSmall { get; set; }
+	[Export]
+	public PackedScene BasicMeleeEnemy { get; set; }
+	[Export]
+	public PackedScene RangedEnemy { get; set; }
+	[Export]
+	public PackedScene ExplodingEnemy { get; set; }
+	[Export]
+	public PackedScene SlimeMedium { get; set; }
+
+	public List<PackedScene> EnemySceneList => new List<PackedScene> { SlimeLarge, SlimeMedium, SlimeSmall, BasicMeleeEnemy, RangedEnemy, ExplodingEnemy };
 	private bool hasSpawned = false;
 	private List<Marker2D> spawnPoints = new();
 
@@ -20,7 +32,7 @@ public partial class EnemyRoom : Node2D
 
 
 		// APPLY SHADER TO TILEMAP and set the DEPTH PAREMETER
-		var room = RoomData ?? GameManager.Instance.currentRoom;
+		var room = RoomData;
 		float depth = room.Depth;
 		var tilemap = GetNode<TileMapLayer>("TileMapLayer");
 		var material = (ShaderMaterial)tilemap.Material.Duplicate(); // Added duplicate so that every room has its own.
@@ -64,7 +76,7 @@ public partial class EnemyRoom : Node2D
 			GD.Print("Room is already cleared, not spawning enemies.");
 			return;
 		}
-		CallDeferred(MethodName.SpawnEnemies);
+		//CallDeferred(MethodName.SpawnEnemies);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,10 +95,43 @@ public partial class EnemyRoom : Node2D
 		GD.Print($"Spawning {count} enemies at depth {depth} with {spawnPoints.Count} spawn points");
 		for (int i = 0; i< count && i < shuffled.Count; i++)
 		{
-			Entity enemy = EnemyScene.Instantiate<Entity>();
+			// Pick what type of enemy to spawn
+			PackedScene enemyType = getEnemyType(depth);
+			Entity enemy = enemyType.Instantiate<Entity>();
 			AddChild(enemy);
 			enemy.GlobalPosition = shuffled[i].GlobalPosition;
 		}
+	}
+
+	private PackedScene getEnemyType(float depth)
+	{
+		// We are going to spawn different types of enemies based on how far in to the dungeon we are
+
+		float[] weights = new float[]
+		{
+			Mathf.Lerp(30f, 5f, depth), // Slime Large, likely early, rare late
+			Mathf.Lerp(25f, 10f, depth), // Slime Medium, likely early, somewhat rare late
+			Mathf.Lerp(20f, 15f, depth), // Slime Small, somewhat likely early, somewhat likely late
+			Mathf.Lerp(15f, 30f, depth), // Basic Melee Enemy, somewhat rare early, likely late
+			Mathf.Lerp(7f, 25f, depth), // Ranged Enemy, rare early, likely late
+			Mathf.Lerp(3f, 25f, depth), // Exploding Enemy, very rare early, likely late
+		};
+
+		// Pick random weight in the total weight
+		float total = weights.Sum();
+		float roll = GD.Randf() * total;
+
+		// iterate through weights and subtract from roll until we find the enemy type to spawn
+		float cumulative = 0f;
+		for (int i = 0; i< weights.Length; i++)
+		{
+			cumulative += weights[i];
+			if (roll <= cumulative)			{
+				return EnemySceneList[i];
+			}
+		}
+
+		return EnemySceneList[0]; // fallback to first enemy type if something goes wrong
 	}
 
 	private int GetEnemyCount(float depth)

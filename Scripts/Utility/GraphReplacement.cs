@@ -14,7 +14,7 @@ using System.Linq;
 
 public class DungeonGraphReplacement
 {
-    private const int RequiredMiniBosses = 4;
+    private const int RequiredMiniBosses = 3;
     private const float TreasureRoomChance = 0.15f;
     private const float PuzzleRoomChance = 0.10f;
 
@@ -23,69 +23,106 @@ public class DungeonGraphReplacement
     private const int MinTreasureRooms = 3;
     private const int MinPuzzleRooms = 2;
 
-public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
-{
-    rng = new Random(seed);
+    private const int minPathLengthOfCriticalPath = 15; // Added a minimum path length requirement for the critical path to ensure more interesting dungeons, can be adjusted as needed.
 
-    // 1. Build Adjacency Map
-    var adjacency = BuildAdjacency(rooms, hallways);
-
-    // 2. BFS from origin (0,0)
-    var startRoom = rooms.Find(r => r.Position == Vector2I.Zero);
-    var (distances, parents) = BFS(startRoom, adjacency);
-
-    // 3. Boss is farthest from start
-    var bossRoom = distances.OrderByDescending(kvp => kvp.Value).First().Key;
-    bossRoom.RoomType = RoomType.BossRoom;
-
-    // 4. BFS from boss for depth assignment
-    var (distancesFromBoss, _) = BFS(bossRoom, adjacency);
-
-    int maxDistFromBoss = distancesFromBoss.Values.Max();
-    foreach (var kvp in distancesFromBoss)
+    public bool Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways, int seed)
     {
-        kvp.Key.Depth = maxDistFromBoss > 0
-            ? 1f - ((float)kvp.Value / maxDistFromBoss)
-            : 0f;
-    }
+        rng = new Random(seed);
 
-    // 5. Assign start room
-    startRoom.RoomType = RoomType.Start;
-    startRoom.IsCleared = true;
-    startRoom.Depth = 0f; // force exactly 0
-    startRoom.IsDiscovered = true; // Start room is always discovered
+        // 1. Build Adjacency Map
+        var adjacency = BuildAdjacency(rooms, hallways);
 
-    // 6. Trace critical path from start to boss
-    var (distancesFromStart, parentsFromStart) = BFS(startRoom, adjacency);
-    var criticalPath = TracePath(bossRoom, startRoom, parentsFromStart);
+        // 2. BFS from origin (0,0)
+        var startRoom = rooms.Find(r => r.Position == Vector2I.Zero);
+        var (distances, parents) = BFS(startRoom, adjacency);
 
-    // 8. Place mini bosses along critical path
-    PlaceMiniBosses(criticalPath, RequiredMiniBosses);
+        // 3. Boss is farthest from start
+        var bossRoom = distances.OrderByDescending(kvp => kvp.Value).First().Key;
+        bossRoom.RoomType = RoomType.BossRoom;
 
-    // 9. Assign remaining room types
-    var criticalSet = new HashSet<RandomWalkRoom>(criticalPath);
+        // 4. Assign start room
+        startRoom.RoomType = RoomType.Start;
+        startRoom.IsCleared = true;
+        startRoom.Depth = 0f;
+        startRoom.IsDiscovered = true;
 
-    foreach (var room in rooms)
-    {
-        if (room.RoomType != RoomType.EnemyRoom) continue;
-        if (criticalSet.Contains(room)) continue;
+        // 5. Trace critical path from start to boss
+        var (distancesFromStart, parentsFromStart) = BFS(startRoom, adjacency);
+        var criticalPath = TracePath(bossRoom, startRoom, parentsFromStart);
 
-        double roll = rng.NextDouble();
-        if (roll < TreasureRoomChance)
+        if (criticalPath.Count < minPathLengthOfCriticalPath)
         {
-            room.RoomType = RoomType.TreasureRoom;
-            room.IsCleared = true; // TREASURE ROOMS AUTO CLEAR
+           return false;
         }
-        else if (roll < TreasureRoomChance + PuzzleRoomChance)
-        {
-            room.RoomType = RoomType.PuzzleRoom;
-        }
-    }
 
-    // Ensure we have the minimum number of room types
-    EnsureMinimum(rooms, criticalSet, RoomType.TreasureRoom, MinTreasureRooms);
-    EnsureMinimum(rooms, criticalSet, RoomType.PuzzleRoom, MinPuzzleRooms);
-}
+        // 6. Assign depth along critical path (0 at start, 1 at boss)
+        var criticalSet = new HashSet<RandomWalkRoom>(criticalPath);
+        int pathLength = criticalPath.Count;
+        for (int i = 0; i < pathLength; i++)
+        {
+            criticalPath[i].Depth = pathLength > 1 ? (float)i / (pathLength - 1) : 0f;
+        }
+
+        // 7. Propagate depth to branch rooms (BFS from each critical path room into branches)
+        var assigned = new HashSet<RandomWalkRoom>(criticalSet);
+        var queue = new Queue<RandomWalkRoom>();
+
+        foreach (var room in criticalPath)
+            queue.Enqueue(room);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            if (!adjacency.ContainsKey(current)) continue;
+            foreach (var neighbor in adjacency[current])
+            {
+                if (assigned.Contains(neighbor)) continue;
+                neighbor.Depth = current.Depth; // inherit parent's depth
+                assigned.Add(neighbor);
+                queue.Enqueue(neighbor);
+            }
+        }
+
+        // 8. Place mini bosses along critical path
+        PlaceMiniBosses(criticalPath, RequiredMiniBosses);
+
+        // 8b NEW Place at least one treasure room on critical path ( no longer needed )
+        // PlaceMandatoryTreasureRoom(criticalPath);
+
+        // 9. Assign remaining room types
+        foreach (var room in rooms)
+        {
+            if (room.RoomType != RoomType.EnemyRoom) continue;
+            if (criticalSet.Contains(room)) continue;
+
+            // double roll = rng.NextDouble();
+            // if (roll < TreasureRoomChance)
+            // {
+            //     room.RoomType = RoomType.TreasureRoom;
+            //     room.IsCleared = true;
+            // }
+
+            // NOT ENOUGH TIME TO IMPLEMENT PUZZLE ROOMS, SAVE FOR LATER
+
+            // else if (roll < TreasureRoomChance + PuzzleRoomChance)
+            // {
+            //     room.RoomType = RoomType.PuzzleRoom;
+            // }
+        }
+
+        // PlaceTreasureRooms(rooms, criticalSet, MinTreasureRooms);
+
+        // 10. Ensure minimum treasure rooms (dont need this anymore, replaced by placetreasurerooms function)
+        //EnsureMinimum(rooms, criticalSet, RoomType.TreasureRoom, MinTreasureRooms);
+
+        // NOT ENOUGH TIME TO IMPLEMENT PUZZLE ROOMS, SAVE FOR LATER
+
+        //EnsureMinimum(rooms, criticalSet, RoomType.PuzzleRoom, MinPuzzleRooms);
+
+        PlaceBranchTreasures(rooms, criticalSet, adjacency);
+
+    return true;
+    }
 
 
     private (Dictionary<RandomWalkRoom, int>, Dictionary<RandomWalkRoom, RandomWalkRoom>) BFS(RandomWalkRoom start, Dictionary<RandomWalkRoom, List<RandomWalkRoom>> adjacency)
@@ -159,45 +196,177 @@ public void Replace(List<RandomWalkRoom> rooms, List<RandomWalkHallway> hallways
 
     private void PlaceMiniBosses(List<RandomWalkRoom> criticalPath, int count)
     {
-        // Skip start (index 0) and boss room (last index)
-        var eligible = criticalPath.Skip(1).Take(criticalPath.Count - 2).ToList();
-        if (eligible.Count == 0) return; // No rooms to place mini bosses in
 
-        count = Math.Min(count, eligible.Count);
+        //0.5 Place final treasure explicitly on the room right before the boss
+        var finalTreasure = criticalPath[criticalPath.Count - 2];
+        if (finalTreasure.RoomType == RoomType.EnemyRoom)
+        {
+            finalTreasure.RoomType = RoomType.TreasureRoom;
+            finalTreasure.IsCleared = true;
+        }
+
+        
+        // 1. Create a list of eligible rooms for minibosses
+        var eligible = new List<RandomWalkRoom>();
+        for (int i = 0; i<criticalPath.Count; i++)
+        {
+            if (i==0) continue; // skip the start room
+            if (i==1) continue; // skip the first room after start
+            if (i == criticalPath.Count - 1) continue; // skip the boss room
+            if (i >= criticalPath.Count - 3) continue; // leave at least 2 rooms before boss
+            eligible.Add(criticalPath[i]);
+
+        }
+
+
+
+        if (eligible.Count < count * 2) return;
+
+
+        // Now work with the remaining eligible rooms (exclude the final treasure)
+
         float spacing = (float)eligible.Count / count;
 
         for (int i = 0; i < count; i++)
         {
-            int index = (int)(spacing * i + spacing / 2); // Place mini boss in the middle of each segment
-            eligible[index].RoomType = RoomType.MiniBoss;
-        }
+            int segmentStart = (int)(spacing * i);
+            int segmentEnd = (int)(spacing * (i + 1)) - 1;
 
-    }
-
-    private void EnsureMinimum(List<RandomWalkRoom> rooms, HashSet<RandomWalkRoom> criticalSet, RoomType type, int minimum)
-    {
-        int current = rooms.Count(r => r.RoomType == type);
-        int needed = minimum - current;
-        if (needed <=0) return;
-
-        var candidates = rooms
-            .Where(r => r.RoomType == RoomType.EnemyRoom && !criticalSet.Contains(r))
-            .OrderBy(_ => rng.Next()) // Shuffle candidates
-            .Take(needed)
-            .ToList();
-
-        foreach (var room in candidates)
-        {
-            room.RoomType = type;
-            if (type == RoomType.TreasureRoom)
+            // Find first available enemy room in segment for miniboss
+            int mIndex = -1;
+            for (int j = segmentStart; j <= segmentEnd; j++)
             {
-                room.IsCleared = true; // TREASURE ROOMS AUTO CLEAR
+                if (eligible[j].RoomType == RoomType.EnemyRoom)
+                {
+                    mIndex = j;
+                    break;
+                }
+            }
+            if (mIndex == -1) continue;
+            eligible[mIndex].RoomType = RoomType.MiniBoss;
+
+            // Treasure goes in next available enemy room after miniboss in segment
+            for (int j = mIndex + 1; j <= segmentEnd && j < eligible.Count; j++)
+            {
+                if (eligible[j].RoomType == RoomType.EnemyRoom)
+                {
+                    eligible[j].RoomType = RoomType.TreasureRoom;
+                    eligible[j].IsCleared = true;
+                    break;
+                }
             }
         }
-        if (candidates.Count < needed)
+    }
+
+    // private void EnsureMinimum(List<RandomWalkRoom> rooms, HashSet<RandomWalkRoom> criticalSet, RoomType type, int minimum)
+    // {
+    //     int current = rooms.Count(r => r.RoomType == type);
+    //     int needed = minimum - current;
+    //     if (needed <=0) return;
+
+    //     var candidates = rooms
+    //         .Where(r => r.RoomType == RoomType.EnemyRoom && !criticalSet.Contains(r))
+    //         .OrderBy(_ => rng.Next()) // Shuffle candidates
+    //         .Take(needed)
+    //         .ToList();
+
+    //     foreach (var room in candidates)
+    //     {
+    //         room.RoomType = type;
+    //         if (type == RoomType.TreasureRoom)
+    //         {
+    //             room.IsCleared = true; // TREASURE ROOMS AUTO CLEAR
+    //         }
+    //     }
+    //     if (candidates.Count < needed)
+    //     {
+    //         GD.PrintErr($"Warning: Not enough rooms to assign {type}. Needed {needed}, but only found {candidates.Count} candidates.");
+    //     }
+    // }
+
+    // private void PlaceMandatoryTreasureRoom(List<RandomWalkRoom> criticalPath)
+    // {
+        
+    //     // Skip start (index 0) and boss (last index), and rooms already assigned
+    //     var eligible = criticalPath
+    //         .Skip(1)
+    //         .Take(criticalPath.Count - 2)
+    //         .Where(r => r.RoomType == RoomType.EnemyRoom)
+    //         .ToList();
+
+    //     if (eligible.Count == 0) return;
+
+    //     // Pick a random eligible room from the first half of the critical path
+    //     var candidate = eligible[rng.Next(eligible.Count / 2)];
+    //     candidate.RoomType = RoomType.TreasureRoom;
+    //     candidate.IsCleared = true; // treasure rooms auto clear
+    // }
+
+    // private void PlaceTreasureRooms(List<RandomWalkRoom> rooms, HashSet<RandomWalkRoom> criticalSet, int count)
+    // {
+    //     // Get all eligible branch rooms sorted by depth
+    //     var candidates = rooms
+    //         .Where(r => r.RoomType == RoomType.EnemyRoom && !criticalSet.Contains(r))
+    //         .OrderBy(r => r.Depth)
+    //         .ToList();
+
+    //     if (candidates.Count == 0) return;
+
+    //     // Pick evenly spaced rooms across the sorted list
+    //     float spacing = (float)candidates.Count / count;
+    //     for (int i = 0; i < count && i < candidates.Count; i++)
+    //     {
+    //         int index = (int)(spacing * i + spacing / 2f);
+    //         index = Math.Min(index, candidates.Count - 1);
+    //         candidates[index].RoomType = RoomType.TreasureRoom;
+    //         candidates[index].IsCleared = true;
+    //     }
+    // }
+
+    private void PlaceBranchTreasures(List<RandomWalkRoom> rooms, HashSet<RandomWalkRoom> criticalSet, Dictionary<RandomWalkRoom, List<RandomWalkRoom>> adjacency)
+    {
+        var visited = new HashSet<RandomWalkRoom>(criticalSet);
+
+        // For each room on the critical path, explore its branches
+        foreach (var critRoom in criticalSet)
         {
-            GD.PrintErr($"Warning: Not enough rooms to assign {type}. Needed {needed}, but only found {candidates.Count} candidates.");
+            if (!adjacency.ContainsKey(critRoom)) continue;
+
+            foreach (var neighbor in adjacency[critRoom])
+            {
+                if (criticalSet.Contains(neighbor)) continue; // already on critical path
+                if (visited.Contains(neighbor)) continue; // already part of another branch
+
+                // BFS into this branch to find its furthest point
+                var branchQueue = new Queue<RandomWalkRoom>();
+                var branchVisited = new HashSet<RandomWalkRoom>();
+                RandomWalkRoom furthest = neighbor;
+
+                branchQueue.Enqueue(neighbor);
+                branchVisited.Add(neighbor);
+                visited.Add(neighbor);
+
+                while (branchQueue.Count > 0)
+                {
+                    var current = branchQueue.Dequeue();
+                    furthest = current; // last dequeued in BFS is furthest
+
+                    foreach (var next in adjacency[current])
+                    {
+                        if (branchVisited.Contains(next) || criticalSet.Contains(next)) continue;
+                        if (visited.Contains(next)) continue;
+                        branchVisited.Add(next);
+                        visited.Add(next);
+                        branchQueue.Enqueue(next);
+                    }
+                }
+                // Place treasure at furthest point only if branch is long enough
+                if (furthest.RoomType == RoomType.EnemyRoom && branchVisited.Count >= 3)
+                {
+                    furthest.RoomType = RoomType.TreasureRoom;
+                    furthest.IsCleared = true;
+                }
+            }
         }
     }
-            
 }
