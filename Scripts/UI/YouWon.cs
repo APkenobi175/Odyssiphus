@@ -10,8 +10,7 @@ public partial class YouWon : CanvasLayer
     
     public override void _Ready()
     {
-        GameManager.Instance.ChangeSong("Menu", 52f);
-        GameManager.Instance.PlayMusic();
+
 
         ReturnToMenuButton = GetNode<Button>("HomeControls2/Buttons/Continue");
         ReturnToMenuButton.Pressed += OnReturnToMenuPressed;
@@ -27,7 +26,7 @@ public partial class YouWon : CanvasLayer
     public void OnReturnToMenuPressed()
     {
         GameManager.Instance.StopMusic();
-        GameManager.Instance.ChangeSong("Menu");
+        _ = GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
         GameManager.Instance.GoTo("HomeScreen");
         

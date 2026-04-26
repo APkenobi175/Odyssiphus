@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dq5wdpo2ur364" path="res://Assets/AssetPacks/Ship Asset Pack/SHIP_rework-misc.png" id="7_qxnnb"]
 [ext_resource type="Texture2D" uid="uid://2fqcxcy2mj1o" path="res://Assets/AssetPacks/latter2.png" id="10_4rd60"]
 [ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="10_6tdsr"]
+[ext_resource type="PackedScene" uid="uid://eesqlggfq03o" path="res://Scenes/UI/UI_CharacterHUD.tscn" id="11_4rd60"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxnnb"]
 radius = 34.42498
@@ -298,3 +299,5 @@ stretch_mode = 1
 [node name="Player" parent="." unique_id=2069174916 instance=ExtResource("10_6tdsr")]
 position = Vector2(280, 217)
 scale = Vector2(0.5, 0.5)
+
+[node name="UiCharacterHud" parent="Player" unique_id=1695420951 instance=ExtResource("11_4rd60")]

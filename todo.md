@@ -34,10 +34,10 @@
 
 ### Ammon Tasks:
 
-- [ ] Remove dev features.
-  - [ ] Dev map
-  - [ ] dev camera 
-  - [ ] space bar to skip rooms
+- [x] Remove dev features.
+  - [x] Dev map
+  - [x] dev camera 
+  - [x] space bar to skip rooms
   - [x] button to kill player (k)
   - [x] button to win the game ( 5 key on keypad )
 
@@ -45,9 +45,9 @@
 - [x] Make enemy room spawn random enemies
   - Slimes can be depth based.
 - [ ] Save character's health and inventory in save data and load.
-- [ ] Finish the final boss fight / trigger game ending
+- [x] Finish the final boss fight / trigger game ending
 - [x] Disable Puzzle Rooms
-- [ ] Controls on settings tab/hud maybe on canvas layer
+- [x] Controls on settings tab/hud maybe on canvas layer
 - [x] Figure out when all the enemies die so a room will clear
 
 

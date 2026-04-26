@@ -59,6 +59,7 @@ public partial class MiniBossRoom : Node2D
 
 	private async void onRoomEntered(Node2D body)
 	{
+
 		GD.Print("Player Entered Mini Boss Room!!");
 		if(body is not Entity entity || hasSpawned) return;
 

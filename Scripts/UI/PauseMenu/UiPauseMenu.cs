@@ -8,9 +8,10 @@ public partial class UiPauseMenu : CanvasLayer
     private Button resumeButton;
     private Button teleportToShipButton;
     private Button saveAndExitButton;
-    private Button settingsButton;
 
     private Button devButton;
+
+    private bool isToggling = false;
     
     public override void _Ready()
     {
@@ -18,13 +19,11 @@ public partial class UiPauseMenu : CanvasLayer
         resumeButton = GetNode<Button>("PauseMenu/Buttons/ResumeButton");
         teleportToShipButton = GetNode<Button>("PauseMenu/Buttons/TeleportToShipButton");
         saveAndExitButton = GetNode<Button>("PauseMenu/Buttons/Exit");
-        settingsButton = GetNode<Button>("PauseMenu/Buttons/SettingsButton");
         devButton = GetNode<Button>("Exit2");
 
         resumeButton.Pressed += OnResumePressed;
         teleportToShipButton.Pressed += OnTeleportToShipPressed;
         saveAndExitButton.Pressed += OnSaveAndExitPressed;
-        settingsButton.Pressed += OnSettingsPressed;
         devButton.Pressed += () => { CallDeferred(nameof(DoGoTo), "DevMapView"); GetTree().Paused = false; };
 
         // Show immediately if returning from settings
@@ -112,10 +111,5 @@ public partial class UiPauseMenu : CanvasLayer
         GameManager.Instance.ChangeSong("Menu");
         GameManager.Instance.PlayMusic();
         CallDeferred(nameof(DoGoTo), "HomeScreen");
-    }
-
-    private void OnSettingsPressed()
-    {
-        CallDeferred(nameof(DoGoTo), "Settings");
     }
 }

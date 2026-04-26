@@ -242,24 +242,24 @@ public partial class Dungeon : Node2D
     
     public override void _Input(InputEvent e)
     {
-        // Changed - Now it only marks room as cleared when space is pressed.
-        if (e is InputEventKey key && key.Pressed && key.Keycode == Key.Space)
-        {
-            {
-                var currentPos = GameManager.Instance.PlayerCurrentRoom;
-                GameManager.Instance.OnRoomCleared(currentPos);
-                GD.Print($"Cleared room at {currentPos}");
-            }
-        }
+        // // Changed - Now it only marks room as cleared when space is pressed.
+        // if (e is InputEventKey key && key.Pressed && key.Keycode == Key.Space)
+        // {
+        //     {
+        //         var currentPos = GameManager.Instance.PlayerCurrentRoom;
+        //         GameManager.Instance.OnRoomCleared(currentPos);
+        //         GD.Print($"Cleared room at {currentPos}");
+        //     }
+        // }
 
-        if (e is InputEventMouseButton mouse)
-        {
-            var camera = GetNode<Camera2D>("Camera2D");
-            if (mouse.ButtonIndex == MouseButton.WheelUp)
-                camera.Zoom = (camera.Zoom + new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
-            else if (mouse.ButtonIndex == MouseButton.WheelDown)
-                camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
-        }
+        // if (e is InputEventMouseButton mouse)
+        // {
+        //     var camera = GetNode<Camera2D>("Camera2D");
+        //     if (mouse.ButtonIndex == MouseButton.WheelUp)
+        //         camera.Zoom = (camera.Zoom + new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
+        //     else if (mouse.ButtonIndex == MouseButton.WheelDown)
+        //         camera.Zoom = (camera.Zoom - new Vector2(ZoomSpeed, ZoomSpeed)).Clamp(new Vector2(MinZoom, MinZoom), new Vector2(MaxZoom, MaxZoom));
+        // }
 
         // if (Input.IsActionJustPressed("Suicide"))
         // {

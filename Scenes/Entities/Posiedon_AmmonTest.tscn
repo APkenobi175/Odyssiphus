@@ -2,23 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="1_5ff3q"]
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_fujbf"]
-[ext_resource type="Texture2D" uid="uid://b2bqo5btb63js" path="res://Assets/Bosses/GodPoseidon-Sheet.png" id="2_fujbf"]
+[ext_resource type="SpriteFrames" uid="uid://c6wpsbxtpeltd" path="res://Assets/ItemSprites/posiedon.tres" id="3_fujbf"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="3_svtku"]
+[ext_resource type="Script" uid="uid://cw5su7cy34oyu" path="res://Scripts/Entities/PosiedonIcon.cs" id="4_2khfv"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="4_2pu1m"]
-[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/BasicMeleeController.tscn" id="5_2khfv"]
-[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/BaseMeleeAbility.tscn" id="6_4y1jm"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="5_2khfv"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="6_4y1jm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jw6ef"]
-size = Vector2(10, 18)
+size = Vector2(33, 51.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irxiq"]
-size = Vector2(33.333332, 60)
+size = Vector2(108.33336, 171.66666)
 
 [node name="Posiedon" type="CharacterBody2D" unique_id=1155468635]
+position = Vector2(-6, -8)
 script = ExtResource("1_fujbf")
+Faction = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=605785068]
-position = Vector2(1, 0)
+position = Vector2(4.7500076, 10.400002)
 shape = SubResource("RectangleShape2D_jw6ef")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("1_5ff3q")]
@@ -27,24 +30,28 @@ collision_layer = 5
 Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=396046703]
-position = Vector2(3.3333333, -3.973643e-07)
+position = Vector2(16.666687, 34.66667)
 shape = SubResource("RectangleShape2D_irxiq")
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=1279966437]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_fujbf")
-region_enabled = true
-region_rect = Rect2(74.81148, 7.5975533, 40.914276, 56.58356)
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1200758101]
+texture_filter = 1
+position = Vector2(7.2500076, 6.1500015)
+scale = Vector2(0.91406256, 0.87968755)
+sprite_frames = ExtResource("3_fujbf")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.2201924
+script = ExtResource("4_2khfv")
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("3_svtku")]
-MaxHealth = 1000.0
+MaxHealth = 5.0
 
 [node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("4_2pu1m")]
-offset_left = -23.0
-offset_top = -15.0
-offset_right = 27.0
-offset_bottom = -10.0
-max_value = 1000.0
+offset_left = -19.0
+offset_top = -18.0
+offset_right = 31.0
+offset_bottom = -13.0
+max_value = 5.0
 Health = NodePath("../Health")
 metadata/_edit_use_anchors_ = true
 
@@ -52,4 +59,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("6_4y1jm")]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(1, 1)
+position = Vector2(10, 7)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=554345734]

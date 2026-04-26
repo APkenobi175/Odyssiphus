@@ -164,7 +164,7 @@ position = Vector2(418, 93)
 script = ExtResource("6_2f233")
 
 [node name="onRoomEntered" type="CollisionShape2D" parent="EnteredRoom" unique_id=931114954]
-position = Vector2(321, 185)
+position = Vector2(319, 182)
 shape = SubResource("RectangleShape2D_h4osb")
 
 [node name="Label2" type="Label" parent="." unique_id=1524428078]

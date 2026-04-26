@@ -7,7 +7,7 @@ public partial class GameManager : Node
 {
     // Instance of game manager
     public static GameManager Instance { get; private set; }
-    private AudioStreamPlayer2D musicPlayer; // Music player for background music
+    private AudioStreamPlayer musicPlayer; // Music player for background music
     
     public Dictionary<string, PackedScene> Levels = new(); // Dictionary for valid levels
 
@@ -36,7 +36,7 @@ public partial class GameManager : Node
     public override void _Ready()
     {
         Instance = this; // Set the instance to this object
-        musicPlayer = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+        musicPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
         CurrentScene = "HomeScreen"; // Set the initial scene to the home screen
         
 
@@ -56,6 +56,7 @@ public partial class GameManager : Node
 
         // ================MUSIC================== //
         Tracks["Menu"] = GD.Load<AudioStream>("Assets/Sounds/Music/TitleScreen.ogg"); // Load the menu music and add it to the dictionary
+        Tracks["Boss"] = GD.Load<AudioStream>("Assets/Sounds/Music/BossFight.wav"); // Load the boss music and add it to the dictionary
          // TODO: ADD MORE TRACKS
 
 
@@ -166,15 +167,36 @@ public partial class GameManager : Node
 
     public async Task ChangeSong(string key, float fromPosition = 0f)
     {
-        musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
-        musicPlayer.Play(); // Play the new song
-        if (fromPosition > 0f)
+
+        // Special thanks to claude code for helping me figure out how to do the fade effect.
+
+        if (musicPlayer.Playing)
         {
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
-            CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+            var tween = CreateTween();
+            tween.TweenProperty(musicPlayer, "volume_db", -80f, 2f); // Fade out over 2 second
+            tween.TweenCallback(Callable.From(() =>
+            {
+                musicPlayer.Stream = Tracks[key];
+                musicPlayer.Play();
+                if (fromPosition > 0f)
+                    musicPlayer.Seek(fromPosition);
+            }));
+            tween.TweenProperty(musicPlayer, "volume_db", 0f, 2f);
         }
-        GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
-        GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
+        else
+        {
+            musicPlayer.Stream = Tracks[key]; // Set the music player's stream to the specified track
+            if (fromPosition > 0f)
+            {
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); // Wait for the next frame to ensure the song has started playing before seeking
+                CallDeferred(nameof(DeferredSeek), fromPosition); // If a starting position is specified, seek to that position after the song starts playing
+            }
+            GD.Print($"Changed song to {key} starting at {fromPosition} seconds");
+            GD.Print($"Current song position: {musicPlayer.GetPlaybackPosition()} seconds");
+            GD.Print($"Is playing: {musicPlayer.Playing}, Stream: {musicPlayer.Stream?.ResourcePath}");
+                
+        }
+
 
     }
 

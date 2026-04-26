@@ -18,6 +18,8 @@ script = ExtResource("1_lmpnb")
 [node name="Background" parent="." unique_id=964556999 instance=ExtResource("2_sf0qa")]
 
 [node name="Exit2" type="Button" parent="." unique_id=2109229127]
+process_mode = 4
+visible = false
 offset_left = 458.0
 offset_top = 56.0
 offset_right = 634.0
@@ -143,29 +145,6 @@ text = "Teleport To Ship
 "
 
 [node name="HSeparator5" type="HSeparator" parent="PauseMenu/Buttons" unique_id=1287189977]
-layout_mode = 2
-theme_override_constants/separation = 9
-theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")
-
-[node name="SettingsButton" type="Button" parent="PauseMenu/Buttons" unique_id=1590736447]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
-theme_override_colors/font_focus_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
-theme_override_colors/font_pressed_color = Color(0.9411765, 0.8156863, 0.5019608, 1)
-theme_override_colors/font_hover_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("2_lmpnb")
-theme_override_font_sizes/font_size = 17
-theme_override_styles/normal = ExtResource("3_sf0qa")
-theme_override_styles/pressed = ExtResource("4_jqqcg")
-theme_override_styles/hover = ExtResource("5_8qs8l")
-theme_override_styles/hover_pressed = ExtResource("5_8qs8l")
-theme_override_styles/focus = ExtResource("5_8qs8l")
-text = "Settings
-"
-
-[node name="HSeparator6" type="HSeparator" parent="PauseMenu/Buttons" unique_id=1680013723]
 layout_mode = 2
 theme_override_constants/separation = 9
 theme_override_styles/separator = SubResource("StyleBoxFlat_4fy26")

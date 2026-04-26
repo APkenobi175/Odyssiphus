@@ -115,6 +115,10 @@ public partial class Entity : CharacterBody2D
     {
       AddToGroup("Enemies");
     }
+    if (Faction == FactionManager.Faction.Player)
+    {
+      AddToGroup("Player");
+    }
   }
 
   public void OnMovementInput(Vector2 moveInput)

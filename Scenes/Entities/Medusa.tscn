@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://c2ckunapkimoa"]
+
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_rj6ys"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_yuktl"]
+[ext_resource type="SpriteFrames" uid="uid://cdjbtkw7fnacy" path="res://Assets/Bosses/cyclops.tres" id="3_et05g"]
+[ext_resource type="Script" uid="uid://1625myw06e6n" path="res://Scripts/Entities/Polyphemus3.cs" id="4_wlapk"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="5_wlkww"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="6_w65si"]
+[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="7_3wcxa"]
+[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="8_gr7kl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jw6ef"]
+size = Vector2(24.221447, 38.40829)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irxiq"]
+size = Vector2(6.920412, 16.079784)
+
+[node name="Medusa" type="CharacterBody2D" unique_id=1155468635]
+position = Vector2(289, 116)
+scale = Vector2(1.7, 1.7)
+script = ExtResource("1_rj6ys")
+Faction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=605785068]
+position = Vector2(2.9411774, 29.70588)
+scale = Vector2(1.7000005, 1.7000005)
+shape = SubResource("RectangleShape2D_jw6ef")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yuktl")]
+scale = Vector2(1.7, 1.7)
+collision_layer = 5
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=396046703]
+position = Vector2(1.038063, 22.318336)
+scale = Vector2(1.7, 1.7)
+shape = SubResource("RectangleShape2D_irxiq")
+
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1667337187]
+texture_filter = 1
+position = Vector2(4.7058783, 7.647063)
+scale = Vector2(1.7, 1.7)
+sprite_frames = ExtResource("3_et05g")
+animation = &"attack"
+script = ExtResource("4_wlapk")
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("5_wlkww")]
+MaxHealth = 200.0
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("6_w65si")]
+offset_left = -35.882355
+offset_top = -13.529411
+offset_right = 14.117645
+offset_bottom = -8.529411
+scale = Vector2(1.7, 1.7)
+max_value = 200.0
+Health = NodePath("../Health")
+metadata/_edit_use_anchors_ = true
+
+[node name="Input" parent="." unique_id=1145655090 instance=ExtResource("7_3wcxa")]
+position = Vector2(5.8823533, 28.235294)
+scale = Vector2(1.7, 1.7)
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_gr7kl")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(7.6470594, 23.529413)
+scale = Vector2(1.7, 1.7)
