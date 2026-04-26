@@ -41,14 +41,14 @@ public partial class AnimationComponent : Node2D
     string currentAnimation = AnimationPlayer.CurrentAnimation;
     if (currentAnimation == animation) return;
 
-    GD.Print($"Attempting change: {currentAnimation} --> {animation}");
+    //GD.Print($"Attempting change: {currentAnimation} --> {animation}");
 
     // Find cleaner way to avoid preempting important animations?
     string currentAnimationType = GetAnimationType(currentAnimation);
     if (animationRank.TryGetValue(currentAnimationType, out int value) && animationRank[animationType] > value) return;
 
     AnimationPlayer.Play(animation);
-    GD.Print($"Playing animation: {animation}");
+    //GD.Print($"Playing animation: {animation}");
   }
 
   private string SelectAnimation(string animationType, Vector2 direction, bool directional)
