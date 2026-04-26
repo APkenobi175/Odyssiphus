@@ -7,6 +7,8 @@ public partial class Entity : CharacterBody2D
   public float Speed = 100;
   [Export]
   public FactionManager.Faction Faction = FactionManager.Faction.Neutral;
+  [Export]
+  public AnimationComponent AnimationComponent;
 
   private IInputController input;
   private Hurtbox hurtbox;
@@ -18,6 +20,8 @@ public partial class Entity : CharacterBody2D
   private Vector2 focus = Vector2.Right;
 
   private bool canAct = true;
+  private bool usingAbility = false;
+
   public override void _Ready()
   {
     input = GetNodeOrNull<IInputController>("Input");
@@ -58,6 +62,11 @@ public partial class Entity : CharacterBody2D
     {
       death.Died -= OnDied;
     }
+
+    if (AnimationComponent is not null)
+    {
+      AnimationComponent.KeyAnimationFinished -= OnKeyAnimationFinished;
+    }
   }
 
   public void ConnectEvents()
@@ -78,6 +87,11 @@ public partial class Entity : CharacterBody2D
     if (death != null)
     {
       death.Died += OnDied;
+    }
+
+    if (AnimationComponent is not null)
+    {
+      AnimationComponent.KeyAnimationFinished += OnKeyAnimationFinished;
     }
   }
 
@@ -123,36 +137,58 @@ public partial class Entity : CharacterBody2D
 
   public void OnMovementInput(Vector2 moveInput)
   {
-    if (canAct) Velocity = moveInput * Speed;
+    if (!canAct) return;
+
+    Velocity = moveInput * Speed;
+
+    if (usingAbility) return;
+    if (Velocity == Vector2.Zero)
+    {
+      AnimationComponent?.Play("idle", focus);
+    }
+    else
+    {
+      AnimationComponent?.Play("move", Velocity);
+    }
   }
 
   public void OnFocusInput(Vector2 focus)
   {
     this.focus = focus;
-    //if (canAct) Rotation = Position.AngleTo(focus);
   }
 
   public void OnAttack()
   {
-    if (canAct && attack != null)
-    {
-      attack.Activate(GlobalPosition, focus);
-    }
+    if (!canAct) return;
+    if (attack is null) return;
+
+    attack.Activate(GlobalPosition, focus);
+    AnimationComponent?.Play("attack", focus);
+    usingAbility = true;
   }
 
   public void OnSpecial()
   {
-    if (canAct && special != null)
-    {
-      special.Activate(GlobalPosition, focus);
-    }
+    if (!canAct) return;
+    if (special is null) return;
+    
+    special.Activate(GlobalPosition, focus);
+    AnimationComponent?.Play("special", focus);
+    usingAbility = true;
   }
 
   public void OnHealthDepleted()
   {
     canAct = false;
     Velocity = Vector2.Zero;
+    
+    AnimationComponent?.Play("death", focus, false);
     death?.Die();
+  }
+
+  private void OnKeyAnimationFinished(string type)
+  {
+    if(type == "attack" || type == "special") usingAbility = false;
   }
 
   public void OnDied()

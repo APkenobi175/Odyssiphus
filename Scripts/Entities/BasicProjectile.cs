@@ -20,10 +20,11 @@ public partial class BasicProjectile : Node2D, IProjectile, IFactionable
     hitbox = GetNodeOrNull<Hitbox>("Hitbox");
     if (hitbox != null) hitbox.HurtboxHit += OnHurtboxHit;
 
-    Position = position;
+    LookAt(direction);
     this.direction = direction.Normalized();
+    Position = position;
 
-    Timer lifeTimer = new Timer
+    Timer lifeTimer = new()
     {
       WaitTime = LifeDuration,
       OneShot = true

@@ -651,3 +651,63 @@ Cyclops Sprites
 by Elthen
 (itch.io)"
 vertical_alignment = 1
+
+[node name="Node10" type="Label" parent="VBoxContainer/Credits" unique_id=1694664084]
+layout_mode = 2
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=608484192]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer13" unique_id=1460103312]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer13/GameDeveloper" unique_id=2121412058]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Spartan Sprite"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer13" unique_id=1413368810]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer13/Name" unique_id=1040982907]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer13/Name/VBoxContainer" unique_id=120822120]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 12
+text = "Spartan - RPG Style
+Highly Detailed Sprite
+by Sorthen"
+vertical_alignment = 1
+
+[node name="Game Developer2" type="Label" parent="VBoxContainer/Credits/HBoxContainer13/Name/VBoxContainer" unique_id=1018257910]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 8
+text = "(used under CC BY-SA 3.0
+from https://sorthen.itch.io/
+a-heightened-sense-of-things)"
+vertical_alignment = 1
