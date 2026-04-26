@@ -41,7 +41,7 @@
   - [x] button to kill player (k)
   - [x] button to win the game ( 5 key on keypad )
 
-- [ ] Add animated text to ship scene with instructions/story
+- [x] Add animated text to ship scene with instructions/story
 - [x] Make enemy room spawn random enemies
   - Slimes can be depth based.
 - [ ] Save character's health and inventory in save data and load.

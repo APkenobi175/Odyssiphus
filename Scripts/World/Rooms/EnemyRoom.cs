@@ -88,7 +88,7 @@ public partial class EnemyRoom : Node2D
 		}
 		// 2 second delay
 		await WaitFor(2);
-		//CallDeferred(MethodName.SpawnEnemies);
+		CallDeferred(MethodName.SpawnEnemies);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

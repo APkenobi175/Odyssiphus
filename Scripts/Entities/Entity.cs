@@ -133,6 +133,10 @@ public partial class Entity : CharacterBody2D
     {
       AddToGroup("Player");
     }
+    if(Faction == FactionManager.Faction.Boss)
+    {
+      AddToGroup("Boss");
+    }
   }
 
   public void OnMovementInput(Vector2 moveInput)

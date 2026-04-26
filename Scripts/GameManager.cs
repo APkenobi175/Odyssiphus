@@ -485,6 +485,11 @@ public partial class GameManager : Node
         characterIsTransitioning = false; // reset character transition state
         GetTree().Paused = false; // Unpause the game 
         MiniBossesDeafted = 0; // Reset mini boss defeat count
+
+        foreach (Node enemy in GetTree().GetNodesInGroup("Enemies"))
+        {
+            enemy.QueueFree(); // Remove all enemies from the scene 
+        }
     }
 
     public void OnPlayerDied()
