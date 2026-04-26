@@ -265,14 +265,13 @@ public partial class InventoryData : Control
         var world = GetTree().CurrentScene;
         SelectedItem.Reparent(world);
     
-        // --- NEW PHYSICS FIXES START ---
-        // 1. Force the Area2D to start looking for collisions again
+        
         SelectedItem.SetDeferred("monitoring", true);
         SelectedItem.SetDeferred("monitorable", true);
         
-        // 2. Ensure the item is on the correct "Process Mode" to run physics
+        
         SelectedItem.ProcessMode = ProcessModeEnum.Inherit; 
-        // --- NEW PHYSICS FIXES END ---
+        
     
         SelectedItem.Visible = true;
     
