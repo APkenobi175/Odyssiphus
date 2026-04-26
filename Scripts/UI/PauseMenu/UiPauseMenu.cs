@@ -94,6 +94,30 @@ public partial class UiPauseMenu : CanvasLayer
         else
         {
             if (GameManager.Instance.currentRoom?.IsCleared != true) return;
+
+            // NEW - SAVE HEALTH BEFORE TELEPORTING
+            var player = GetTree().GetFirstNodeInGroup("Player") as Node;
+            var health = player?.GetNodeOrNull<Health>("Health");
+            if (health != null)
+            {
+                GameManager.Instance.SavedHealth = health.CurrentHealth;
+                GameManager.Instance.SavedMaxHealth = health.MaxHealth;
+            }
+
+            // ALSO SAVE CURRENT INVENTORY Back to GameManager so that it can be loaded on the ship
+            var inventory = player?.GetNodeOrNull<Inventory>("InventoryController");
+            if (inventory != null)
+            {
+                GameManager.Instance.SavedInventory = new Godot.Collections.Array();
+                foreach (var item in inventory.Items)
+                {
+                    if (item == null || string.IsNullOrEmpty(item.ItemName)) continue; // Skip empty slots
+                    var itemDict = new Godot.Collections.Dictionary();
+                    itemDict["itemName"] = item.ItemName;
+                    itemDict["amount"] = item.Amount;
+                    GameManager.Instance.SavedInventory.Add(itemDict);
+                }
+            }
             CallDeferred(nameof(DoGoTo), "Ship");
         }
         // GoTo already unpauses, but just in case

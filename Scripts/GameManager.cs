@@ -31,6 +31,14 @@ public partial class GameManager : Node
     public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
 
     public bool playOpeningCutscene = true;
+
+    public bool playClosingCutscene = false;
+
+    public float SavedHealth = -1f;
+
+    public float SavedMaxHealth = 100f;
+
+    public Godot.Collections.Array SavedInventory = null; // This will hold the player's inventory data when saving/loading
     
 
 
@@ -266,6 +274,45 @@ public partial class GameManager : Node
     {
         var data = new Godot.Collections.Dictionary();
         // TODO: ADD CHARACTER DATA TO SAVE
+
+        // 1. Get player node
+        var player = GetTree().GetFirstNodeInGroup("Player") as Node;
+
+        // 2. Get player health
+        var health = player?.GetNode<Health>("Health");
+        if (health != null)
+        {
+            data["currentHealth"] = health.CurrentHealth;
+            data["maxHealth"] = health.MaxHealth;
+        }
+        else
+        {
+            GD.Print("no Health node found on player!");
+        }
+
+        // 3. Save Player Inventory
+
+        var inventory = player.GetNodeOrNull<Inventory>("InventoryController");
+        if(inventory != null)
+        {
+            var itemList = new Godot.Collections.Array();
+            foreach (var item in inventory.Items)
+            {
+                // GD.Print($"Item: {item?.ItemName ?? "empty"}, Amount: {item?.Amount ?? 0}");
+                if (item == null || string.IsNullOrEmpty(item.ItemName))
+                {
+                    itemList.Add("empty"); // Add "empty" for empty slots to maintain inventory structure
+                    continue;
+                }
+                var i = new Godot.Collections.Dictionary();
+                i["itemName"] = item.ItemName;
+                i["amount"] = item.Amount;
+                itemList.Add(i);
+            }
+            // 4. Add inventory data to the character data dictionary
+            data["inventory"] = itemList;
+
+        }
         return Json.Stringify(data);
     }
 
@@ -373,6 +420,21 @@ public partial class GameManager : Node
     private void LoadCharacter(Godot.Collections.Dictionary data)
     {
         // TODO: IMPLEMENT CHARACTER LOADING
+        if (data.ContainsKey("currentHealth"))
+        {
+            SavedHealth = (float)data["currentHealth"];
+            SavedMaxHealth = (float)data["maxHealth"];
+        }
+
+        if (data.ContainsKey("inventory"))
+        {
+            SavedInventory = new Godot.Collections.Array();
+            foreach (var item in data["inventory"].AsGodotArray())
+            {
+                SavedInventory.Add(item); // Store the inventory data to be loaded into the player's inventory after the scene loads
+            }
+           
+        }
     }
 
 
@@ -496,10 +558,12 @@ public partial class GameManager : Node
     {
         GoTo("YouDied"); // Go to the you died screen when the player dies
         ResetDungeon(); // Reset the dungeon
+        
     }
 
     public void OnPlayerWon()
     {
+
         GoTo("YouWon"); // Go to the you won screen when the player wins
         ResetDungeon(); // Reset the dungeon
     }

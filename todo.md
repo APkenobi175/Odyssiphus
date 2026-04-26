@@ -44,7 +44,7 @@
 - [x] Add animated text to ship scene with instructions/story
 - [x] Make enemy room spawn random enemies
   - Slimes can be depth based.
-- [ ] Save character's health and inventory in save data and load.
+- [x] Save character's health and inventory in save data and load.
 - [x] Finish the final boss fight / trigger game ending
 - [x] Disable Puzzle Rooms
 - [x] Controls on settings tab/hud maybe on canvas layer
@@ -55,7 +55,7 @@
 
 - [x] Fix the resume button
 - [ ] Investigate bug where character moves forward.
-- [ ] Investigate bug where character gets stuck in ship scene (stairs collision)
+- [x] Investigate bug where character gets stuck in ship scene (stairs collision) (fixed)
 
 ## Tasks if we have time:
 
@@ -69,5 +69,5 @@
 
 ### Ammon Tasks:
 
-- [ ] Fix loading save games so you can remove save game
+- [x] Fix loading save games so you can remove save game
 - [ ] Finish other 3 mini bosses

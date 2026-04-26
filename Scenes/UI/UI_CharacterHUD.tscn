@@ -5,10 +5,11 @@
 [node name="UiCharacterHud" type="CanvasLayer" unique_id=1695420951]
 
 [node name="Label2" type="Label" parent="." unique_id=541416445]
-offset_left = 486.0
+offset_left = 513.0
 offset_top = 343.0
-offset_right = 556.0
+offset_right = 583.0
 offset_bottom = 360.0
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
@@ -16,17 +17,20 @@ theme_override_font_sizes/font_size = 12
 text = "Inventory"
 
 [node name="tab" type="ColorRect" parent="." unique_id=741102785]
-offset_left = 487.0
+offset_left = 514.0
 offset_top = 327.0
-offset_right = 557.0
+offset_right = 584.0
 offset_bottom = 343.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="tab" unique_id=1875065076]
 layout_mode = 0
-offset_left = 21.0
-offset_right = 46.0
-offset_bottom = 17.0
+offset_left = 23.750015
+offset_top = 1.25
+offset_right = 48.750015
+offset_bottom = 18.25
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
@@ -34,82 +38,96 @@ theme_override_font_sizes/font_size = 12
 text = "TAB"
 
 [node name="w" type="ColorRect" parent="." unique_id=179133690]
-offset_left = 590.0
+offset_left = 599.0
 offset_top = 309.0
-offset_right = 609.0
+offset_right = 618.0
 offset_bottom = 325.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="w" unique_id=2143148420]
 layout_mode = 0
-offset_left = 3.0
-offset_right = 18.0
-offset_bottom = 17.0
+offset_left = -4.887581e-05
+offset_right = 23.43745
+offset_bottom = 20.3125
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
 theme_override_font_sizes/font_size = 12
 text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="w2" type="ColorRect" parent="." unique_id=650189027]
-offset_left = 568.0
+offset_left = 577.0
 offset_top = 327.0
-offset_right = 587.0
+offset_right = 596.0
 offset_bottom = 343.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="w2" unique_id=398005812]
 layout_mode = 0
-offset_right = 19.0
-offset_bottom = 17.0
+offset_right = 23.4375
+offset_bottom = 20.3125
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
 theme_override_font_sizes/font_size = 12
 text = "A"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="w3" type="ColorRect" parent="." unique_id=1381438311]
-offset_left = 590.0
+offset_left = 599.0
 offset_top = 327.0
-offset_right = 609.0
+offset_right = 618.0
 offset_bottom = 343.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="w3" unique_id=1948565265]
 layout_mode = 0
-offset_right = 19.0
-offset_bottom = 17.0
+offset_right = 23.4375
+offset_bottom = 20.3125
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
 theme_override_font_sizes/font_size = 12
 text = "S"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="w4" type="ColorRect" parent="." unique_id=2054331772]
-offset_left = 612.0
+offset_left = 621.0
 offset_top = 327.0
-offset_right = 631.0
+offset_right = 640.0
 offset_bottom = 343.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="w4" unique_id=610025132]
 layout_mode = 0
-offset_right = 19.0
-offset_bottom = 17.0
+offset_right = 25.0
+offset_bottom = 20.3125
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
 theme_override_font_sizes/font_size = 12
 text = "D"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="." unique_id=106675460]
-offset_left = 582.0
+offset_left = 591.0
 offset_top = 343.0
-offset_right = 618.0
+offset_right = 627.0
 offset_bottom = 360.0
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
@@ -117,16 +135,20 @@ theme_override_font_sizes/font_size = 12
 text = "Move"
 
 [node name="w5" type="ColorRect" parent="." unique_id=245559852]
-offset_left = 442.0
+offset_left = 483.0
 offset_top = 327.0
-offset_right = 470.0
+offset_right = 511.0
 offset_bottom = 343.0
+scale = Vector2(0.8, 0.8)
 color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="Label3" type="Label" parent="w5" unique_id=1544692323]
 layout_mode = 0
-offset_right = 28.0
-offset_bottom = 17.0
+offset_left = 2.5
+offset_top = 1.25
+offset_right = 30.5
+offset_bottom = 18.25
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
@@ -135,12 +157,69 @@ text = "ESC"
 horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="." unique_id=798762994]
-offset_left = 438.0
+offset_left = 479.0
 offset_top = 343.0
-offset_right = 475.0
+offset_right = 516.0
 offset_bottom = 360.0
+scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_6ad3j")
 theme_override_font_sizes/font_size = 12
 text = "Pause"
+
+[node name="Label5" type="Label" parent="." unique_id=1667851881]
+offset_left = 393.0
+offset_top = 343.0
+offset_right = 432.0
+offset_bottom = 360.0
+scale = Vector2(0.8, 0.8)
+theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_6ad3j")
+theme_override_font_sizes/font_size = 12
+text = "Melee"
+
+[node name="Label6" type="Label" parent="." unique_id=1001080109]
+offset_left = 432.0
+offset_top = 343.0
+offset_right = 483.0
+offset_bottom = 360.0
+scale = Vector2(0.8, 0.8)
+theme_override_colors/font_color = Color(0.79, 0.6593867, 0.30020002, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_6ad3j")
+theme_override_font_sizes/font_size = 12
+text = "Ranged"
+
+[node name="w6" type="ColorRect" parent="." unique_id=1124254804]
+offset_left = 404.0
+offset_top = 327.0
+offset_right = 419.0
+offset_bottom = 344.5
+scale = Vector2(0.8, 0.8)
+color = Color(0.11, 0.11, 0.11, 1)
+
+[node name="w6" type="ColorRect" parent="w6" unique_id=1544150279]
+layout_mode = 0
+offset_left = 1.5258789e-05
+offset_right = 9.375015
+offset_bottom = 10.937492
+scale = Vector2(0.8, 0.8)
+color = Color(0.79, 0.6593867, 0.30020002, 1)
+
+[node name="w7" type="ColorRect" parent="." unique_id=301458871]
+offset_left = 459.0
+offset_top = 328.0
+offset_right = 474.0
+offset_bottom = 345.5
+scale = Vector2(-0.8, 0.8)
+color = Color(0.11, 0.11, 0.11, 1)
+
+[node name="w6" type="ColorRect" parent="w7" unique_id=1114071820]
+layout_mode = 0
+offset_left = 1.5258789e-05
+offset_right = 9.375015
+offset_bottom = 10.937492
+scale = Vector2(0.8, 0.8)
+color = Color(0.79, 0.6593867, 0.30020002, 1)

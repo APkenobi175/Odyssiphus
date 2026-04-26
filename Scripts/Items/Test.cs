@@ -6,6 +6,7 @@ public partial class Test : InventoryItem
 {
     public override void _Ready()
     {
+        ItemName = "Test";
         BodyEntered += (body) =>
         {
 			GD.Print($"Touched by: {body.Name}");

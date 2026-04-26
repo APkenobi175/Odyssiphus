@@ -27,6 +27,7 @@ public partial class BossRoom : Node2D
 
 
 
+
     public override void _Ready()
     {   
         blackRectangle = GetNode<ColorRect>("ColorRect");
@@ -129,6 +130,7 @@ public partial class BossRoom : Node2D
 
         if (cutsceneAnimation != null && GodotObject.IsInstanceValid(cutsceneAnimation))
         {
+            GameManager.Instance.playClosingCutscene = true;
             _ = GameManager.Instance.ChangeSong("Menu", 45f);
             
             cutsceneAnimation.Play("The End");

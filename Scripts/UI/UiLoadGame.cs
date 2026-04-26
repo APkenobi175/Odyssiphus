@@ -47,9 +47,25 @@ public partial class UiLoadGame : CanvasLayer
             string displayName = GetDisplayName(path);
             string captured = path;
 
+            var hbox = new HBoxContainer();
+
+
             var slot = saveSlotScene.Instantiate<UiLoadGameButton>();
             slot.Setup(displayName, captured);
-            gameSlot.AddChild(slot);
+            slot.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+
+            var deleteButton = new Button();
+            deleteButton.Text = "X";
+            deleteButton.AddThemeColorOverride("font_color", new Color(1, 0.5f, 0.5f)); // Light red color for delete button
+            deleteButton.Pressed += () =>
+            {
+                DirAccess.RemoveAbsolute(captured);
+                CallDeferred(nameof(PopulateGameSlots)); // Refresh the list after deletion
+
+            };
+            hbox.AddChild(slot);
+            hbox.AddChild(deleteButton);
+            gameSlot.AddChild(hbox);
             GD.Print($"Added button for save file: {displayName} at path: {captured}");
         }
     }
