@@ -29,6 +29,16 @@ public partial class GameManager : Node
     public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
 
     public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
+
+    public bool playOpeningCutscene = true;
+
+    public bool playClosingCutscene = false;
+
+    public float SavedHealth = -1f;
+
+    public float SavedMaxHealth = 100f;
+
+    public Godot.Collections.Array SavedInventory = null; // This will hold the player's inventory data when saving/loading
     
 
 
@@ -213,6 +223,7 @@ public partial class GameManager : Node
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
         MiniBossesDeafted = 0; // Reset the mini boss defeat count
+        playOpeningCutscene = true; // Reset the opening cutscene flag
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
@@ -263,6 +274,45 @@ public partial class GameManager : Node
     {
         var data = new Godot.Collections.Dictionary();
         // TODO: ADD CHARACTER DATA TO SAVE
+
+        // 1. Get player node
+        var player = GetTree().GetFirstNodeInGroup("Player") as Node;
+
+        // 2. Get player health
+        var health = player?.GetNode<Health>("Health");
+        if (health != null)
+        {
+            data["currentHealth"] = health.CurrentHealth;
+            data["maxHealth"] = health.MaxHealth;
+        }
+        else
+        {
+            GD.Print("no Health node found on player!");
+        }
+
+        // 3. Save Player Inventory
+
+        var inventory = player.GetNodeOrNull<Inventory>("InventoryController");
+        if(inventory != null)
+        {
+            var itemList = new Godot.Collections.Array();
+            foreach (var item in inventory.Items)
+            {
+                // GD.Print($"Item: {item?.ItemName ?? "empty"}, Amount: {item?.Amount ?? 0}");
+                if (item == null || string.IsNullOrEmpty(item.ItemName))
+                {
+                    itemList.Add("empty"); // Add "empty" for empty slots to maintain inventory structure
+                    continue;
+                }
+                var i = new Godot.Collections.Dictionary();
+                i["itemName"] = item.ItemName;
+                i["amount"] = item.Amount;
+                itemList.Add(i);
+            }
+            // 4. Add inventory data to the character data dictionary
+            data["inventory"] = itemList;
+
+        }
         return Json.Stringify(data);
     }
 
@@ -370,6 +420,21 @@ public partial class GameManager : Node
     private void LoadCharacter(Godot.Collections.Dictionary data)
     {
         // TODO: IMPLEMENT CHARACTER LOADING
+        if (data.ContainsKey("currentHealth"))
+        {
+            SavedHealth = (float)data["currentHealth"];
+            SavedMaxHealth = (float)data["maxHealth"];
+        }
+
+        if (data.ContainsKey("inventory"))
+        {
+            SavedInventory = new Godot.Collections.Array();
+            foreach (var item in data["inventory"].AsGodotArray())
+            {
+                SavedInventory.Add(item); // Store the inventory data to be loaded into the player's inventory after the scene loads
+            }
+           
+        }
     }
 
 
@@ -482,16 +547,23 @@ public partial class GameManager : Node
         characterIsTransitioning = false; // reset character transition state
         GetTree().Paused = false; // Unpause the game 
         MiniBossesDeafted = 0; // Reset mini boss defeat count
+
+        foreach (Node enemy in GetTree().GetNodesInGroup("Enemies"))
+        {
+            enemy.QueueFree(); // Remove all enemies from the scene 
+        }
     }
 
     public void OnPlayerDied()
     {
         GoTo("YouDied"); // Go to the you died screen when the player dies
         ResetDungeon(); // Reset the dungeon
+        
     }
 
     public void OnPlayerWon()
     {
+
         GoTo("YouWon"); // Go to the you won screen when the player wins
         ResetDungeon(); // Reset the dungeon
     }

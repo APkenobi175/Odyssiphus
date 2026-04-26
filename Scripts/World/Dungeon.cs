@@ -39,11 +39,16 @@ public partial class Dungeon : Node2D
 
     private double printTimer = 0;
 
+    private CanvasLayer MapAndInventoryLayer;
+    private CanvasLayer HudLayer;
+
 
 
 
     public override void _Ready()
     {
+        MapAndInventoryLayer = GetNode<CanvasLayer>("CanvasLayer");
+        HudLayer = GetNode<CanvasLayer>("UiCharacterHud");
 
         // ADDED 3/29/26 ONLY GENERATE IF THERE IS NOT ONE ALREADY EXISTING.
         if (GameManager.Instance.CurrentDungeonRooms.Count == 0)
@@ -105,10 +110,61 @@ public partial class Dungeon : Node2D
         if (health != null)
         {
             health.HealthDepleted += GameManager.Instance.OnPlayerDied;
+            // NEW - LOAD SAVED HEALTH IF IT EXISTS
+            if (GameManager.Instance.SavedHealth > 0)
+            {
+                health.SetMaxHealth(GameManager.Instance.SavedMaxHealth, false);
+                health.ChangeHealth(GameManager.Instance.SavedHealth - health.CurrentHealth); // Set health to saved health without triggering any effects
+                GameManager.Instance.SavedHealth = -1f; // Reset saved health after loading
+            }
         }
         else
         {
             GD.Print("no Health node found on player!");
+        }
+
+        if (GameManager.Instance.playClosingCutscene)
+        {
+            MapAndInventoryLayer.Visible = false;
+            HudLayer.Visible = false;
+            
+        }
+
+        // LOAD SAVED INVENTORY IF IT EXISTS
+
+        var inventory = player.GetNodeOrNull<Inventory>("InventoryController");
+        if (inventory != null && GameManager.Instance.SavedInventory != null)
+        {
+            int slotIndex = 0;
+            foreach (var entry in GameManager.Instance.SavedInventory)
+            {
+                if (slotIndex >= inventory.Items.Length) break;
+                
+                if (entry.VariantType == Variant.Type.String)
+                {
+                    inventory.Items[slotIndex] = null; // empty slot
+                }
+                else
+                {
+                    var r = entry.AsGodotDictionary();
+                    string itemName = r["itemName"].ToString();
+                    int amount = (int)r["amount"];
+
+                    var scene = GD.Load<PackedScene>($"res://Scenes/Items/{itemName}.tscn");
+                    if (scene == null)
+                    {
+                        GD.PrintErr($"Could not find scene for item {itemName}");
+                        slotIndex++;
+                        continue;
+                    }
+                    var newItem = scene.Instantiate<InventoryItem>();
+                    newItem.Amount = amount;
+                    inventory.Items[slotIndex] = newItem;
+                }
+                slotIndex++;
+            }
+            inventory.EmitSignal(Inventory.SignalName.InventoryChanged);
+            GameManager.Instance.SavedInventory = null;
         }
         
 

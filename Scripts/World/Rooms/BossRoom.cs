@@ -27,6 +27,7 @@ public partial class BossRoom : Node2D
 
 
 
+
     public override void _Ready()
     {   
         blackRectangle = GetNode<ColorRect>("ColorRect");
@@ -92,7 +93,7 @@ public partial class BossRoom : Node2D
         if (RoomData == null) return;
         if (RoomData.IsCleared) return;
 
-        bool hasLivingEnemies = GetTree().GetNodesInGroup("Enemies").Count > 0;
+        bool hasLivingEnemies = GetTree().GetNodesInGroup("Boss").Count > 0;
 
         if (hasLivingEnemies)
         {
@@ -129,6 +130,7 @@ public partial class BossRoom : Node2D
 
         if (cutsceneAnimation != null && GodotObject.IsInstanceValid(cutsceneAnimation))
         {
+            GameManager.Instance.playClosingCutscene = true;
             _ = GameManager.Instance.ChangeSong("Menu", 45f);
             
             cutsceneAnimation.Play("The End");
