@@ -65,6 +65,7 @@ public partial class Inventory : Node
 		    }
 		
 		    EmitSignal(SignalName.InventoryChanged);
+			RefreshPlayerStats();
 		}
 	}
 
@@ -77,5 +78,42 @@ public partial class Inventory : Node
 		EmitSignal(SignalName.InventoryChanged);
     }
 
+	public void RefreshPlayerStats()
+	{
+	    // Your screenshot showed the controller as a child of Player
+	    var player = GetParent<CharacterBody2D>();
 	
+	    if (player is Entity p) 
+	    {
+	        // 1. Reset to Base Speed
+	        p.Speed = 150.0f; 
+	
+	        // 2. Loop through the array
+	        foreach (var item in Items)
+	        {
+	            // We check if the slot is not empty
+	            if (item != null)
+	            {
+	                // Call that virtual function we talked about!
+	                item.ApplyPassive(player);
+	            }
+	        }
+	
+	        GD.Print($"Stats Refreshed. Current Speed: {p.Speed}");
+	    }
+	}
+
+	public void RemoveItem(InventoryItem item)
+	{
+		for (int i = 0; i < Items.Length; i++)
+    	{
+    	    if (Items[i] == item)
+    	    {
+    	        Items[i] = null;
+    	        EmitSignal(SignalName.InventoryChanged);
+    	        RefreshPlayerStats(); // This is the magic line!
+    	        return;
+    	    }
+    	}
+	}
 }

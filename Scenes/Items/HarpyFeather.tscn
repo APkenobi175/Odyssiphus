@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c4iuedmc7a0i4"]
+
+[ext_resource type="Script" uid="uid://5qib04hwmxl" path="res://scripts/Items/HarpyFeather.cs" id="1_gsa1y"]
+[ext_resource type="Texture2D" uid="uid://c2fmexvpd41hy" path="res://Assets/ItemSprites/SilverFeather.png" id="1_k7t63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsa1y"]
+size = Vector2(18.75, 14)
+
+[node name="HarpyFeather" type="Area2D" unique_id=638881347]
+script = ExtResource("1_gsa1y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1947493513]
+position = Vector2(6.2584877e-07, -4.2724622e-07)
+scale = Vector2(0.036000002, 0.028)
+texture = ExtResource("1_k7t63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=502517398]
+shape = SubResource("RectangleShape2D_gsa1y")

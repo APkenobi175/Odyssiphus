@@ -67,4 +67,9 @@ public partial class InventoryItem : Item
 	    Modulate = new Color(1, 1, 1, 1f); // Back to normal
 	}
 
+	public virtual void ApplyPassive(CharacterBody2D player)
+	{
+		// override this in the item type to give unique passives to the player.
+	}
+
 }

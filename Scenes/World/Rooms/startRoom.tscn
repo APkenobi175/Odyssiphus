@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bsp4teccfxh4j" path="res://Scenes/World/Rooms/doors.tscn" id="4_iaimu"]
 [ext_resource type="FontFile" uid="uid://ce37s7x0idtab" path="res://Assets/Fonts/Cinzel/Cinzel-VariableFont_wght.ttf" id="5_o66xm"]
 [ext_resource type="PackedScene" uid="uid://b25owuy8bevat" path="res://Scenes/Items/Test.tscn" id="6_iaimu"]
+[ext_resource type="PackedScene" uid="uid://c4iuedmc7a0i4" path="res://Scenes/Items/HarpyFeather.tscn" id="7_o66xm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o66xm"]
 shader = ExtResource("3_iaimu")
@@ -84,3 +85,6 @@ shape = SubResource("SegmentShape2D_daxnc")
 
 [node name="Test" parent="." unique_id=419705762 instance=ExtResource("6_iaimu")]
 position = Vector2(447, 162)
+
+[node name="HarpyFeather" parent="." unique_id=638881347 instance=ExtResource("7_o66xm")]
+position = Vector2(458, 226)

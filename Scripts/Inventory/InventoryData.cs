@@ -258,8 +258,9 @@ public partial class InventoryData : Control
    private void DropItem()
     {
         if (SelectedItem == null) return;
-    
+
         var player = GetTree().GetFirstNodeInGroup("PlayerFaction") as CharacterBody2D;
+        var inv = player?.GetNodeOrNull<Inventory>("InventoryController");
         if (player == null) return;
     
         var world = GetTree().CurrentScene;
@@ -278,6 +279,11 @@ public partial class InventoryData : Control
         if (player != null)
         {
             SelectedItem.GlobalPosition = player.GlobalPosition + new Vector2(30, 0);
+        }
+
+        if (inv != null)
+        {
+            inv.RemoveItem(SelectedItem);
         }
     
         if (SelectedItem.HasMethod("StartDropCooldown"))

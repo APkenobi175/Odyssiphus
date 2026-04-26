@@ -20,7 +20,7 @@ height = 39.0
 [node name="Player" type="CharacterBody2D" unique_id=2069174916 node_paths=PackedStringArray("AnimationComponent") groups=["PlayerFaction"]]
 motion_mode = 1
 script = ExtResource("1_agccv")
-Speed = 400.0
+Speed = 150.0
 Faction = 1
 AnimationComponent = NodePath("PlayerAnimations")
 
