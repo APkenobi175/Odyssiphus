@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://c5ddh4x5xadta"]
 
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_agccv"]
-[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_g4oe6"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_yu0ev"]
 [ext_resource type="PackedScene" uid="uid://c450i8j27ga" path="res://Scenes/Components/InputComponents/KeyboardInputController.tscn" id="3_86atj"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
@@ -11,20 +10,28 @@
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
 [ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_inventory"]
 [ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="11_death"]
+[ext_resource type="PackedScene" uid="uid://ch3a5yhixfej7" path="res://Scenes/Components/AnimationComponents/PlayerAnimations.tscn" id="12_wmg1a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rsj4h"]
-radius = 29.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_td8ue"]
-size = Vector2(58, 57)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4kc40"]
+height = 39.0
 
-[node name="Player" type="CharacterBody2D" unique_id=2069174916 groups=["PlayerFaction"]]
+[node name="Player" type="CharacterBody2D" unique_id=2069174916 node_paths=PackedStringArray("AnimationComponent") groups=["PlayerFaction"]]
 motion_mode = 1
 script = ExtResource("1_agccv")
 Speed = 400.0
 Faction = 1
+AnimationComponent = NodePath("PlayerAnimations")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
+scale = Vector2(1.5, 1.5)
+Cooldown = 0.2
+
+[node name="PlayerAnimations" parent="." unique_id=1676336136 instance=ExtResource("12_wmg1a")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
+position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_rsj4h")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
@@ -32,11 +39,7 @@ Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1300123052]
 position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_td8ue")
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=236186401]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g4oe6")
+shape = SubResource("CapsuleShape2D_4kc40")
 
 [node name="Input" parent="." unique_id=493573941 instance=ExtResource("3_86atj")]
 
@@ -51,10 +54,6 @@ Health = NodePath("../Health")
 [node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
 Cooldown = 0.3
 ProjectileScene = ExtResource("8_ynt0t")
-
-[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("9_km4ui")]
-scale = Vector2(1.5, 1.5)
-Cooldown = 0.2
 
 [node name="InventoryController" parent="." unique_id=1379622013 instance=ExtResource("10_inventory")]
 
