@@ -5,12 +5,24 @@ public partial class Health : Node
 {
   [Export]
   public float MaxHealth = 100;
+  [Export]
   public float CurrentHealth { get; private set; }
+  [Export]
+  public int HealthRegenRate = 0;
 
   public override void _Ready()
   {
     CurrentHealth = MaxHealth;
   }
+
+    public override void _Process(double delta)
+    {
+      if (CurrentHealth != MaxHealth)
+    {
+      ChangeHealth(HealthRegenRate);
+    }
+    }
+
 
   public void SetMaxHealth(float newMaxHealth, bool full)
   {

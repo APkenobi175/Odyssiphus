@@ -10,9 +10,16 @@ public partial class Inventory : Node
     [Export] public int Cols = 5;
 
     [Signal] public delegate void InventoryChangedEventHandler();
+	public Entity player;
+	public Node2D Attack;
+	public Node PlayerHealth;
+	public BaseProjectileAbility SpecialAttack;
 
     public override void _Ready()
     {
+		player = GetParent<Entity>();
+		SpecialAttack = player.GetNode<BaseProjectileAbility>("Special");
+		PlayerHealth = player.GetNode<Health>("Health");
         Items = new InventoryItem[Rows * Cols];
     }
 
@@ -24,6 +31,7 @@ public partial class Inventory : Node
 	    // 1. Handle Stacking
 	    if (worldItem.IsStackable)
 	    {
+			GD.Print($"world item: {worldItem.ItemName} is stackable");
 	        foreach (var existingItem in Items)
 	        {
 	            if (existingItem != null && existingItem.ItemName == worldItem.ItemName)
@@ -80,20 +88,26 @@ public partial class Inventory : Node
 
 	public void RefreshPlayerStats()
 	{
-	    // Your screenshot showed the controller as a child of Player
-	    var player = GetParent<CharacterBody2D>();
-	
+		GD.Print("Refreshing player stats");
 	    if (player is Entity p) 
 	    {
-	        // 1. Reset to Base Speed
-	        p.Speed = 150.0f; 
-	
+	        // 1. Reset Stats to base player stats
+			// reset speed
+	        p.Speed = 150.0f;
+			// Special attack base stats
+			SpecialAttack.Cooldown = 0.3f;
+			SpecialAttack.SpreadCount = 1;
+			SpecialAttack.SpreadAngle = 0.0f;
+			SpecialAttack.BurstCount = 1;
+			SpecialAttack.BurstDelay = 0.01f;
+			//reset health
 	        // 2. Loop through the array
 	        foreach (var item in Items)
 	        {
 	            // We check if the slot is not empty
 	            if (item != null)
 	            {
+					GD.Print($"{item.ItemName} is not null.");
 	                // Call that virtual function we talked about!
 	                item.ApplyPassive(player);
 	            }
@@ -105,15 +119,20 @@ public partial class Inventory : Node
 
 	public void RemoveItem(InventoryItem item)
 	{
-		for (int i = 0; i < Items.Length; i++)
-    	{
-    	    if (Items[i] == item)
-    	    {
-    	        Items[i] = null;
-    	        EmitSignal(SignalName.InventoryChanged);
-    	        RefreshPlayerStats(); // This is the magic line!
-    	        return;
-    	    }
-    	}
+		GD.Print($"{item.ItemName} was removed");
+		EmitSignal(SignalName.InventoryChanged);
+		RefreshPlayerStats();
+		// May not need below, delete before merge. If not deleted
+		// Please yell at Grayson to remove.
+		// for (int i = 0; i < Items.Length; i++)
+    	// {
+    	//     if (Items[i] == item)
+    	//     {
+    	//         Items[i] = null;
+    	//         EmitSignal(SignalName.InventoryChanged);
+    	//         RefreshPlayerStats(); // This is the magic line!
+    	//         return;
+    	//     }
+    	// }
 	}
 }

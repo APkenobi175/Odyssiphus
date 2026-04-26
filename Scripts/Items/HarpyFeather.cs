@@ -9,10 +9,9 @@ public partial class HarpyFeather : InventoryItem
 	public override void _Ready()
 	{
 		ItemName = "Feather of a Harpy";
-		IsStackable = true;
         BodyEntered += (body) =>
         {
-			GD.Print($"Touched by: {body.Name}");
+			GD.Print($"{ItemName} Touched by: {body.Name}");
             if (!_OffPickupCooldown)
 			{
 				GD.Print($"Cannot be picked up, cooldown active");
@@ -25,7 +24,7 @@ public partial class HarpyFeather : InventoryItem
                 if (inv != null)
                 {
                     inv.CallDeferred("AddItem", this, 1);
-                    GD.Print("Item pickup scheduled...");
+                    GD.Print($"{ItemName} pickup scheduled...");
                 }
             }
         };

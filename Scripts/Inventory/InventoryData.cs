@@ -133,7 +133,7 @@ public partial class InventoryData : Control
             var slot = InventorySlotScene.Instantiate<InventorySlot>();
             _slots.Add(slot);
             InventoryGrid.AddChild(slot);
-            GD.Print($"Created slot {i}");
+            // GD.Print($"Created slot {i}");
 
             slot.SlotInput += OnSlotInput;
             slot.SlotHovered += OnSlotHovered;
@@ -161,7 +161,6 @@ public partial class InventoryData : Control
         // Make sure "toggle_inventory" is defined in your Project Settings -> Input Map
         if (@event.IsActionPressed("Inventory"))
         {
-            GD.Print("Tab was pressed, opening inventory!");
             Visible = !Visible;
             // Handle the mouse cursor
             if (Visible)
@@ -283,6 +282,7 @@ public partial class InventoryData : Control
 
         if (inv != null)
         {
+            GD.Print("Inventory is not null");
             inv.RemoveItem(SelectedItem);
         }
     
