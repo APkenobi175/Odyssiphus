@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public partial class HarpyFeather : InventoryItem
+public partial class SacredRingOfAsclepius : InventoryItem
 {
-	[Export] public float SpeedBoost = 25.0f;
+		[Export] public int RegetRate = 1;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ItemName = "Feather of a Harpy";
+		ItemName = "A Sacred Ring of Asclepius";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");
@@ -33,11 +33,14 @@ public partial class HarpyFeather : InventoryItem
 
     public override void ApplyPassive(CharacterBody2D player)
     {
-        if (player is Entity p)
+        if (player is Entity)
 		{
-			p.Speed += SpeedBoost;
-			GD.Print($"Feather of a harpy applied. New speed is {p.Speed}");
+			var PlayerHealth = player.GetNode<Health>("Health");
+			PlayerHealth.HealthRegenRate += 1;
+			GD.Print($"Blessing of Asclepius applied. Health regeneration is {PlayerHealth.HealthRegenRate} points per second.");
 		}
     }
 
 }
+
+

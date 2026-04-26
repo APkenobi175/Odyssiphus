@@ -12,12 +12,13 @@ public partial class Inventory : Node
     [Signal] public delegate void InventoryChangedEventHandler();
 	public Entity player;
 	public Node2D Attack;
-	public Node PlayerHealth;
 	public BaseProjectileAbility SpecialAttack;
+	public Health PlayerHealth;
 
     public override void _Ready()
     {
 		player = GetParent<Entity>();
+		var PlayerTree = player.GetTree();
 		SpecialAttack = player.GetNode<BaseProjectileAbility>("Special");
 		PlayerHealth = player.GetNode<Health>("Health");
         Items = new InventoryItem[Rows * Cols];
@@ -101,6 +102,8 @@ public partial class Inventory : Node
 			SpecialAttack.BurstCount = 1;
 			SpecialAttack.BurstDelay = 0.01f;
 			//reset health
+			PlayerHealth.HealthRegenRate = 0;
+			PlayerHealth.MaxHealth = 200.0f;
 	        // 2. Loop through the array
 	        foreach (var item in Items)
 	        {
@@ -113,7 +116,7 @@ public partial class Inventory : Node
 	            }
 	        }
 	
-	        GD.Print($"Stats Refreshed. Current Speed: {p.Speed}");
+	        GD.Print($"Stats Refreshed. current regen rate is: {PlayerHealth.HealthRegenRate}");
 	    }
 	}
 
@@ -122,17 +125,5 @@ public partial class Inventory : Node
 		GD.Print($"{item.ItemName} was removed");
 		EmitSignal(SignalName.InventoryChanged);
 		RefreshPlayerStats();
-		// May not need below, delete before merge. If not deleted
-		// Please yell at Grayson to remove.
-		// for (int i = 0; i < Items.Length; i++)
-    	// {
-    	//     if (Items[i] == item)
-    	//     {
-    	//         Items[i] = null;
-    	//         EmitSignal(SignalName.InventoryChanged);
-    	//         RefreshPlayerStats(); // This is the magic line!
-    	//         return;
-    	//     }
-    	// }
 	}
 }

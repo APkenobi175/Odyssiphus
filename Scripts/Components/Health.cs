@@ -9,6 +9,7 @@ public partial class Health : Node
   public float CurrentHealth { get; private set; }
   [Export]
   public int HealthRegenRate = 0;
+  private double _TimeSinceLastHeal = 0;
 
   public override void _Ready()
   {
@@ -17,9 +18,15 @@ public partial class Health : Node
 
     public override void _Process(double delta)
     {
-      if (CurrentHealth != MaxHealth)
+      if (CurrentHealth < MaxHealth)
     {
-      ChangeHealth(HealthRegenRate);
+      _TimeSinceLastHeal += delta;
+      if (HealthRegenRate > 0 && _TimeSinceLastHeal >= 1.0)
+      {
+        ChangeHealth(HealthRegenRate);
+        GD.Print($"Odyssiphus healed. Health is now {CurrentHealth}");
+        _TimeSinceLastHeal = 0;
+      }
     }
     }
 
