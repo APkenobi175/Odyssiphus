@@ -29,6 +29,8 @@ public partial class GameManager : Node
     public bool characterIsTransitioning = false; // Flag to prevent multiple room transitions at once
 
     public int MiniBossesDeafted = 0; // Track the number of mini bosses defeated for potential use in scaling difficulty or unlocking content
+
+    public bool playOpeningCutscene = true;
     
 
 
@@ -213,6 +215,7 @@ public partial class GameManager : Node
         PlayerCurrentRoom = Vector2I.Zero; // Reset the player's current room
         currentRoom = null; // Clear the current room reference
         MiniBossesDeafted = 0; // Reset the mini boss defeat count
+        playOpeningCutscene = true; // Reset the opening cutscene flag
         GoTo("Ship"); // Go to the ship scene to start a new game
     }
 
