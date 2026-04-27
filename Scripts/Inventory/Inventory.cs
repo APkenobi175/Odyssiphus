@@ -115,8 +115,6 @@ public partial class Inventory : Node
 	                item.ApplyPassive(player);
 	            }
 	        }
-	
-	        GD.Print($"Stats Refreshed. current regen rate is: {PlayerHealth.HealthRegenRate}");
 	    }
 	}
 
@@ -124,6 +122,10 @@ public partial class Inventory : Node
 	{
 		GD.Print($"{item.ItemName} was removed");
 		EmitSignal(SignalName.InventoryChanged);
+		if (item.ItemName.Length >= 19 && item.ItemName[0..19] == "Iaso Blessed Mirror")
+		{
+			PlayerHealth.ChangeHealth(-100.0f);
+		}
 		RefreshPlayerStats();
 	}
 }

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://be8bkk5iakwry"]
+
+[ext_resource type="Texture2D" uid="uid://dlae70wkirq5b" path="res://Assets/AssetPacks/Treasure/Treasure+.png" id="1_083f6"]
+[ext_resource type="Script" uid="uid://by6rhhelrletl" path="res://scripts/Items/WrathOfApollo.cs" id="2_i1145"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i1145"]
+radius = 7.0
+
+[node name="WrathOfApollo" type="Area2D" unique_id=480108645]
+script = ExtResource("2_i1145")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=696426201]
+position = Vector2(-0.6875, 0.8137498)
+scale = Vector2(0.90441173, 0.8248333)
+texture = ExtResource("1_083f6")
+region_enabled = true
+region_rect = Rect2(112.5054, 81.11613, 15.108139, 14.568565)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=109039788]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_i1145")

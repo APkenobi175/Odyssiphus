@@ -1,14 +1,16 @@
 using Godot;
 using System;
 
-public partial class SacredRingOfAsclepius : InventoryItem
+public partial class WrathOfApollo : InventoryItem
 {
-		[Export] public int RegenRate = 1;
-	
+	[Export]
+	public int SpreadIncrease = 1;
+	[Export]
+	public float AngleIncrease = 10.0f;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
-	{
-		ItemName = "A Sacred Ring of Asclepius";
+	{		
+		ItemName = "Wrath Of Apollo";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");
@@ -31,16 +33,15 @@ public partial class SacredRingOfAsclepius : InventoryItem
     
 	}
 
-    public override void ApplyPassive(CharacterBody2D player)
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void ApplyPassive(CharacterBody2D player)
     {
         if (player is Entity)
 		{
-			var PlayerHealth = player.GetNode<Health>("Health");
-			PlayerHealth.HealthRegenRate += RegenRate;
-			GD.Print($"Blessing of Asclepius applied. Health regeneration is {PlayerHealth.HealthRegenRate} points per second.");
+			var PlayerSpecial = player.GetNode<BaseProjectileAbility>("Special");
+			PlayerSpecial.SpreadCount += SpreadIncrease;
+			PlayerSpecial.SpreadAngle += AngleIncrease;
+			GD.Print($"A relic of Apollo blesses your bow. You shoot {PlayerSpecial.SpreadCount} arrows now.");
 		}
     }
-
 }
-
-

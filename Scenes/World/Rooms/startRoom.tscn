@@ -6,9 +6,10 @@
 [ext_resource type="Shader" uid="uid://b8bcexhyykq0i" path="res://Assets/Shaders/enemyRoom.gdshader" id="3_iaimu"]
 [ext_resource type="PackedScene" uid="uid://bsp4teccfxh4j" path="res://Scenes/World/Rooms/doors.tscn" id="4_iaimu"]
 [ext_resource type="FontFile" uid="uid://ce37s7x0idtab" path="res://Assets/Fonts/Cinzel/Cinzel-VariableFont_wght.ttf" id="5_o66xm"]
-[ext_resource type="PackedScene" uid="uid://b25owuy8bevat" path="res://Scenes/Items/Test.tscn" id="6_iaimu"]
 [ext_resource type="PackedScene" uid="uid://c4iuedmc7a0i4" path="res://Scenes/Items/HarpyFeather.tscn" id="7_o66xm"]
+[ext_resource type="PackedScene" uid="uid://bswjexjjhigic" path="res://Scenes/Items/MirrorOfIaso.tscn" id="9_0ffet"]
 [ext_resource type="PackedScene" uid="uid://cpx4hf7ucpp2b" path="res://Scenes/Items/AsclepiusRing.tscn" id="9_2ik18"]
+[ext_resource type="PackedScene" uid="uid://be8bkk5iakwry" path="res://Scenes/Items/WrathOfApollo.tscn" id="10_0ffet"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o66xm"]
 shader = ExtResource("3_iaimu")
@@ -84,11 +85,32 @@ shape = SubResource("SegmentShape2D_daxnc")
 position = Vector2(229, 0)
 shape = SubResource("SegmentShape2D_daxnc")
 
-[node name="Test" parent="." unique_id=419705762 instance=ExtResource("6_iaimu")]
-position = Vector2(447, 162)
-
 [node name="HarpyFeather" parent="." unique_id=638881347 instance=ExtResource("7_o66xm")]
 position = Vector2(458, 226)
 
 [node name="AsclepiusRing" parent="." unique_id=2061134899 instance=ExtResource("9_2ik18")]
 position = Vector2(459, 263)
+
+[node name="MirrorOfIaso" parent="." unique_id=134847149 instance=ExtResource("9_0ffet")]
+position = Vector2(460, 190)
+
+[node name="WrathOfApollo" parent="." unique_id=2077639896 instance=ExtResource("10_0ffet")]
+position = Vector2(459, 160)
+
+[node name="WrathOfApollo2" parent="." unique_id=480108645 instance=ExtResource("10_0ffet")]
+position = Vector2(413, 160)
+
+[node name="MirrorOfIaso2" parent="." unique_id=1645955153 instance=ExtResource("9_0ffet")]
+position = Vector2(414, 188)
+
+[node name="HarpyFeather2" parent="." unique_id=616670846 instance=ExtResource("7_o66xm")]
+position = Vector2(412, 227)
+
+[node name="HarpyFeather3" parent="." unique_id=504096476 instance=ExtResource("7_o66xm")]
+position = Vector2(378, 227)
+
+[node name="AsclepiusRing2" parent="." unique_id=385610568 instance=ExtResource("9_2ik18")]
+position = Vector2(438, 264)
+
+[node name="AsclepiusRing3" parent="." unique_id=1117195929 instance=ExtResource("9_2ik18")]
+position = Vector2(412, 263)

@@ -4,7 +4,7 @@ using System;
 public partial class Health : Node
 {
   [Export]
-  public float MaxHealth = 100;
+  public float MaxHealth = 100.0f;
   [Export]
   public float CurrentHealth { get; private set; }
   [Export]

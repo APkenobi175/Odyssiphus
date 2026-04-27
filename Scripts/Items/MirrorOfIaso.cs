@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public partial class SacredRingOfAsclepius : InventoryItem
+public partial class MirrorOfIaso : InventoryItem
 {
-		[Export] public int RegenRate = 1;
-	
+	[Export] public float HealthBoost = 100.0f;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ItemName = "A Sacred Ring of Asclepius";
+		
+		ItemName = "Iaso Blessed Mirror";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");
@@ -31,16 +31,15 @@ public partial class SacredRingOfAsclepius : InventoryItem
     
 	}
 
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void ApplyPassive(CharacterBody2D player)
     {
         if (player is Entity)
 		{
 			var PlayerHealth = player.GetNode<Health>("Health");
-			PlayerHealth.HealthRegenRate += RegenRate;
-			GD.Print($"Blessing of Asclepius applied. Health regeneration is {PlayerHealth.HealthRegenRate} points per second.");
+			PlayerHealth.MaxHealth += HealthBoost;
+			PlayerHealth.ChangeHealth(HealthBoost);
+			GD.Print($"Gazing into the mirror boosts vitality. Max health is now {PlayerHealth.MaxHealth} points.");
 		}
     }
-
 }
-
-

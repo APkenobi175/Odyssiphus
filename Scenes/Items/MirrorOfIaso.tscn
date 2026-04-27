@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bswjexjjhigic"]
+
+[ext_resource type="Script" uid="uid://cvw2xsn405k70" path="res://Scripts/Items/MirrorOfIaso.cs" id="1_g1h2e"]
+[ext_resource type="Texture2D" uid="uid://dlae70wkirq5b" path="res://Assets/AssetPacks/Treasure/Treasure+.png" id="1_n8rcb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1h2e"]
+radius = 7.0
+
+[node name="MirrorOfIaso" type="Area2D" unique_id=134847149]
+script = ExtResource("1_g1h2e")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=579329992]
+position = Vector2(-0.6875, 0.8137498)
+scale = Vector2(0.90441173, 0.8248333)
+texture = ExtResource("1_n8rcb")
+region_enabled = true
+region_rect = Rect2(159.64548, 96.360306, 16.648071, 14.922867)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1951599782]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_g1h2e")
