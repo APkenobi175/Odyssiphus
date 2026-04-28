@@ -692,7 +692,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 20
 text = "Spartan - RPG Style
 Highly Detailed Sprite
 by Sorthen"
@@ -706,7 +706,7 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "(used under CC BY-SA 3.0
 from https://sorthen.itch.io/
 a-heightened-sense-of-things)"
@@ -733,7 +733,8 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
 theme_override_font_sizes/font_size = 20
-text = "Soldier and Orc"
+text = "Soldier and Orc
+Sprites"
 vertical_alignment = 1
 
 [node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer14" unique_id=44752215]
@@ -781,7 +782,7 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
 theme_override_font_sizes/font_size = 20
-text = "Slime"
+text = "Slime Sprite"
 vertical_alignment = 1
 
 [node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer15" unique_id=686384086]
@@ -828,7 +829,7 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
 theme_override_font_sizes/font_size = 20
-text = "Poseidon"
+text = "Poseidon Sprite"
 vertical_alignment = 1
 
 [node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer16" unique_id=1592062747]
@@ -851,4 +852,253 @@ theme_override_font_sizes/font_size = 20
 text = "Greek Gods
 by Nexis
 (itch.io)"
+vertical_alignment = 1
+
+[node name="Node14" type="Label" parent="VBoxContainer/Credits" unique_id=1908834690]
+layout_mode = 2
+
+[node name="HBoxContainer17" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1747808560]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17" unique_id=308897521]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer17/GameDeveloper" unique_id=1728942608]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Chicken Sprite"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17" unique_id=2084423170]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17/Name" unique_id=335708281]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer17/Name/VBoxContainer" unique_id=64813639]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Free Animated Chicken
+Sprite Sheet and Gifs
+by PixelPlant
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node15" type="Label" parent="VBoxContainer/Credits" unique_id=1386082466]
+layout_mode = 2
+
+[node name="HBoxContainer18" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1135295236]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18" unique_id=626867067]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer18/GameDeveloper" unique_id=1486435335]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Explosion Sprite"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18" unique_id=570024132]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18/Name" unique_id=789438773]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer18/Name/VBoxContainer" unique_id=1935152198]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Explosion
+Animations Pack
+by ansimuz
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node16" type="Label" parent="VBoxContainer/Credits" unique_id=793352145]
+layout_mode = 2
+
+[node name="Title5" type="VBoxContainer" parent="VBoxContainer/Credits" unique_id=1955003575]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Credits/Title5" unique_id=610729465]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_eg3jt")
+theme_override_font_sizes/font_size = 31
+text = "Sound Effects"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer19" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1879530635]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer19" unique_id=1114004353]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer19/GameDeveloper" unique_id=1673498255]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Explosion"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer19" unique_id=812361500]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer19/Name" unique_id=432180461]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer19/Name/VBoxContainer" unique_id=1066555723]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Fireball Explosion.wav
+by HighPixel
+(freesound.org)"
+vertical_alignment = 1
+
+[node name="Node17" type="Label" parent="VBoxContainer/Credits" unique_id=1102977760]
+layout_mode = 2
+
+[node name="HBoxContainer20" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=457552002]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer20" unique_id=98012695]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer20/GameDeveloper" unique_id=689585626]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Melee"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer20" unique_id=1656838482]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer20/Name" unique_id=1196706278]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer20/Name/VBoxContainer" unique_id=442421214]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Strong Melee Swing
+by SypherZent
+(freesound.org)"
+vertical_alignment = 1
+
+[node name="Node18" type="Label" parent="VBoxContainer/Credits" unique_id=1890219282]
+layout_mode = 2
+
+[node name="HBoxContainer21" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1250974885]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer21" unique_id=293258360]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer21/GameDeveloper" unique_id=1416206729]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Projectile"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer21" unique_id=1837677336]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer21/Name" unique_id=1994279668]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer21/Name/VBoxContainer" unique_id=1079090017]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Basic Melee Swing /
+Miss / Whoosh
+by SypherZent
+(freesound.org)"
 vertical_alignment = 1
