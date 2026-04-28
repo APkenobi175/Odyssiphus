@@ -10,7 +10,8 @@ public partial class WrathOfApollo : InventoryItem
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{		
-		ItemName = "Wrath Of Apollo";
+		//ItemName = "Wrath Of Apollo";
+		ItemName = "WrathOfApollo";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");

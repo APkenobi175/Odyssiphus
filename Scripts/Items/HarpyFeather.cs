@@ -8,7 +8,7 @@ public partial class HarpyFeather : InventoryItem
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ItemName = "Feather of a Harpy";
+		ItemName = "HarpyFeather";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");

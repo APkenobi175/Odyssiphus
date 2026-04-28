@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpx4hf7ucpp2b"]
 
-[ext_resource type="Script" uid="uid://d4exbo57ecb1q" path="res://scripts/Items/SacredRingOfAsclepius.cs" id="1_rc3ea"]
+[ext_resource type="Script" uid="uid://d4exbo57ecb1q" path="res://Scripts/Items/SacredRingOfAsclepius.cs" id="1_rc3ea"]
 [ext_resource type="Texture2D" uid="uid://dlae70wkirq5b" path="res://Assets/AssetPacks/Treasure/Treasure+.png" id="2_apva3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kh1qy"]
@@ -10,6 +10,7 @@ radius = 4.5
 script = ExtResource("1_rc3ea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=831182900]
+texture_filter = 1
 position = Vector2(-2, -1)
 scale = Vector2(0.75, 0.583)
 texture = ExtResource("2_apva3")

@@ -3,9 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://nlbj8v7olsyj" path="res://Scenes/UI/PauseMenu/UI_PauseMenu.tscn" id="1_j7oxg"]
 [ext_resource type="Script" uid="uid://8o8unohpwho4" path="res://Scripts/World/Rooms/TreasureRoom.cs" id="1_k5j0j"]
 [ext_resource type="TileSet" uid="uid://du4i8s8h7ior0" path="res://Assets/Tiles/DungeonTiles.tres" id="2_5wtbj"]
+[ext_resource type="PackedScene" uid="uid://cpx4hf7ucpp2b" path="res://Scenes/Items/AsclepiusRing.tscn" id="2_cywnp"]
 [ext_resource type="PackedScene" uid="uid://bsp4teccfxh4j" path="res://Scenes/World/Rooms/doors.tscn" id="3_dnyo7"]
 [ext_resource type="Texture2D" uid="uid://dlae70wkirq5b" path="res://Assets/AssetPacks/Treasure/Treasure+.png" id="3_k5j0j"]
 [ext_resource type="Shader" uid="uid://b8bcexhyykq0i" path="res://Assets/Shaders/enemyRoom.gdshader" id="3_t0rfv"]
+[ext_resource type="PackedScene" uid="uid://c4iuedmc7a0i4" path="res://Scenes/Items/HarpyFeather.tscn" id="3_vbnmp"]
+[ext_resource type="PackedScene" uid="uid://bswjexjjhigic" path="res://Scenes/Items/MirrorOfIaso.tscn" id="4_kcij3"]
+[ext_resource type="PackedScene" uid="uid://be8bkk5iakwry" path="res://Scenes/Items/WrathOfApollo.tscn" id="5_nwsa2"]
+[ext_resource type="Script" uid="uid://da8lb8n3sldo3" path="res://Scripts/World/Rooms/EnteredRoom.cs" id="7_3g0pq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3g0pq"]
 shader = ExtResource("3_t0rfv")
@@ -289,8 +294,15 @@ size = Vector2(50, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t0rfv"]
 size = Vector2(30, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4r4d"]
+size = Vector2(606, 337)
+
 [node name="TreasureRoom" type="Node2D" unique_id=1060207121]
 script = ExtResource("1_k5j0j")
+AsclepiusRing = ExtResource("2_cywnp")
+HarpyFeather = ExtResource("3_vbnmp")
+MirrorOfIaso = ExtResource("4_kcij3")
+WrathOfApollo = ExtResource("5_nwsa2")
 
 [node name="Label" type="Label" parent="." unique_id=1291268576]
 offset_right = 40.0
@@ -368,3 +380,15 @@ shape = SubResource("RectangleShape2D_t0rfv")
 [node name="Area2D" type="CollisionShape2D" parent="TreasureChest" unique_id=269362517]
 position = Vector2(272, 152)
 shape = SubResource("RectangleShape2D_t0rfv")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1813288138]
+position = Vector2(312, 196)
+
+[node name="EnteredRoom" type="Area2D" parent="." unique_id=11916118]
+script = ExtResource("7_3g0pq")
+
+[node name="onRoomEntered" type="CollisionShape2D" parent="EnteredRoom" unique_id=178246807]
+position = Vector2(319, 182)
+shape = SubResource("RectangleShape2D_d4r4d")
+
+[connection signal="body_entered" from="EnteredRoom" to="." method="onRoomEntered"]

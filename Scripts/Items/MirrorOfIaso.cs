@@ -8,7 +8,8 @@ public partial class MirrorOfIaso : InventoryItem
 	public override void _Ready()
 	{
 		
-		ItemName = "Iaso Blessed Mirror";
+		//ItemName = "Iaso Blessed Mirror";
+		ItemName = "MirrorOfIaso";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");

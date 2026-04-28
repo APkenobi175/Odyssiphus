@@ -202,7 +202,6 @@ public class DungeonGraphReplacement
         if (finalTreasure.RoomType == RoomType.EnemyRoom)
         {
             finalTreasure.RoomType = RoomType.TreasureRoom;
-            finalTreasure.IsCleared = true;
         }
 
         
@@ -251,7 +250,6 @@ public class DungeonGraphReplacement
                 if (eligible[j].RoomType == RoomType.EnemyRoom)
                 {
                     eligible[j].RoomType = RoomType.TreasureRoom;
-                    eligible[j].IsCleared = true;
                     break;
                 }
             }
@@ -364,7 +362,6 @@ public class DungeonGraphReplacement
                 if (furthest.RoomType == RoomType.EnemyRoom && branchVisited.Count >= 3)
                 {
                     furthest.RoomType = RoomType.TreasureRoom;
-                    furthest.IsCleared = true;
                 }
             }
         }

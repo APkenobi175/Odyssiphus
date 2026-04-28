@@ -8,7 +8,8 @@ public partial class SacredRingOfAsclepius : InventoryItem
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		ItemName = "A Sacred Ring of Asclepius";
+		//ItemName = "A Sacred Ring of Asclepius";
+		ItemName = "AsclepiusRing";
         BodyEntered += (body) =>
         {
 			GD.Print($"{ItemName} Touched by: {body.Name}");

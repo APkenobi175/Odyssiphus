@@ -277,6 +277,11 @@ public partial class GameManager : Node
 
         // 1. Get player node
         var player = GetTree().GetFirstNodeInGroup("Player") as Node;
+        if(player == null)
+        {
+            GD.Print("No Player Found in scene to save character data from!");
+            return Json.Stringify(data); // Return empty data if no player found
+        }
 
         // 2. Get player health
         var health = player?.GetNode<Health>("Health");
@@ -528,7 +533,7 @@ public partial class GameManager : Node
     {
         foreach(var room in CurrentDungeonRooms)
         {
-            if (room.RoomType == RoomType.Start || room.RoomType == RoomType.TreasureRoom)
+            if (room.RoomType == RoomType.Start)
             {
                 room.IsCleared = true; // Keep start and treasure rooms set to clear so you can traverse them.
             }
