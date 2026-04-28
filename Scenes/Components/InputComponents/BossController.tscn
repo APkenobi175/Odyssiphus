@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cl8pdo0b65x8m"]
+
+[ext_resource type="Script" uid="uid://clkj78lsi1xt7" path="res://Scripts/Components/InputComponents/BossController.cs" id="1_kxgpd"]
+
+[node name="BasicProjectileController" type="Node2D" unique_id=1140697106]
+script = ExtResource("1_kxgpd")
+MinIdealRange = 50.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=433615159]
+hit_from_inside = true

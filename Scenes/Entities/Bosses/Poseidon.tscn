@@ -6,22 +6,22 @@
 [ext_resource type="Script" uid="uid://cw5su7cy34oyu" path="res://Scripts/Entities/PosiedonIcon.cs" id="4_l0yjt"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="5_io848"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="6_vw8nx"]
-[ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="7_0cmlu"]
-[ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="8_cf1vf"]
+[ext_resource type="PackedScene" uid="uid://cl8pdo0b65x8m" path="res://Scenes/Components/InputComponents/BossController.tscn" id="7_cmcqo"]
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="9_cmcqo"]
+[ext_resource type="PackedScene" uid="uid://dcl0btruhemat" path="res://Scenes/Components/AbilityComponents/TridentMeleeAbility.tscn" id="10_cmcqo"]
 [ext_resource type="PackedScene" uid="uid://c8q1m7bt5redx" path="res://Scenes/Entities/Projectiles/TridentProjectile.tscn" id="10_dquyg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cmcqo"]
-radius = 9.0
 height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dquyg"]
 radius = 30.0
 height = 126.666664
 
-[node name="Posiedon" type="CharacterBody2D" unique_id=1155468635]
+[node name="Poseidon" type="CharacterBody2D" unique_id=1155468635]
+motion_mode = 1
 script = ExtResource("1_j6s7r")
-Faction = 2
+Faction = 4
 
 [node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1200758101]
 texture_filter = 1
@@ -53,16 +53,16 @@ offset_left = -19.0
 offset_top = -18.0
 offset_right = 31.0
 offset_bottom = -13.0
-max_value = 5.0
 Health = NodePath("../Health")
 metadata/_edit_use_anchors_ = true
 
-[node name="Input" parent="." unique_id=1145655090 instance=ExtResource("7_0cmlu")]
+[node name="Input" parent="." unique_id=1140697106 instance=ExtResource("7_cmcqo")]
 
-[node name="Attack1" parent="." unique_id=1900107897 instance=ExtResource("8_cf1vf")]
-modulate = Color(1, 1, 1, 0)
-
-[node name="Attack" parent="." unique_id=98863126 instance=ExtResource("9_cmcqo")]
+[node name="Special" parent="." unique_id=98863126 instance=ExtResource("9_cmcqo")]
+Cooldown = 2.5
 ProjectileScene = ExtResource("10_dquyg")
+SpreadCount = 3
+SpreadAngle = 45.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=554345734]
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("10_cmcqo")]
+Cooldown = 0.75

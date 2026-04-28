@@ -8,5 +8,5 @@
 [node name="TargetEntity" parent="." unique_id=949191580 groups=["PlayerFaction"] instance=ExtResource("2_2rpbh")]
 position = Vector2(321, 183)
 
-[node name="Posiedon" parent="." unique_id=1155468635 instance=ExtResource("2_y41id")]
-position = Vector2(482, 111)
+[node name="Poseidon" parent="." unique_id=1155468635 instance=ExtResource("2_y41id")]
+position = Vector2(776, 200)
