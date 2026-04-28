@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://7yipxi5yuy0g"]
 
-[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="1_3uok3"]
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_yk51p"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="3_tgv8k"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_5lvmq"]
@@ -9,32 +8,34 @@
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="7_nlb7i"]
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_5lvmq"]
 [ext_resource type="PackedScene" uid="uid://imdfj25a08kh" path="res://Scenes/Components/InputComponents/BasicProjectileController.tscn" id="8_tgv8k"]
+[ext_resource type="PackedScene" uid="uid://53latsbmmphd" path="res://Scenes/Components/AnimationComponents/RangedEnemyAnimations.tscn" id="9_5lvmq"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sau4v"]
-radius = 31.016125
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5lvmq"]
+radius = 9.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lvmq"]
-size = Vector2(59, 59)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xg2m6"]
+height = 35.0
 
-[node name="BasicProjectileEnemy" type="CharacterBody2D" unique_id=120682037]
+[node name="BasicProjectileEnemy" type="CharacterBody2D" unique_id=120682037 node_paths=PackedStringArray("AnimationComponent")]
 motion_mode = 1
 script = ExtResource("1_yk51p")
 Speed = 20.0
 Faction = 2
+AnimationComponent = NodePath("RangedEnemyAnimations")
+
+[node name="RangedEnemyAnimations" parent="." unique_id=579095507 instance=ExtResource("9_5lvmq")]
+scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=972774851]
-shape = SubResource("CircleShape2D_sau4v")
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1482416242]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3uok3")
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_5lvmq")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("3_tgv8k")]
 Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=945638201]
-position = Vector2(-0.5, 0.5)
-shape = SubResource("RectangleShape2D_5lvmq")
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_xg2m6")
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_5lvmq")]
 MaxHealth = 50.0

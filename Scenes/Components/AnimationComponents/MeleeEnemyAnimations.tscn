@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cc0kp62babvi0"]
+
+[ext_resource type="Script" uid="uid://ce5jhcc5me0su" path="res://Scripts/Components/AnimationComponents/AnimationComponent.cs" id="1_vo144"]
+[ext_resource type="Texture2D" uid="uid://d4dkf1ys8h8m4" path="res://Assets/AssetPacks/Tiny RPG Character Asset Pack/Characters(100x100)/Orc/Orc/Orc-Idle.png" id="2_5sk60"]
+
+[sub_resource type="Animation" id="Animation_14b3c"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rdxo"]
+_data = {
+&"idle": SubResource("Animation_14b3c")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfcwi"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7axk"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvkvm"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4ewd"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsvwi"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n115"]
+atlas = ExtResource("2_5sk60")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_enatw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfcwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7axk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvkvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4ewd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsvwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n115")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[node name="MeleeEnemyAnimations" type="Node2D" unique_id=1939201298 node_paths=PackedStringArray("AnimationPlayer")]
+script = ExtResource("1_vo144")
+AnimationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=513945406]
+libraries/ = SubResource("AnimationLibrary_5rdxo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340097216]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_enatw")
+animation = &"idle"
+frame_progress = 0.6916798

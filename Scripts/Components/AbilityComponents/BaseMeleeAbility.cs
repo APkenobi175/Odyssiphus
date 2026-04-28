@@ -23,13 +23,14 @@ public partial class BaseMeleeAbility : Node2D, IAbility, IFactionable
     AddChild(cooldownTimer);
   }
 
-  public void Activate(Vector2 position, Vector2 direction)
+  public bool Activate(Vector2 position, Vector2 direction)
   {
-    if (!cooldownTimer.IsStopped()) return;
+    if (!cooldownTimer.IsStopped()) return false;
 
     GlobalRotation = direction.Angle();
     AnimationPlayer?.Play("Attack");
     cooldownTimer.Start();
+    return true;
   }
 
   public void SetFaction(FactionManager.Faction faction)

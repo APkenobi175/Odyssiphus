@@ -10,13 +10,13 @@ public partial class BasicProjectileController : Node2D, IInputController
   [Export]
   public float MaxIdealRange = 200;
   [Export]
-  public float MinIdealRange = 50;
+  public float MinIdealRange = 100;
   [Export]
   public bool IgnoreObstacles = false;
 
   private RayCast2D raycast;
   private Node2D target;
-  private String targetGroup = "PlayerFaction";
+  private string targetGroup = "PlayerFaction";
 
   public override void _Ready()
   {
@@ -46,9 +46,11 @@ public partial class BasicProjectileController : Node2D, IInputController
       Vector2 targetRelativePosition = target.GlobalPosition - GlobalPosition;
       FocusInput?.Invoke(targetRelativePosition);
 
-      if (targetRelativePosition.Length() < MinIdealRange) MovementInput?.Invoke(-targetRelativePosition.Normalized());
-      else if (targetRelativePosition.Length() > MaxIdealRange) MovementInput?.Invoke(targetRelativePosition.Normalized());
+      float distance = targetRelativePosition.Length();
 
+      if (distance >= MinIdealRange && distance <= MaxIdealRange) MovementInput?.Invoke(Vector2.Zero);
+      else if (targetRelativePosition.Length() < MinIdealRange) MovementInput?.Invoke(-targetRelativePosition.Normalized());
+      else MovementInput?.Invoke(targetRelativePosition.Normalized());
 
       if (CanAttack(targetRelativePosition)) Ability1?.Invoke();
     }

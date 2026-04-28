@@ -41,10 +41,10 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
   }
 
 
-  public void Activate(Vector2 position, Vector2 direction)
+  public bool Activate(Vector2 position, Vector2 direction)
   {
-    if (!cooldownTimer.IsStopped()) return;
-    if (BurstCount <= 0) return;
+    if (!cooldownTimer.IsStopped()) return false;
+    if (BurstCount <= 0) return false;
 
     this.direction = direction;
 
@@ -57,6 +57,7 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
       burstTimer.Start();
     }
     else BurstsFinished?.Invoke();
+    return true;
   }
 
   public void SetFaction(FactionManager.Faction faction)

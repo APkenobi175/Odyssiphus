@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bjbllc5hfljwc"]
+
+[ext_resource type="Script" uid="uid://ce5jhcc5me0su" path="res://Scripts/Components/AnimationComponents/AnimationComponent.cs" id="1_bbf41"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d7ev4"]
+
+[node name="ExplosiveEnemyAnimations" type="Node2D" unique_id=579095507 node_paths=PackedStringArray("AnimationPlayer")]
+script = ExtResource("1_bbf41")
+AnimationPlayer = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=111368469]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1117382476]
+sprite_frames = SubResource("SpriteFrames_d7ev4")
