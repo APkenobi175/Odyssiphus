@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://c3ea87orbb46u"]
+
+[ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_j6s7r"]
+[ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_7empe"]
+[ext_resource type="SpriteFrames" uid="uid://c6wpsbxtpeltd" path="res://Assets/ItemSprites/posiedon.tres" id="3_vmkrv"]
+[ext_resource type="Script" uid="uid://cw5su7cy34oyu" path="res://Scripts/Entities/PosiedonIcon.cs" id="4_l0yjt"]
+[ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="5_io848"]
+[ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="6_vw8nx"]
+[ext_resource type="PackedScene" uid="uid://cl8pdo0b65x8m" path="res://Scenes/Components/InputComponents/BossController.tscn" id="7_cmcqo"]
+[ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="9_cmcqo"]
+[ext_resource type="PackedScene" uid="uid://dcl0btruhemat" path="res://Scenes/Components/AbilityComponents/TridentMeleeAbility.tscn" id="10_cmcqo"]
+[ext_resource type="PackedScene" uid="uid://c8q1m7bt5redx" path="res://Scenes/Entities/Projectiles/TridentProjectile.tscn" id="10_dquyg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cmcqo"]
+height = 44.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dquyg"]
+radius = 30.0
+height = 126.666664
+
+[node name="Poseidon" type="CharacterBody2D" unique_id=1155468635]
+motion_mode = 1
+script = ExtResource("1_j6s7r")
+Faction = 4
+
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1200758101]
+texture_filter = 1
+position = Vector2(1, -5)
+scale = Vector2(0.91406256, 0.87968755)
+sprite_frames = ExtResource("3_vmkrv")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.2201924
+script = ExtResource("4_l0yjt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=605785068]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_cmcqo")
+
+[node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_7empe")]
+scale = Vector2(0.3, 0.3)
+collision_layer = 5
+Health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=396046703]
+shape = SubResource("CapsuleShape2D_dquyg")
+
+[node name="Health" parent="." unique_id=1364223472 instance=ExtResource("5_io848")]
+MaxHealth = 5.0
+
+[node name="Healthbar" parent="." unique_id=136631559 node_paths=PackedStringArray("Health") instance=ExtResource("6_vw8nx")]
+offset_left = -19.0
+offset_top = -18.0
+offset_right = 31.0
+offset_bottom = -13.0
+Health = NodePath("../Health")
+metadata/_edit_use_anchors_ = true
+
+[node name="Input" parent="." unique_id=1140697106 instance=ExtResource("7_cmcqo")]
+
+[node name="Special" parent="." unique_id=98863126 instance=ExtResource("9_cmcqo")]
+Cooldown = 2.5
+ProjectileScene = ExtResource("10_dquyg")
+SpreadCount = 3
+SpreadAngle = 45.0
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("10_cmcqo")]
+Cooldown = 0.75

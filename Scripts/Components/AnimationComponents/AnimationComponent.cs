@@ -29,46 +29,58 @@ public partial class AnimationComponent : Node2D
   }
 
 
-  public void Play(string animationType, Vector2 direction, bool directional = true)
+  public void Play(string animationType, Vector2 direction)
   {
     // Additional check for repeating animations?
     if (AnimationPlayer is null || animationType == "") return;
 
-    string animation = SelectAnimation(animationType, direction, directional);
+    (bool valid, string animation) = SelectAnimation(animationType, direction);
 
-    if (!AnimationPlayer.HasAnimation(animation)) return;
+    if (!valid) return;
 
+    int rank = animationRank[animationType];
     string currentAnimation = AnimationPlayer.CurrentAnimation;
-    if (currentAnimation == animation) return;
+    if (currentAnimation == animation)
+    {
+      // Restart attack animations
+      if (rank == 1)
+      {
+        AnimationPlayer.Stop();
+        AnimationPlayer.Play();
+        //GD.Print("Repeating animation!");
+        return;
+      }
+      else return;
+    }
 
     //GD.Print($"Attempting change: {currentAnimation} --> {animation}");
 
     // Find cleaner way to avoid preempting important animations?
     string currentAnimationType = GetAnimationType(currentAnimation);
-    if (animationRank.TryGetValue(currentAnimationType, out int value) && animationRank[animationType] > value) return;
+    if (animationRank.TryGetValue(currentAnimationType, out int value) && rank > value) return;
 
     AnimationPlayer.Play(animation);
     //GD.Print($"Playing animation: {animation}");
   }
 
-  private string SelectAnimation(string animationType, Vector2 direction, bool directional)
+  private (bool valid, string animation) SelectAnimation(string animationType, Vector2 direction)
   {
     string animationName = animationType;
+    if (AnimationPlayer.HasAnimation(animationName)) return (true, animationName);
 
-    if (directional)
+    animationName += "_";
+    string animationDirection;
+
+    if (Mathf.Abs(direction.Y) >= Mathf.Abs(direction.X))
     {
-      animationName += "_";
-      if (Mathf.Abs(direction.X) > Mathf.Abs(direction.Y))
-      {
-        animationName += direction.X >= 0 ? "right" : "left";
-      }
-      else
-      {
-        animationName += direction.Y >= 0 ? "down" : "up";
-      }
+      animationDirection = direction.Y >= 0 ? "down" : "up";
+      if (AnimationPlayer.HasAnimation(animationName + animationDirection)) return (true, animationName + animationDirection);
     }
 
-    return animationName;
+    animationDirection = direction.X >= 0 ? "right" : "left";
+    if (AnimationPlayer.HasAnimation(animationName + animationDirection)) return (true, animationName + animationDirection);
+
+    return (false, "");
   }
 
   private string GetAnimationType(StringName animationName)

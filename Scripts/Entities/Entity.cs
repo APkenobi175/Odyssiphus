@@ -166,7 +166,7 @@ public partial class Entity : CharacterBody2D
     if (!canAct) return;
     if (attack is null) return;
 
-    attack.Activate(GlobalPosition, focus);
+    if (!attack.Activate(GlobalPosition, focus)) return;
     AnimationComponent?.Play("attack", focus);
     usingAbility = true;
   }
@@ -176,7 +176,7 @@ public partial class Entity : CharacterBody2D
     if (!canAct) return;
     if (special is null) return;
     
-    special.Activate(GlobalPosition, focus);
+    if (!special.Activate(GlobalPosition, focus)) return;
     AnimationComponent?.Play("special", focus);
     usingAbility = true;
   }
@@ -186,7 +186,7 @@ public partial class Entity : CharacterBody2D
     canAct = false;
     Velocity = Vector2.Zero;
     
-    AnimationComponent?.Play("death", focus, false);
+    AnimationComponent?.Play("death", focus);
     death?.Die();
   }
 

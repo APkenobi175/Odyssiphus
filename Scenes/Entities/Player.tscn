@@ -6,13 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_g4oe6"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_86atj"]
 [ext_resource type="PackedScene" uid="uid://bx7tdjfbbxco" path="res://Scenes/Components/AbilityComponents/BaseProjectileAbility.tscn" id="7_td8ue"]
-[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/BasicProjectile.tscn" id="8_ynt0t"]
+[ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/Projectiles/BasicProjectile.tscn" id="8_ynt0t"]
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
 [ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_inventory"]
 [ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="11_death"]
 [ext_resource type="PackedScene" uid="uid://ch3a5yhixfej7" path="res://Scenes/Components/AnimationComponents/PlayerAnimations.tscn" id="12_wmg1a"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rsj4h"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wmg1a"]
+radius = 9.0
+height = 35.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4kc40"]
 height = 39.0
@@ -31,8 +33,7 @@ Cooldown = 0.2
 [node name="PlayerAnimations" parent="." unique_id=1676336136 instance=ExtResource("12_wmg1a")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=451820523]
-position = Vector2(0, 5)
-shape = SubResource("CircleShape2D_rsj4h")
+shape = SubResource("CapsuleShape2D_wmg1a")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_yu0ev")]
 Health = NodePath("../Health")
