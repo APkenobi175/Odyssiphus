@@ -22,6 +22,9 @@ public partial class Inventory : Node
 		SpecialAttack = player.GetNode<BaseProjectileAbility>("Special");
 		PlayerHealth = player.GetNode<Health>("Health");
         Items = new InventoryItem[Rows * Cols];
+		GD.Print($"Ranged split: {SpecialAttack.SpreadCount}");
+		RefreshPlayerStats();
+		GD.Print($"Ranged split: {SpecialAttack.SpreadCount}");
     }
 
 

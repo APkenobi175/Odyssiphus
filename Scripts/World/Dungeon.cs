@@ -163,6 +163,7 @@ public partial class Dungeon : Node2D
                 }
                 slotIndex++;
             }
+            inventory.RefreshPlayerStats();
             inventory.EmitSignal(Inventory.SignalName.InventoryChanged);
             GameManager.Instance.SavedInventory = null;
         }
