@@ -39,6 +39,7 @@ public partial class InventorySlot : CenterContainer
 
 	public void OnTextureButtonMouseEntered()
 	{
+		GD.Print("========================== Button detected mouse =======================");
 		EmitSignal(SignalName.SlotHovered, this, true);
 	}
 

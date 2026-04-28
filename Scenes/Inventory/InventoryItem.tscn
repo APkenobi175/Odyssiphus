@@ -5,6 +5,7 @@
 [node name="InventoryItem" type="Control" unique_id=2100019558]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("1_3pf8p")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=561846398]

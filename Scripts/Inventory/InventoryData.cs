@@ -104,6 +104,7 @@ public partial class InventoryData : Control
     private void OnSlotHovered(InventorySlot which, bool isHovering)
     {
         if (Tooltip == null) return;
+        GD.Print($"Hovering over {which.item.ItemName}");
 
         if (which.item != null)
         {
@@ -137,6 +138,7 @@ public partial class InventoryData : Control
 
             slot.SlotInput += OnSlotInput;
             slot.SlotHovered += OnSlotHovered;
+            GD.Print($"slot {i} signal connected");
         }
     }
 
@@ -166,6 +168,7 @@ public partial class InventoryData : Control
             if (Visible)
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;
+                this.GrabFocus();
                 RefreshUI(); // Update slots just in case
             }
             else

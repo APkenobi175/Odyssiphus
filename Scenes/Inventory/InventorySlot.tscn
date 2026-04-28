@@ -20,6 +20,7 @@ script = ExtResource("1_bo8fl")
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=219971876]
 layout_mode = 2
+mouse_filter = 1
 texture_normal = ExtResource("1_w8tn1")
 
 [connection signal="gui_input" from="TextureButton" to="." method="OnTextureButtonGUIInput"]
