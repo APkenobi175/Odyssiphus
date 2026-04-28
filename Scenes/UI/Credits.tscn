@@ -711,3 +711,144 @@ text = "(used under CC BY-SA 3.0
 from https://sorthen.itch.io/
 a-heightened-sense-of-things)"
 vertical_alignment = 1
+
+[node name="Node11" type="Label" parent="VBoxContainer/Credits" unique_id=1388489853]
+layout_mode = 2
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1303163462]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer14" unique_id=1268167993]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer14/GameDeveloper" unique_id=1523642291]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Soldier and Orc"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer14" unique_id=44752215]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer14/Name" unique_id=204892081]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer14/Name/VBoxContainer" unique_id=744179872]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Tiny RPG
+Character
+Asset Pack
+by Zerie
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node12" type="Label" parent="VBoxContainer/Credits" unique_id=1109213286]
+layout_mode = 2
+
+[node name="HBoxContainer15" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1008653035]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer15" unique_id=1408697234]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer15/GameDeveloper" unique_id=1743408650]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Slime"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer15" unique_id=686384086]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer15/Name" unique_id=1785541910]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer15/Name/VBoxContainer" unique_id=1563847795]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Characters Animations
+Asset Pack
+by Oboropixel
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node13" type="Label" parent="VBoxContainer/Credits" unique_id=14085932]
+layout_mode = 2
+
+[node name="HBoxContainer16" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1888998016]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer16" unique_id=960164857]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer16/GameDeveloper" unique_id=358712404]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Poseidon"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer16" unique_id=1592062747]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer16/Name" unique_id=1057768230]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer16/Name/VBoxContainer" unique_id=625209655]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Greek Gods
+by Nexis
+(itch.io)"
+vertical_alignment = 1
