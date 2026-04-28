@@ -241,7 +241,7 @@ theme_override_constants/shadow_offset_y = 0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_u63pf")
 theme_override_font_sizes/font_size = 20
-text = "Ryan Gieson"
+text = "Ryan Van Gieson"
 vertical_alignment = 1
 
 [node name="Title3" type="VBoxContainer" parent="VBoxContainer/Credits" unique_id=1204908516]
