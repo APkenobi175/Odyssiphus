@@ -14,7 +14,7 @@ public partial class BossController : Node2D, IInputController
   [Export]
   public float MinIdealRange = 100;
   [Export]
-  public bool IgnoreObstacles = false;
+  public bool IgnoreObstacles = true;
 
   private RayCast2D raycast;
   private Node2D target;

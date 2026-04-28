@@ -111,14 +111,14 @@ public partial class BossRoom : Node2D
 
     public void disablePosiedon()
     {
-        var posiedon = GetNodeOrNull<Node2D>("Posiedon");
+        var posiedon = GetNodeOrNull<Node2D>("Poseidon");
         if (posiedon != null) posiedon.ProcessMode = ProcessModeEnum.Disabled;
         else GD.PrintErr("Poseidon not found!");
     }
 
     public void enablePosiedon()
     {
-        var posiedon = GetNodeOrNull<Node2D>("Posiedon");
+        var posiedon = GetNodeOrNull<Node2D>("Poseidon");
         if (posiedon != null) posiedon.ProcessMode = ProcessModeEnum.Inherit;
         else GD.PrintErr("Poseidon not found!");
     }
