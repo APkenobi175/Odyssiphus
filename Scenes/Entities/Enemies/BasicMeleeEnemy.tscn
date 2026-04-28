@@ -1,43 +1,43 @@
 [gd_scene format=3 uid="uid://cwhrphtw64ijl"]
 
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_78hjj"]
-[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_15tph"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="2_y65en"]
+[ext_resource type="PackedScene" uid="uid://cc0kp62babvi0" path="res://Scenes/Components/AnimationComponents/MeleeEnemyAnimations.tscn" id="3_ey6x6"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_gbb8c"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_8lv13"]
 [ext_resource type="PackedScene" uid="uid://cpwhqn4bi766a" path="res://Scenes/Components/InputComponents/BasicMeleeController.tscn" id="6_gbb8c"]
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="7_8lv13"]
 [ext_resource type="PackedScene" uid="uid://dmtuj7jnnks85" path="res://Scenes/Components/DeathComponents/BasicDeath.tscn" id="8_exmld"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ey6x6"]
-radius = 19.006578
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ey6x6"]
+radius = 9.0
+height = 25.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_exmld"]
-size = Vector2(126.666664, 126.666664)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ol5wi"]
 
-[node name="BasicMeleeEnemy" type="CharacterBody2D" unique_id=853225139]
+[node name="BasicMeleeEnemy" type="CharacterBody2D" unique_id=853225139 node_paths=PackedStringArray("AnimationComponent")]
 motion_mode = 1
 script = ExtResource("1_78hjj")
 Speed = 50.0
 Faction = 2
+AnimationComponent = NodePath("MeleeEnemyAnimations")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("7_8lv13")]
+
+[node name="MeleeEnemyAnimations" parent="." unique_id=1939201298 instance=ExtResource("3_ey6x6")]
+scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=851995086]
 position = Vector2(0, -0.5)
-shape = SubResource("CircleShape2D_ey6x6")
+shape = SubResource("CapsuleShape2D_ey6x6")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("2_y65en")]
-scale = Vector2(0.3, 0.3)
 collision_layer = 5
 Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=130624372]
 position = Vector2(3.1789143e-06, 1.390775e-06)
-shape = SubResource("RectangleShape2D_exmld")
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1637762339]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_15tph")
-flip_v = true
+shape = SubResource("CapsuleShape2D_ol5wi")
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_gbb8c")]
 
@@ -45,7 +45,5 @@ flip_v = true
 Health = NodePath("../Health")
 
 [node name="Input" parent="." unique_id=1145655090 instance=ExtResource("6_gbb8c")]
-
-[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("7_8lv13")]
 
 [node name="Death" parent="." unique_id=401763635 instance=ExtResource("8_exmld")]
