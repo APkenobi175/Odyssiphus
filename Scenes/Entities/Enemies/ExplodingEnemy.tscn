@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dyg8odt1pxsy5"]
 
 [ext_resource type="Script" uid="uid://cmklvu0gow6ng" path="res://Scripts/Entities/Entity.cs" id="1_5ll71"]
-[ext_resource type="Texture2D" uid="uid://cua7mbs38w3y8" path="res://icon.svg" id="2_iugm6"]
+[ext_resource type="PackedScene" uid="uid://dwjxplv4vstct" path="res://Scenes/Components/AnimationComponents/ExplodingEnemyAnimations.tscn" id="3_iugm6"]
 [ext_resource type="PackedScene" uid="uid://cmbqx2cbrg4gd" path="res://Scenes/Components/Hurtbox.tscn" id="3_vg3wm"]
 [ext_resource type="PackedScene" uid="uid://i4af50kqwcxl" path="res://Scenes/Components/Health.tscn" id="4_glv1p"]
 [ext_resource type="PackedScene" uid="uid://b12dkea1l51yy" path="res://Scenes/Components/Healthbar.tscn" id="5_nfp74"]
@@ -13,26 +13,28 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvoxm"]
 radius = 25.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yikr2"]
-size = Vector2(50, 50)
+[sub_resource type="CircleShape2D" id="CircleShape2D_vg3wm"]
+radius = 25.0
 
-[node name="ExplodingEnemy" type="CharacterBody2D" unique_id=1009850894]
+[node name="ExplodingEnemy" type="CharacterBody2D" unique_id=1009850894 node_paths=PackedStringArray("AnimationComponent")]
 motion_mode = 1
 script = ExtResource("1_5ll71")
 Faction = 2
+AnimationComponent = NodePath("ExplodingEnemyAnimations")
+
+[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_60gh5")]
+
+[node name="ExplodingEnemyAnimations" parent="." unique_id=1939201298 instance=ExtResource("3_iugm6")]
+scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=287381312]
 shape = SubResource("CircleShape2D_xvoxm")
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=760742033]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_iugm6")
 
 [node name="Hurtbox" parent="." unique_id=1590146584 node_paths=PackedStringArray("Health") instance=ExtResource("3_vg3wm")]
 Health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=586587760]
-shape = SubResource("RectangleShape2D_yikr2")
+shape = SubResource("CircleShape2D_vg3wm")
 
 [node name="Health" parent="." unique_id=1364223472 instance=ExtResource("4_glv1p")]
 MaxHealth = 30.0
@@ -42,7 +44,5 @@ Health = NodePath("../Health")
 
 [node name="Death" parent="." unique_id=1852244285 instance=ExtResource("6_p3xl1")]
 ExplosionScene = ExtResource("7_mkksp")
-
-[node name="Attack" parent="." unique_id=1900107897 instance=ExtResource("8_60gh5")]
 
 [node name="Input" parent="." unique_id=1145655090 instance=ExtResource("9_l4usa")]

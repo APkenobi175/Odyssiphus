@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://dbp6mahmpwqg"]
 
 [ext_resource type="PackedScene" uid="uid://baq7mpcpyvebe" path="res://Scenes/Entities/TargetEntity.tscn" id="2_2rpbh"]
-[ext_resource type="PackedScene" uid="uid://c3ea87orbb46u" path="res://Scenes/Entities/Bosses/Poseidon.tscn" id="2_y41id"]
+[ext_resource type="PackedScene" uid="uid://c5ddh4x5xadta" path="res://Scenes/Entities/Player.tscn" id="3_5pqrr"]
+[ext_resource type="PackedScene" uid="uid://dyg8odt1pxsy5" path="res://Scenes/Entities/Enemies/ExplodingEnemy.tscn" id="3_y41id"]
 
 [node name="RyanTest" type="Node2D" unique_id=1706203670]
 
 [node name="TargetEntity" parent="." unique_id=949191580 groups=["PlayerFaction"] instance=ExtResource("2_2rpbh")]
 position = Vector2(321, 183)
 
-[node name="Poseidon" parent="." unique_id=1155468635 instance=ExtResource("2_y41id")]
-position = Vector2(776, 200)
+[node name="ExplodingEnemy" parent="." unique_id=1009850894 instance=ExtResource("3_y41id")]
+position = Vector2(43, 191)
+
+[node name="Player" parent="." unique_id=2069174916 instance=ExtResource("3_5pqrr")]
+position = Vector2(594, 185)

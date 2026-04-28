@@ -852,3 +852,97 @@ text = "Greek Gods
 by Nexis
 (itch.io)"
 vertical_alignment = 1
+
+[node name="Node14" type="Label" parent="VBoxContainer/Credits" unique_id=1908834690]
+layout_mode = 2
+
+[node name="HBoxContainer17" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1747808560]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17" unique_id=308897521]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer17/GameDeveloper" unique_id=1728942608]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Chicken"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17" unique_id=2084423170]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer17/Name" unique_id=335708281]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer17/Name/VBoxContainer" unique_id=64813639]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Free Animated Chicken
+Sprite Sheet and Gifs
+by PixelPlant
+(itch.io)"
+vertical_alignment = 1
+
+[node name="Node15" type="Label" parent="VBoxContainer/Credits" unique_id=1386082466]
+layout_mode = 2
+
+[node name="HBoxContainer18" type="HBoxContainer" parent="VBoxContainer/Credits" unique_id=1135295236]
+layout_mode = 2
+alignment = 1
+
+[node name="GameDeveloper" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18" unique_id=626867067]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer18/GameDeveloper" unique_id=1486435335]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Explosion"
+vertical_alignment = 1
+
+[node name="Name" type="HBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18" unique_id=570024132]
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Credits/HBoxContainer18/Name" unique_id=789438773]
+layout_mode = 2
+
+[node name="Game Developer" type="Label" parent="VBoxContainer/Credits/HBoxContainer18/Name/VBoxContainer" unique_id=1935152198]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7882353, 0.65882355, 0.29803923, 1)
+theme_override_colors/font_shadow_color = Color(0.7882353, 0.65882355, 0.29803923, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_u63pf")
+theme_override_font_sizes/font_size = 20
+text = "Explosion
+Animations Pack
+by ansimuz
+(itch.io)"
+vertical_alignment = 1

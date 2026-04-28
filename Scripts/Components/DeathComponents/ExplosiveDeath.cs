@@ -5,6 +5,8 @@ public partial class ExplosiveDeath : Node2D, IDeathComponent
 {
   [Export]
   public PackedScene ExplosionScene;
+  [Export]
+  public float DeathTime = 1;
 
   public override void _Ready()
   {
@@ -16,6 +18,11 @@ public partial class ExplosiveDeath : Node2D, IDeathComponent
   }
 
   public void Die()
+  {
+    GetTree().CreateTimer(DeathTime).Timeout += OnDeathTimerTimeout;
+  }
+
+  private void OnDeathTimerTimeout()
   {
     Node node = ExplosionScene.Instantiate<Node>();
     if (node is IExplosion explosion)
