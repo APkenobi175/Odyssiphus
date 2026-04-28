@@ -66,25 +66,19 @@ public partial class AnimationComponent : Node2D
   private (bool valid, string animation) SelectAnimation(string animationType, Vector2 direction)
   {
     string animationName = animationType;
-    GD.Print($"Attempting base: {animationName}");
     if (AnimationPlayer.HasAnimation(animationName)) return (true, animationName);
 
     animationName += "_";
     string animationDirection;
-    GD.Print($"Attempting direction: {animationName}");
 
     if (Mathf.Abs(direction.Y) >= Mathf.Abs(direction.X))
     {
       animationDirection = direction.Y >= 0 ? "down" : "up";
-      GD.Print($"Attempting up/down: {animationName}");
       if (AnimationPlayer.HasAnimation(animationName + animationDirection)) return (true, animationName + animationDirection);
     }
-    
-    GD.Print($"Attempting left/right: {animationName}");
+
     animationDirection = direction.X >= 0 ? "right" : "left";
     if (AnimationPlayer.HasAnimation(animationName + animationDirection)) return (true, animationName + animationDirection);
-
-    GD.Print($"Nothing found: {animationName}");
 
     return (false, "");
   }
