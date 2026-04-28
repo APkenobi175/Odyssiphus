@@ -8,6 +8,8 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
   [Export]
   public PackedScene ProjectileScene;
   [Export]
+  public AudioStreamPlayer AudioStream;
+  [Export]
   public int SpreadCount = 1; // Number of projectiles in each spread
   [Export]
   public float SpreadAngle = 0; // Total angle of spread (0 = no spread, 360 = circle)
@@ -76,6 +78,8 @@ public partial class BaseProjectileAbility : Node2D, IAbility, IFactionable
     {
       SpawnProjectile(GlobalPosition, Vector2.Right.Rotated(startAngle + (i * angleIncrement)));
     }
+
+    AudioStream?.Play();
   }
 
   private void SpawnProjectile(Vector2 position, Vector2 direction)

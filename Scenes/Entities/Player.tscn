@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dgtdb3te0s3tu" path="res://Scenes/Entities/Projectiles/BasicProjectile.tscn" id="8_ynt0t"]
 [ext_resource type="PackedScene" uid="uid://bhl0f0ulhhvxj" path="res://Scenes/Components/AbilityComponents/BaseMeleeAbility.tscn" id="9_km4ui"]
 [ext_resource type="PackedScene" uid="uid://bcxavu8wcv18j" path="res://Scenes/Inventory/InventoryController.tscn" id="10_inventory"]
+[ext_resource type="AudioStream" uid="uid://b4ml4eccqcm5f" path="res://Assets/Sounds/Effects/420668__sypherzent__basic-melee-swing-miss-whoosh.wav" id="10_wmg1a"]
 [ext_resource type="PackedScene" uid="uid://drc8yjb0nnjm0" path="res://Scenes/Components/DeathComponents/PlayerDeath.tscn" id="11_death"]
 [ext_resource type="PackedScene" uid="uid://ch3a5yhixfej7" path="res://Scenes/Components/AnimationComponents/PlayerAnimations.tscn" id="12_wmg1a"]
 
@@ -52,9 +53,13 @@ Health = NodePath("../Health")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=65411099]
 
-[node name="Special" parent="." unique_id=205832043 instance=ExtResource("7_td8ue")]
+[node name="Special" parent="." unique_id=205832043 node_paths=PackedStringArray("AudioStream") instance=ExtResource("7_td8ue")]
 Cooldown = 0.3
 ProjectileScene = ExtResource("8_ynt0t")
+AudioStream = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Special" unique_id=937026141]
+stream = ExtResource("10_wmg1a")
 
 [node name="InventoryController" parent="." unique_id=1379622013 instance=ExtResource("10_inventory")]
 
