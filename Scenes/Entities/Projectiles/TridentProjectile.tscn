@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c8q1m7bt5redx"]
+
+[ext_resource type="Script" uid="uid://bx6r2giso5pyt" path="res://Scripts/Entities/BasicProjectile.cs" id="1_oet2g"]
+[ext_resource type="Texture2D" uid="uid://bqruj2a86ri7p" path="res://Assets/Bosses/PoseidonTrident.png" id="2_oet2g"]
+[ext_resource type="PackedScene" uid="uid://dlnqnumpvlwta" path="res://Scenes/Components/Hitbox.tscn" id="3_3e2x7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cbe60"]
+radius = 5.0
+height = 78.0
+
+[node name="BasicProjectile" type="Node2D" unique_id=2066262109]
+script = ExtResource("1_oet2g")
+Speed = 500.0
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=284643423]
+texture_filter = 1
+rotation = 1.5707964
+scale = Vector2(1, 1.5)
+texture = ExtResource("2_oet2g")
+
+[node name="Hitbox" parent="." unique_id=672177678 instance=ExtResource("3_3e2x7")]
+collision_mask = 4
+Damage = 15.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=263232710]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cbe60")
